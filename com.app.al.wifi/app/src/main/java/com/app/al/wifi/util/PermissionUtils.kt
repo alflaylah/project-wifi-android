@@ -20,11 +20,11 @@ import com.app.al.wifi.R
  */
 object PermissionUtils {
 
-  val TAG = PermissionUtils.javaClass.simpleName!!
+  private val TAG = PermissionUtils.javaClass.simpleName!!
   val REQUEST_PERMISSION = 1
 
   // 初回要求フラグ
-  var isFirstShouldShowRequest = false
+  private var isFirstShouldShowRequest = false
 
   /**
    * 権限要求判定
@@ -45,7 +45,8 @@ object PermissionUtils {
    * @param requestCode リクエストコード
    * @return true：許可済み false：不許可
    */
-  fun isRequestPermission(activity: FragmentActivity, permissions: Array<String>, requestCode: Int): Boolean {
+  private fun isRequestPermission(activity: FragmentActivity, permissions: Array<String>,
+      requestCode: Int): Boolean {
     // アプリケーションで要求した権限をユーザーが許可しているか判定
     for (permission in permissions) {
       if (ContextCompat.checkSelfPermission(activity,
@@ -80,7 +81,8 @@ object PermissionUtils {
    * @param permissions 要求権限
    * @param messageId メッセージID
    */
-  fun checkNeverRequestPermission(activity: FragmentActivity, permissions: Array<String>, messageId: Int) {
+  fun checkNeverRequestPermission(activity: FragmentActivity, permissions: Array<String>,
+      messageId: Int) {
     checkNeverRequestPermission(activity, permissions, activity.getString(messageId))
   }
 
@@ -91,7 +93,8 @@ object PermissionUtils {
    * @param permissions 要求権限
    * @param message メッセージ
    */
-  fun checkNeverRequestPermission(activity: FragmentActivity, permissions: Array<String>, message: String) {
+  private fun checkNeverRequestPermission(activity: FragmentActivity, permissions: Array<String>,
+      message: String) {
     val isShouldShowRequest = permissions.any { permission ->
       !ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)
     }
@@ -146,7 +149,8 @@ object PermissionUtils {
             dismiss()
             startApplicationDetailSettings(activity)
           })
-          .setNegativeButton(activity.getString(R.string.permission_move), { dialog, which -> dismiss() })
+          .setNegativeButton(activity.getString(R.string.permission_move),
+              { dialog, which -> dismiss() })
       return dialogBuilder.create()
     }
 

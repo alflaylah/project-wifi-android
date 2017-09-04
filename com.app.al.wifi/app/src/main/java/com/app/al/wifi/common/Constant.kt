@@ -6,6 +6,11 @@ import android.Manifest.permission
  * 定数クラス
  */
 object Constant {
+
+  /** Bundle **/
+  // key
+  val BUNDLE_WIFI_LIST = "bundle_wifi_list"
+
   // 権限
   val PERMISSIONS = arrayOf(
       permission.ACCESS_NETWORK_STATE,

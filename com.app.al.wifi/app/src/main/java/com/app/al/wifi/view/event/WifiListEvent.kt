@@ -1,13 +1,11 @@
-package com.app.al.wifi.ui.event
+package com.app.al.wifi.view.event
 
 import android.view.View
 
 /**
  * EventBus OnWifiEventクラス
  */
-class OnWifiEvent(view: View, position: Int) {
-
-
+class WifiListEvent(view: View, position: Int) {
   fun getView(): View = getView()
   fun getPosition(): Int = getPosition()
 }

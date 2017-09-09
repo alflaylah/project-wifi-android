@@ -8,14 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.app.al.wifi.R
-import com.app.al.wifi.ui.event.OnWifiEvent
+import com.app.al.wifi.view.event.WifiListEvent
 import org.greenrobot.eventbus.EventBus
 
 
 /**
- * Wifiアダプタ
+ * Wifi一覧アダプタ
  */
-class WifiAdapter(context: Context, private val wifiInformationList: List<ScanResult>?) : RecyclerView.Adapter<WifiAdapter.ViewHolder>() {
+class WifiListAdapter(context: Context, private val wifiInformationList: List<ScanResult>?) : RecyclerView.Adapter<WifiListAdapter.ViewHolder>() {
 
   private val inflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -25,7 +25,7 @@ class WifiAdapter(context: Context, private val wifiInformationList: List<ScanRe
    * @param viewGroup viewGroup
    * @param i 位置
    */
-  override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): WifiAdapter.ViewHolder = ViewHolder(inflater.inflate(R.layout.item_wifi, viewGroup, false))
+  override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): WifiListAdapter.ViewHolder = ViewHolder(inflater.inflate(R.layout.list_item_wifi, viewGroup, false))
 
   /**
    * onBindViewHolder
@@ -37,7 +37,7 @@ class WifiAdapter(context: Context, private val wifiInformationList: List<ScanRe
     if (wifiInformationList != null && wifiInformationList.size > i) {
       viewHolder.textView.text = wifiInformationList[i].SSID
     }
-    viewHolder.itemView.setOnClickListener({ v -> EventBus.getDefault().post(OnWifiEvent(v, i)) })
+    viewHolder.itemView.setOnClickListener({ v -> EventBus.getDefault().post(WifiListEvent(v, i)) })
   }
 
   /**

@@ -1,4 +1,4 @@
-package com.app.al.wifi.util
+package com.app.al.wifi.common.util
 
 import android.content.Context
 import android.content.Context.WIFI_SERVICE

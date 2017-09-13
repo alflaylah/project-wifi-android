@@ -5,4 +5,7 @@
 
   <dimen name="item_divider_line_height">0.50dp</dimen>
   <dimen name="item_height">44dp</dimen>
+  <dimen name="item_height_middle">22dp</dimen>
+  <dimen name="item_height_minmum">11dp</dimen>
+
 </resources>

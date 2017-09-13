@@ -19,23 +19,24 @@ object NetworkUtils {
    * @return true：通信可能 false：通信負荷
    */
   fun isOnline(context: Context): Boolean {
-    val connectivityManager = context.getSystemService(
-        Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     return connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo.isConnected
   }
 
   /**
-   * WIFI情報返却
+   * WIFI検索結果一覧返却
    *
    * @param activity Activity
-   * @return WIFI情報リスト
+   * @return WIFI検索結果一覧
    */
-  fun getWifiInformationList(activity: FragmentActivity): ArrayList<ScanResult> {
+  fun getWifiInformationList(activity: FragmentActivity): List<ScanResult> {
     val wifiManager = activity.getSystemService(WIFI_SERVICE) as WifiManager
-    var scanResults = mutableListOf<ScanResult>()
+    var scanResults = listOf<ScanResult>()
     if (wifiManager.startScan()) {
-      scanResults = wifiManager.scanResults
+      // SSIDが空でない情報のみ抽出
+      scanResults = wifiManager.scanResults.filter { it.SSID.isNotEmpty() }
     }
-    return scanResults as ArrayList<ScanResult>
+    // SSID、BSSID順にソートした状態で返却
+    return scanResults.sortedWith(compareBy({ it.SSID }, { it.BSSID }))
   }
 }

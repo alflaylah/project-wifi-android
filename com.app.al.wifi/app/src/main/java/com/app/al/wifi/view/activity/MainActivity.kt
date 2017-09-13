@@ -1,18 +1,18 @@
 package com.app.al.wifi.view.activity
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import com.app.al.wifi.R
 import com.app.al.wifi.R.id
 import com.app.al.wifi.R.layout.activity_main
+import com.app.al.wifi.view.activity.base.BaseActivity
 import com.app.al.wifi.view.fragment.WifiListFragment
 
 /**
  * Main画面Activity
  */
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
   /**
    * onCreate
@@ -67,10 +67,6 @@ class MainActivity : AppCompatActivity() {
    * フラグメント初期処理
    */
   private fun initFragment() {
-    val fragmentManager = supportFragmentManager
-    val transaction = fragmentManager.beginTransaction()
-    transaction.replace(R.id.fragment_container, WifiListFragment.newInstance())
-    transaction.addToBackStack(null)
-    transaction.commit()
+    replaceFragment(WifiListFragment.newInstance())
   }
 }

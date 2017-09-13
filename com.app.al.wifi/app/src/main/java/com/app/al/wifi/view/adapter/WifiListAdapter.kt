@@ -1,23 +1,28 @@
 package com.app.al.wifi.ui.ada
 
 import android.content.Context
+import android.databinding.DataBindingUtil
+import android.databinding.ViewDataBinding
 import android.net.wifi.ScanResult
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import com.app.al.wifi.BR
 import com.app.al.wifi.R
-import com.app.al.wifi.view.event.WifiListEvent
-import org.greenrobot.eventbus.EventBus
+import com.app.al.wifi.viewmodel.WifiListItemViewModel
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
 
 
 /**
- * Wifi一覧アダプタ
+ * WIFI情報一覧アダプタ
  */
-class WifiListAdapter(context: Context, private val wifiInformationList: List<ScanResult>?) : RecyclerView.Adapter<WifiListAdapter.ViewHolder>() {
+class WifiListAdapter(context: Context, private val wifiInformationList: List<ScanResult>) : RecyclerView.Adapter<WifiListAdapter.ViewHolder>() {
 
   private val inflater: LayoutInflater = LayoutInflater.from(context)
+  private val publishSubject = PublishSubject.create<WifiListItemViewModel>()
+  val clickEvent: Observable<WifiListItemViewModel> = publishSubject
 
   /**
    * onCreateViewHolder
@@ -34,10 +39,7 @@ class WifiListAdapter(context: Context, private val wifiInformationList: List<Sc
    * @param i 位置
    */
   override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
-    if (wifiInformationList != null && wifiInformationList.size > i) {
-      viewHolder.textView.text = wifiInformationList[i].SSID
-    }
-    viewHolder.itemView.setOnClickListener({ v -> EventBus.getDefault().post(WifiListEvent(v, i)) })
+    viewHolder.bind(wifiInformationList[i])
   }
 
   /**
@@ -45,7 +47,7 @@ class WifiListAdapter(context: Context, private val wifiInformationList: List<Sc
    *
    * @return ItemCount
    */
-  override fun getItemCount(): Int = wifiInformationList?.size ?: 0
+  override fun getItemCount(): Int = wifiInformationList.size
 
   /**
    * ViewHolderクラス
@@ -53,6 +55,24 @@ class WifiListAdapter(context: Context, private val wifiInformationList: List<Sc
    * @param itemView itemView
    */
   inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-    var textView: TextView = itemView.findViewById(R.id.list_item_text)
+
+    private var binding: ViewDataBinding = DataBindingUtil.bind(itemView)
+    private lateinit var wifiListItemViewModel: WifiListItemViewModel
+
+    init {
+      // Item押下時のイベントを定義
+      itemView.setOnClickListener {
+        publishSubject.onNext(wifiListItemViewModel)
+      }
+    }
+
+    /**
+     * バインド処理
+     */
+    fun bind(scanResult: ScanResult) {
+      wifiListItemViewModel = WifiListItemViewModel(scanResult)
+      binding.setVariable(BR.wifiItem, wifiListItemViewModel)
+      binding.executePendingBindings()
+    }
   }
 }

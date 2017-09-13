@@ -1,19 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    >
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <include layout="@layout/list_item_divider_line"/>
+  <data>
+    <variable
+        name="wifiItem"
+        type="com.app.al.wifi.viewmodel.WifiListItemViewModel"
+        />
+  </data>
 
-  <TextView
-      android:id="@+id/list_item_text"
-      android:layout_width="wrap_content"
-      android:layout_height="@dimen/item_height"
-      android:gravity="center"
-      />
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      >
 
-  <include layout="@layout/list_item_divider_line"/>
+    <include layout="@layout/list_item_divider_line"/>
 
-</LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/item_height_middle"
+        android:gravity="center"
+        android:text="@{wifiItem.ssId}"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/item_height_middle"
+        android:gravity="center"
+        android:text="@{wifiItem.bssId}"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/item_height_middle"
+        android:gravity="center"
+        android:text="@{wifiItem.capabilities}"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/item_height_middle"
+        android:gravity="center"
+        android:text="@{wifiItem.frequency}"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/item_height_middle"
+        android:gravity="center"
+        android:text="@{wifiItem.level}"
+        />
+
+    <include layout="@layout/list_item_divider_line"/>
+
+  </LinearLayout>
+</layout>

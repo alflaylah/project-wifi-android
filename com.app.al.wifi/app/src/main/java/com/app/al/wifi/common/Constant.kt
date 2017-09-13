@@ -14,4 +14,12 @@ object Constant {
       permission.ACCESS_COARSE_LOCATION,
       permission.CHANGE_WIFI_STATE
   )
+
+  // WIFIセキュリティ
+  enum class SEQURITY_TYPE {
+    SECURITY_NONE,
+    SECURITY_WEP,
+    SECURITY_PSK,
+    SECURITY_EAP
+  }
 }

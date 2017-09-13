@@ -4,7 +4,6 @@ import android.content.Context
 import android.net.wifi.ScanResult
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -15,30 +14,31 @@ import com.app.al.wifi.common.Constant
 import com.app.al.wifi.common.util.NetworkUtils
 import com.app.al.wifi.common.util.PermissionUtils
 import com.app.al.wifi.ui.ada.WifiListAdapter
-import com.app.al.wifi.view.event.WifiListEvent
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
+import com.app.al.wifi.view.fragment.base.BaseFragment
+import com.app.al.wifi.viewmodel.WifiListViewModel
+import io.reactivex.disposables.Disposable
+import javax.inject.Inject
 
 /*
- * Wifi一覧Fragment
+ * WIFI情報一覧Fragment
  */
-class WifiListFragment : Fragment() {
+class WifiListFragment : BaseFragment() {
 
   private lateinit var recyclerView: RecyclerView
   private lateinit var adapter: WifiListAdapter
-  // WIFI情報リスト
-  private var wifiInformationList = arrayListOf<ScanResult>()
+  private var wifiInformationList = listOf<ScanResult>()
+  private var subscribe: Disposable? = null
+
+  @Inject
+  lateinit var wifiListViewModel: WifiListViewModel
 
   companion object {
     /**
      * インスタンス生成
      *
-     * @return Wifi一覧Fragment
+     * @return WIFI情報一覧Fragment
      */
-    fun newInstance(): WifiListFragment {
-      return WifiListFragment()
-    }
+    fun newInstance(): WifiListFragment = WifiListFragment()
   }
 
   /**
@@ -51,19 +51,11 @@ class WifiListFragment : Fragment() {
   }
 
   /**
-   * onStart
+   * onDestroy
    */
-  override fun onStart() {
-    super.onStart()
-    EventBus.getDefault().register(this)
-  }
-
-  /**
-   * onStop
-   */
-  override fun onStop() {
-    super.onStop()
-    EventBus.getDefault().unregister(this)
+  override fun onDestroy() {
+    super.onDestroy()
+    subscribe?.dispose()
   }
 
   /**
@@ -75,7 +67,7 @@ class WifiListFragment : Fragment() {
    */
   override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     val view = inflater!!.inflate(R.layout.fragment_wifi_list, container, false)
-    recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view) as RecyclerView
+    recyclerView = view.findViewById<View>(R.id.recycler_view) as RecyclerView
     recyclerView.layoutManager = LinearLayoutManager(activity)
     return view
   }
@@ -87,6 +79,7 @@ class WifiListFragment : Fragment() {
    */
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
+    init()
     initPermission()
   }
 
@@ -100,39 +93,49 @@ class WifiListFragment : Fragment() {
   override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
     when (requestCode) {
       PermissionUtils.REQUEST_PERMISSION -> if (PermissionUtils.isRequestPermissionResult(grantResults)) {
-        wifiInformationList = NetworkUtils.getWifiInformationList(activity)
-        adapter = WifiListAdapter(activity, wifiInformationList)
-        recyclerView!!.adapter = adapter
+        // 許可されました
+        setAdapter()
+        setAdapterEvent()
       } else {
         // 許可されませんでした
-        PermissionUtils.checkNeverRequestPermission(activity, permissions, R.string.permission_denied_message)
+        PermissionUtils.checkNeverRequestPermission(this, permissions, R.string.permission_denied_message)
       }
       else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
   }
 
   /**
-   *
+   * 初期処理
    */
-  @Subscribe(threadMode = ThreadMode.MAIN)
-  fun onWifiClicked(onWifiEvent: WifiListEvent) {
-    onWifiEvent.getView()
-    onWifiEvent.getPosition()
+  private fun init() {
+    getApplicationComponent().inject(this)
   }
 
   /**
    * 権限初期処理
    */
   private fun initPermission() {
-    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-      wifiInformationList = NetworkUtils.getWifiInformationList(activity)
-      adapter = WifiListAdapter(activity, wifiInformationList)
-      recyclerView!!.adapter = adapter
+    if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.M) || PermissionUtils.isRequestPermission(this, Constant.PERMISSIONS)) {
+      setAdapter()
+      setAdapterEvent()
     }
-    if (PermissionUtils.isRequestPermission(activity, Constant.PERMISSIONS)) {
-      wifiInformationList = NetworkUtils.getWifiInformationList(activity)
-      adapter = WifiListAdapter(activity, wifiInformationList)
-      recyclerView!!.adapter = adapter
-    }
+  }
+
+  /**
+   * WIFI情報一覧アダプタ設定
+   */
+  private fun setAdapter() {
+    wifiInformationList = NetworkUtils.getWifiInformationList(activity)
+    adapter = WifiListAdapter(activity, wifiInformationList)
+    recyclerView.adapter = adapter
+  }
+
+  /**
+   * WIFI情報一覧イベント設定
+   */
+  private fun setAdapterEvent() {
+    subscribe = adapter.clickEvent
+        .compose(bindToLifecycle())
+        .subscribe({ wifiListViewModel.OnItemClick(it) })
   }
 }

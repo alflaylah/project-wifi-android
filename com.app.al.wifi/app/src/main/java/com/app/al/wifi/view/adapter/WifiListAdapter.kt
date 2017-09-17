@@ -67,7 +67,7 @@ class WifiListAdapter(context: Context, private val wifiInformationList: List<Sc
     }
 
     /**
-     * バインド処理
+     * バインド
      */
     fun bind(scanResult: ScanResult) {
       wifiListItemViewModel = WifiListItemViewModel(scanResult)

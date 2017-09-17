@@ -61,12 +61,13 @@ object PermissionUtils {
     // アプリケーションで要求した権限をユーザーが許可しているか判定
     for (permission in permissions) {
       if (ContextCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED) {
+        // ユーザー許可していない状態
         // ユーザー許可ダイアログを表示
         ActivityCompat.requestPermissions(activity, permissions, requestCode)
         return false
       }
     }
-    // ユーザーが許可している(6.0未満は自動で許可)
+    // ユーザーが許可済みの状態(6.0未満は自動で許可)
     return true
   }
 
@@ -78,17 +79,17 @@ object PermissionUtils {
    * @param requestCode リクエストコード
    * @return true：許可済み false：不許可
    */
-  private fun isRequestPermission(fragment: Fragment, permissions: Array<String>,
-      requestCode: Int): Boolean {
+  private fun isRequestPermission(fragment: Fragment, permissions: Array<String>, requestCode: Int): Boolean {
     // アプリケーションで要求した権限をユーザーが許可しているか判定
     for (permission in permissions) {
       if (ContextCompat.checkSelfPermission(fragment.context, permission) != PackageManager.PERMISSION_GRANTED) {
+        // ユーザー許可していない状態
         // ユーザー許可ダイアログを表示
         fragment.requestPermissions(permissions, requestCode)
         return false
       }
     }
-    // ユーザーが許可している(6.0未満は自動で許可)
+    // ユーザーが許可済みの状態(6.0未満は自動で許可)
     return true
   }
 
@@ -215,8 +216,7 @@ object PermissionUtils {
             dismiss()
             startApplicationDetailSettings(activity)
           })
-          .setNegativeButton(activity.getString(R.string.permission_not_move),
-              { dialog, which -> dismiss() })
+          .setNegativeButton(activity.getString(R.string.permission_not_move), { dialog, which -> dismiss() })
       return dialogBuilder.create()
     }
 

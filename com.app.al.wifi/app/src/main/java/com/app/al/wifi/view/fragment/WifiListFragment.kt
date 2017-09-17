@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.app.al.wifi.R
-import com.app.al.wifi.common.Constant
+import com.app.al.wifi.common.Const
 import com.app.al.wifi.common.util.NetworkUtils
 import com.app.al.wifi.common.util.PermissionUtils
 import com.app.al.wifi.ui.ada.WifiListAdapter
@@ -115,7 +115,7 @@ class WifiListFragment : BaseFragment() {
    * 権限初期処理
    */
   private fun initPermission() {
-    if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.M) || PermissionUtils.isRequestPermission(this, Constant.PERMISSIONS)) {
+    if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.M) || PermissionUtils.isRequestPermission(this, Const.PERMISSIONS)) {
       setAdapter()
       setAdapterEvent()
     }

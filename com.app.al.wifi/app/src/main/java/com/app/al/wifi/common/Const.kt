@@ -3,9 +3,17 @@ package com.app.al.wifi.common
 import android.Manifest.permission
 
 /**
- * 定数クラス
+ * 定数
  */
-object Constant {
+object Const {
+
+  // 汎用
+  val EMPTY = ""
+  val DOUBLE_QUOTE = "\""
+
+  // パスワード
+  val REGEX_WEP = "[0-9A-Fa-f]*"
+  val REGEX_PSK = "[0-9A-Fa-f]{64}"
 
   // 権限
   val PERMISSIONS = arrayOf(
@@ -16,10 +24,9 @@ object Constant {
   )
 
   // WIFIセキュリティ
-  enum class SEQURITY_TYPE {
-    SECURITY_NONE,
-    SECURITY_WEP,
-    SECURITY_PSK,
-    SECURITY_EAP
+  enum class SECURITY_TYPE(val securityType: String) {
+    SECURITY_NONE("NONE"),
+    SECURITY_WEP("WEP"),
+    SECURITY_PSK("PSK"),
   }
 }

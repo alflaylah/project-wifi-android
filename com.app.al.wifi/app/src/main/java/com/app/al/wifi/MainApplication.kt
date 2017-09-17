@@ -34,7 +34,5 @@ class MainApplication : Application() {
    *
    * @return ApplicationComponent
    */
-  fun getApplicationComponent(): ApplicationComponent {
-    return applicationComponent
-  }
+  fun getApplicationComponent(): ApplicationComponent = applicationComponent
 }

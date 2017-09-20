@@ -12,11 +12,13 @@ import com.app.al.wifi.viewmodel.WifiListItemViewModel
 class WifiListModel(private val context: Context) {
 
   /**
-   * WIFI情報一覧押下時イベント
+   * WIFI接続
    *
    * @param wifiListItemViewModel WIFI情報ViewModel
    */
-  fun show(wifiListItemViewModel: WifiListItemViewModel) {
+  fun connect(wifiListItemViewModel: WifiListItemViewModel) {
     Toast.makeText(context, "Clicked on $wifiListItemViewModel.getSsId", Toast.LENGTH_LONG).show()
+    // TODO
+//    WifiUtils.connect(context, wifiListItemViewModel.ssId, wifiListItemViewModel.capabilities, "")
   }
 }

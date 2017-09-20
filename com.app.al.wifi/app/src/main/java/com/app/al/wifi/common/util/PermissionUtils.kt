@@ -212,10 +212,10 @@ object PermissionUtils {
       val message = arguments.getString(ARG_PERMISSION_NAME)
       val dialogBuilder = AlertDialog.Builder(activity)
           .setMessage(message)
-          .setPositiveButton(activity.getString(R.string.permission_move), { dialog, which ->
+          .setPositiveButton(activity.getString(R.string.permission_move)) { dialog, which ->
             dismiss()
             startApplicationDetailSettings(activity)
-          })
+          }
           .setNegativeButton(activity.getString(R.string.permission_not_move), { dialog, which -> dismiss() })
       return dialogBuilder.create()
     }

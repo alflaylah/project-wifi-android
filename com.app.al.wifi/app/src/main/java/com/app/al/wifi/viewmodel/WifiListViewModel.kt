@@ -14,6 +14,7 @@ class WifiListViewModel constructor(context: Context) {
    * WIFI情報一覧イベント設定
    */
   fun OnItemClick(wifiListItemViewModel: WifiListItemViewModel) {
-    wifiListModel.show(wifiListItemViewModel)
+    // WIFI接続
+    wifiListModel.connect(wifiListItemViewModel)
   }
 }

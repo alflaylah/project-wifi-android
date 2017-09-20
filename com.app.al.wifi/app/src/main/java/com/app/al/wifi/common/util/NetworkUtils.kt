@@ -1,11 +1,8 @@
 package com.app.al.wifi.common.util
 
 import android.content.Context
-import android.content.Context.WIFI_SERVICE
 import android.net.ConnectivityManager
-import android.net.wifi.ScanResult
-import android.net.wifi.WifiManager
-import android.support.v4.app.FragmentActivity
+
 
 /**
  * ネットワークユーティリティ
@@ -13,10 +10,10 @@ import android.support.v4.app.FragmentActivity
 object NetworkUtils {
 
   /**
-   * ネットワーク通信可否
+   * ネットワーク通信状態を返却する
    *
    * @param context context
-   * @return true：通信可能 false：通信負荷
+   * @return true：通信可能 false：通信不可
    */
   fun isOnline(context: Context): Boolean {
     val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -24,19 +21,19 @@ object NetworkUtils {
   }
 
   /**
-   * WIFI検索結果一覧返却
+   * WIFI接続を有効にする
    *
-   * @param activity Activity
-   * @return WIFI検索結果一覧
+   * @param context context
    */
-  fun getWifiInformationList(activity: FragmentActivity): List<ScanResult> {
-    val wifiManager = activity.getSystemService(WIFI_SERVICE) as WifiManager
-    var scanResults = listOf<ScanResult>()
-    if (wifiManager.startScan()) {
-      // SSIDが空でない情報のみ抽出
-      scanResults = wifiManager.scanResults.filter { it.SSID.isNotEmpty() }
-    }
-    // SSID、BSSID順にソートした状態で返却
-    return scanResults.sortedWith(compareBy({ it.SSID }, { it.BSSID }))
+  fun enable(context: Context) {
+    WifiUtils.enable(context)
   }
+
+  /**
+   * WIFI接続の状態を返却する
+   *
+   * @param context context
+   * @return true：WIFI接続中 false：WIFI未接続
+   */
+  fun isWifiConnected(context: Context): Boolean = WifiUtils.isConnected(context)
 }

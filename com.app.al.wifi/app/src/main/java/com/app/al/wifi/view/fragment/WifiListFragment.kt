@@ -11,8 +11,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.app.al.wifi.R
 import com.app.al.wifi.common.Const
-import com.app.al.wifi.common.util.NetworkUtils
 import com.app.al.wifi.common.util.PermissionUtils
+import com.app.al.wifi.common.util.WifiUtils
 import com.app.al.wifi.ui.ada.WifiListAdapter
 import com.app.al.wifi.view.fragment.base.BaseFragment
 import com.app.al.wifi.viewmodel.WifiListViewModel
@@ -125,7 +125,7 @@ class WifiListFragment : BaseFragment() {
    * WIFI情報一覧アダプタ設定
    */
   private fun setAdapter() {
-    wifiInformationList = NetworkUtils.getWifiInformationList(activity)
+    wifiInformationList = WifiUtils.getWifiInformationList(activity)
     adapter = WifiListAdapter(activity, wifiInformationList)
     recyclerView.adapter = adapter
   }

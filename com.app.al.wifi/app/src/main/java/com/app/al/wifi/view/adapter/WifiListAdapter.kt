@@ -10,19 +10,19 @@ import android.view.View
 import android.view.ViewGroup
 import com.app.al.wifi.BR
 import com.app.al.wifi.R
-import com.app.al.wifi.viewmodel.WifiListItemViewModel
+import com.app.al.wifi.viewmodel.WifiViewModel
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
 
 /**
- * WIFI情報一覧アダプタ
+ * Wifi一覧アダプタ
  */
 class WifiListAdapter(context: Context, private val wifiInformationList: List<ScanResult>) : RecyclerView.Adapter<WifiListAdapter.ViewHolder>() {
 
   private val inflater: LayoutInflater = LayoutInflater.from(context)
-  private val publishSubject = PublishSubject.create<WifiListItemViewModel>()
-  val clickEvent: Observable<WifiListItemViewModel> = publishSubject
+  private val publishSubject = PublishSubject.create<WifiViewModel>()
+  val clickEvent: Observable<WifiViewModel> = publishSubject
 
   /**
    * onCreateViewHolder
@@ -57,7 +57,7 @@ class WifiListAdapter(context: Context, private val wifiInformationList: List<Sc
   inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
     private var binding: ViewDataBinding = DataBindingUtil.bind(itemView)
-    private lateinit var wifiListItemViewModel: WifiListItemViewModel
+    private lateinit var wifiListItemViewModel: WifiViewModel
 
     init {
       // Item押下時のイベントを定義
@@ -70,7 +70,7 @@ class WifiListAdapter(context: Context, private val wifiInformationList: List<Sc
      * バインド
      */
     fun bind(scanResult: ScanResult) {
-      wifiListItemViewModel = WifiListItemViewModel(scanResult)
+      wifiListItemViewModel = WifiViewModel(scanResult)
       binding.setVariable(BR.wifiItem, wifiListItemViewModel)
       binding.executePendingBindings()
     }

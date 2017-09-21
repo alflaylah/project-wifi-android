@@ -1,11 +1,11 @@
-package com.app.al.wifi.common
+package com.app.al.wifi.const
 
 import android.Manifest.permission
 
 /**
  * 定数
  */
-object Const {
+object ApplicationConst {
 
   // 汎用
   val EMPTY = ""
@@ -23,7 +23,7 @@ object Const {
       permission.CHANGE_WIFI_STATE
   )
 
-  // WIFIセキュリティ
+  // Wifiセキュリティ
   enum class SECURITY_TYPE(val securityType: String) {
     SECURITY_NONE("NONE"),
     SECURITY_WEP("WEP"),

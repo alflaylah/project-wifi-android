@@ -1,6 +1,6 @@
 package com.app.laylah.alf.wifi
 
-import com.app.al.wifi.common.util.StringUtils
+import com.app.al.wifi.util.StringUtils
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

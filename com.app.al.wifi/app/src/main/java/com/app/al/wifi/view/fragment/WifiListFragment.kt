@@ -10,24 +10,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.app.al.wifi.R
-import com.app.al.wifi.common.Const
-import com.app.al.wifi.common.util.PermissionUtils
-import com.app.al.wifi.common.util.WifiUtils
+import com.app.al.wifi.const.ApplicationConst
 import com.app.al.wifi.ui.ada.WifiListAdapter
+import com.app.al.wifi.util.PermissionUtils
+import com.app.al.wifi.util.WifiUtils
 import com.app.al.wifi.view.fragment.base.BaseFragment
 import com.app.al.wifi.viewmodel.WifiListViewModel
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
 /*
- * WIFI情報一覧Fragment
+ * Wifi一覧Fragment
  */
 class WifiListFragment : BaseFragment() {
 
+  private var compositeDisposable = CompositeDisposable()
   private lateinit var recyclerView: RecyclerView
   private lateinit var adapter: WifiListAdapter
   private var wifiInformationList = listOf<ScanResult>()
-  private var subscribe: Disposable? = null
+  private var disposable: Disposable? = null
 
   @Inject
   lateinit var wifiListViewModel: WifiListViewModel
@@ -36,7 +38,7 @@ class WifiListFragment : BaseFragment() {
     /**
      * インスタンス生成
      *
-     * @return WIFI情報一覧Fragment
+     * @return Wifi一覧Fragment
      */
     fun newInstance(): WifiListFragment = WifiListFragment()
   }
@@ -55,7 +57,7 @@ class WifiListFragment : BaseFragment() {
    */
   override fun onDestroy() {
     super.onDestroy()
-    subscribe?.dispose()
+    disposable?.dispose()
   }
 
   /**
@@ -115,14 +117,14 @@ class WifiListFragment : BaseFragment() {
    * 権限初期処理
    */
   private fun initPermission() {
-    if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.M) || PermissionUtils.isRequestPermission(this, Const.PERMISSIONS)) {
+    if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.M) || PermissionUtils.isRequestPermission(this, ApplicationConst.PERMISSIONS)) {
       setAdapter()
       setAdapterEvent()
     }
   }
 
   /**
-   * WIFI情報一覧アダプタ設定
+   * Wifi一覧アダプタ設定
    */
   private fun setAdapter() {
     wifiInformationList = WifiUtils.getWifiInformationList(activity)
@@ -131,11 +133,13 @@ class WifiListFragment : BaseFragment() {
   }
 
   /**
-   * WIFI情報一覧イベント設定
+   * Wifi一覧イベント設定
    */
   private fun setAdapterEvent() {
-    subscribe = adapter.clickEvent
+    disposable = adapter.clickEvent
         .compose(bindToLifecycle())
-        .subscribe({ wifiListViewModel.OnItemClick(it) })
+        .subscribe({
+          PermissionDialogFragment.newInstance("テストです").show(fragmentManager, "test")
+          wifiListViewModel.OnItemClick(it) })
   }
 }

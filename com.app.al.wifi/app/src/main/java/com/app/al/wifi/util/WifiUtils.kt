@@ -1,4 +1,4 @@
-package com.app.al.wifi.common.util
+package com.app.al.wifi.util
 
 import android.content.Context
 import android.content.Context.WIFI_SERVICE
@@ -7,9 +7,10 @@ import android.net.wifi.ScanResult
 import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
 import android.support.v4.app.FragmentActivity
-import com.app.al.wifi.common.Const
-import com.app.al.wifi.common.Const.SECURITY_TYPE
-
+import com.app.al.wifi.const.ApplicationConst
+import com.app.al.wifi.const.ApplicationConst.SECURITY_TYPE
+import com.app.al.wifi.const.ApplicationConst.SECURITY_TYPE.SECURITY_PSK
+import com.app.al.wifi.const.ApplicationConst.SECURITY_TYPE.SECURITY_WEP
 
 /**
  * WIFIユーティリティ
@@ -113,7 +114,7 @@ object WifiUtils {
         wifiConfiguration.preSharedKey = getPassword(securityType, password)
       }
     }
-    wifiConfiguration.SSID = Const.DOUBLE_QUOTE + ssid + Const.DOUBLE_QUOTE
+    wifiConfiguration.SSID = ApplicationConst.DOUBLE_QUOTE + ssid + ApplicationConst.DOUBLE_QUOTE
     wifiConfiguration.hiddenSSID = false
     return wifiConfiguration
   }
@@ -137,22 +138,22 @@ object WifiUtils {
    * @return セキュリティ情報
    */
   private fun getPassword(securityType: SECURITY_TYPE, password: String): String = when (securityType) {
-    SECURITY_TYPE.SECURITY_WEP -> {
-      if ((password.length == 10 || password.length == 26) && password.matches(Const.REGEX_WEP.toRegex())) {
+    SECURITY_WEP -> {
+      if ((password.length == 10 || password.length == 26) && password.matches(ApplicationConst.REGEX_WEP.toRegex())) {
         password
       } else {
         StringUtils.getFormatDoubleQuote(password)
       }
     }
-    SECURITY_TYPE.SECURITY_PSK -> {
-      if (password.matches(Const.REGEX_PSK.toRegex())) {
+    SECURITY_PSK -> {
+      if (password.matches(ApplicationConst.REGEX_PSK.toRegex())) {
         password
       } else {
-        StringUtils.getFormatDoubleQuote(password + Const.DOUBLE_QUOTE)
+        StringUtils.getFormatDoubleQuote(password)
       }
     }
     else -> {
-      Const.EMPTY
+      ApplicationConst.EMPTY
     }
   }
 

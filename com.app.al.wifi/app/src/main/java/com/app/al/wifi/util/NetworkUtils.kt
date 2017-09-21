@@ -1,4 +1,4 @@
-package com.app.al.wifi.common.util
+package com.app.al.wifi.util
 
 import android.content.Context
 import android.net.ConnectivityManager

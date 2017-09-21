@@ -1,30 +1,27 @@
-package com.app.al.wifi.common.util
+package com.app.al.wifi.util
 
-import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Bundle
 import android.os.Handler
 import android.provider.Settings
 import android.support.v4.app.ActivityCompat
-import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.support.v4.content.ContextCompat
-import android.support.v7.app.AlertDialog
 import com.app.al.wifi.R
+import com.app.al.wifi.view.fragment.PermissionDialogFragment
 
 /**
  * WIFIユーティリティ
  */
 object PermissionUtils {
 
-  private val TAG = PermissionUtils.javaClass.simpleName!!
+  private val TAG = PermissionUtils::class.simpleName!!
   val REQUEST_PERMISSION = 1
 
-  // 初回要求フラグ
+  // 初回要求フラグs
   private var isFirstShouldShowRequest = false
 
   /**
@@ -184,7 +181,7 @@ object PermissionUtils {
    *
    * @param activity 遷移元Activity
    */
-  private fun startApplicationDetailSettings(activity: FragmentActivity) {
+  fun startApplicationDetailSettings(activity: FragmentActivity) {
     val parse = String.format(activity.getString(R.string.permission_package), activity.packageName)
     activity.startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse(parse)))
   }
@@ -197,45 +194,5 @@ object PermissionUtils {
    */
   private fun showDialog(fragmentManager: FragmentManager, message: String) {
     PermissionDialogFragment.newInstance(message).show(fragmentManager, TAG)
-  }
-
-  /**
-   * 権限ダイアログフラグメントクラス
-   */
-  class PermissionDialogFragment : DialogFragment() {
-    /**
-     * ダイアログ生成
-     *
-     * @param savedInstanceState 引き継ぎパラメータ
-     */
-    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-      val message = arguments.getString(ARG_PERMISSION_NAME)
-      val dialogBuilder = AlertDialog.Builder(activity)
-          .setMessage(message)
-          .setPositiveButton(activity.getString(R.string.permission_move)) { dialog, which ->
-            dismiss()
-            startApplicationDetailSettings(activity)
-          }
-          .setNegativeButton(activity.getString(R.string.permission_not_move), { dialog, which -> dismiss() })
-      return dialogBuilder.create()
-    }
-
-    companion object {
-      private val ARG_PERMISSION_NAME = "permissionName"
-
-      /**
-       * インスタンス生成
-       *
-       * @param message 表示メッセージ
-       * @return 権限ダイアログフラグメント
-       */
-      fun newInstance(message: String): PermissionDialogFragment {
-        val fragment = PermissionDialogFragment()
-        val args = Bundle()
-        args.putString(ARG_PERMISSION_NAME, message)
-        fragment.arguments = args
-        return fragment
-      }
-    }
   }
 }

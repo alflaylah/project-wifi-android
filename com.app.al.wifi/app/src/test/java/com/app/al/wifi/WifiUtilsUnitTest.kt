@@ -1,9 +1,5 @@
 package com.app.al.wifi
 
-import android.test.InstrumentationTestCase
-import com.app.al.wifi.common.util.StringUtils
-import com.app.al.wifi.common.util.WifiUtils
-import org.junit.Assert
 import org.junit.Test
 
 /**

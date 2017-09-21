@@ -3,11 +3,11 @@ package com.app.al.wifi.viewmodel
 import android.net.wifi.ScanResult
 
 /**
- * WIFI情報ViewModel
+ * WifiViewModel
  *
- * @param scanResult WIFI検索結果
+ * @param scanResult アクセスポイント検索結果
  */
-class WifiListItemViewModel(scanResult: ScanResult) {
+class WifiViewModel(scanResult: ScanResult) {
   val ssId: String = scanResult.SSID
   val bssId: String = scanResult.BSSID
   val capabilities: String = scanResult.capabilities

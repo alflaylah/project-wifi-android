@@ -57,6 +57,9 @@ dependencies {
   kapt "com.google.dagger:dagger-compiler:2.10"
   annotationProcessor 'com.google.dagger:dagger-compiler:2.0'
 
+  // log
+  compile 'com.jakewharton.timber:timber:4.5.1'
+
   // test
   testCompile 'junit:junit:4.12'
   androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.2'

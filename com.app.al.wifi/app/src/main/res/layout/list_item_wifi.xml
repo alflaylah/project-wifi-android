@@ -3,7 +3,7 @@
 
   <data>
     <variable
-        name="wifiItem"
+        name="wifi"
         type="com.app.al.wifi.viewmodel.WifiViewModel"
         />
   </data>
@@ -20,38 +20,39 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/item_height_middle"
         android:gravity="center"
-        android:text="@{wifiItem.ssId}"
+        android:text="@{wifi.ssId}"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="@dimen/item_height_middle"
         android:gravity="center"
-        android:text="@{wifiItem.bssId}"
+        android:text="@{wifi.bssId}"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="@dimen/item_height_middle"
         android:gravity="center"
-        android:text="@{wifiItem.capabilities}"
+        android:text="@{wifi.capabilities}"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="@dimen/item_height_middle"
         android:gravity="center"
-        android:text="@{wifiItem.frequency}"
+        android:text="@{wifi.frequency}"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="@dimen/item_height_middle"
         android:gravity="center"
-        android:text="@{wifiItem.level}"
+        android:text="@{wifi.level}"
         />
 
     <include layout="@layout/list_item_divider_line"/>
 
   </LinearLayout>
+
 </layout>

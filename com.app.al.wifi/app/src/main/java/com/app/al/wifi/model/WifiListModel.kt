@@ -2,8 +2,6 @@ package com.app.al.wifi.model
 
 import android.content.Context
 import android.widget.Toast
-import com.app.al.wifi.util.PermissionUtils
-import com.app.al.wifi.view.fragment.PermissionDialogFragment
 import com.app.al.wifi.viewmodel.WifiViewModel
 
 /**

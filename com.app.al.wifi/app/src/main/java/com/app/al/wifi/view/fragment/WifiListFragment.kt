@@ -140,6 +140,7 @@ class WifiListFragment : BaseFragment() {
         .compose(bindToLifecycle())
         .subscribe({
           PermissionDialogFragment.newInstance("テストです").show(fragmentManager, "test")
-          wifiListViewModel.OnItemClick(it) })
+          wifiListViewModel.OnItemClick(it)
+        })
   }
 }

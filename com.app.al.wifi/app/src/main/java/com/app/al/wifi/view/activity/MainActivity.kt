@@ -1,18 +1,24 @@
 package com.app.al.wifi.view.activity
 
 import android.os.Bundle
+import android.support.design.widget.NavigationView
+import android.support.v4.view.GravityCompat
+import android.support.v4.widget.DrawerLayout
 import android.view.Menu
 import android.view.MenuItem
 import com.app.al.wifi.R
 import com.app.al.wifi.R.id
 import com.app.al.wifi.R.layout.activity_main
+import com.app.al.wifi.const.ApplicationConst
+import com.app.al.wifi.util.ApplicationUtils
 import com.app.al.wifi.view.activity.base.BaseActivity
 import com.app.al.wifi.view.fragment.WifiListFragment
+
 
 /**
  * Main画面Activity
  */
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
   /**
    * onCreate
@@ -28,7 +34,8 @@ class MainActivity : BaseActivity() {
   /**
    * onCreateOptionsMenu
    *
-   * @param menu menu
+   * @param menu メニュー
+   * @return boolean
    */
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
     menuInflater.inflate(R.menu.menu_main, menu)
@@ -36,16 +43,21 @@ class MainActivity : BaseActivity() {
   }
 
   /**
-   * onOptionsItemSelected
+   * onNavigationItemSelected
    *
-   * @param item item
+   * @param item メニューアイテム
+   * @return boolean
    */
-  override fun onOptionsItemSelected(item: MenuItem): Boolean {
-    val id = item.itemId
-    if (id == R.id.action_settings) {
-      return true
+  override fun onNavigationItemSelected(item: MenuItem): Boolean {
+    when (item.itemId) {
+      R.id.menu_license -> {
+        var bundle = Bundle()
+        bundle.putString(ApplicationConst.BUNDLE_URL, getString(R.string.url_license))
+        ApplicationUtils.startActivity(this, WebViewActivity::class.java, bundle)
+      }
     }
-    return super.onOptionsItemSelected(item)
+    findViewById<DrawerLayout>(R.id.drawer_layout).closeDrawer(GravityCompat.START)
+    return true
   }
 
   /**

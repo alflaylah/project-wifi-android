@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-
   <data>
     <variable
-        name="wifi"
+        name="viewModel"
         type="com.app.al.wifi.viewmodel.WifiViewModel"
         />
   </data>
@@ -13,46 +12,42 @@
       android:layout_height="wrap_content"
       android:orientation="vertical"
       >
-
     <include layout="@layout/list_item_divider_line"/>
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/item_height_middle"
+        android:layout_height="@dimen/list_item_height_middle"
         android:gravity="center"
-        android:text="@{wifi.ssId}"
+        android:text="@{viewModel.ssId}"
         />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/item_height_middle"
+        android:layout_height="@dimen/list_item_height_middle"
         android:gravity="center"
-        android:text="@{wifi.bssId}"
+        android:text="@{viewModel.bssId}"
         />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/item_height_middle"
+        android:layout_height="@dimen/list_item_height_middle"
         android:gravity="center"
-        android:text="@{wifi.capabilities}"
+        android:text="@{viewModel.capabilities}"
         />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/item_height_middle"
+        android:layout_height="@dimen/list_item_height_middle"
         android:gravity="center"
-        android:text="@{wifi.frequency}"
+        android:text="@{viewModel.frequency}"
         />
 
     <TextView
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/item_height_middle"
+        android:layout_height="@dimen/list_item_height_middle"
         android:gravity="center"
-        android:text="@{wifi.level}"
+        android:text="@{viewModel.level}"
         />
-
     <include layout="@layout/list_item_divider_line"/>
-
   </LinearLayout>
-
 </layout>

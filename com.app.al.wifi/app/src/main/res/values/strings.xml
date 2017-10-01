@@ -1,8 +1,11 @@
 <resources>
-  <string name="app_name">WiFi</string>
-  <string name="action_settings">設定</string>
+
+  <string name="application_name">WiFi</string>
 
   <string name="permission_package">package:%s</string>
   <string name="permission_move">移動する</string>
   <string name="permission_not_move">移動しない</string>
+
+  <string name="menu_license">ライセンス</string>
+
 </resources>

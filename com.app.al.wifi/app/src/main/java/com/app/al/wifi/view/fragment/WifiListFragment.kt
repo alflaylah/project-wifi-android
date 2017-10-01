@@ -12,8 +12,10 @@ import android.view.ViewGroup
 import com.app.al.wifi.R
 import com.app.al.wifi.const.ApplicationConst
 import com.app.al.wifi.ui.ada.WifiListAdapter
+import com.app.al.wifi.util.ApplicationUtils
 import com.app.al.wifi.util.PermissionUtils
 import com.app.al.wifi.util.WifiUtils
+import com.app.al.wifi.view.activity.WebViewActivity
 import com.app.al.wifi.view.fragment.base.BaseFragment
 import com.app.al.wifi.viewmodel.WifiListViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -139,8 +141,9 @@ class WifiListFragment : BaseFragment() {
     disposable = adapter.clickEvent
         .compose(bindToLifecycle())
         .subscribe({
-          PermissionDialogFragment.newInstance("テストです").show(fragmentManager, "test")
-          wifiListViewModel.OnItemClick(it)
+          ApplicationUtils.startActivity(context, WebViewActivity::class.java)
+//          PermissionDialogFragment.newInstance("テストです").show(fragmentManager, "test")
+          wifiListViewModel.OnItemClicked(it)
         })
   }
 }

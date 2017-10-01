@@ -1,0 +1,4 @@
+<resources>
+  <!-- ライセンス -->
+  <string name="url_license">file:///android_asset/html/license.html</string>
+</resources>

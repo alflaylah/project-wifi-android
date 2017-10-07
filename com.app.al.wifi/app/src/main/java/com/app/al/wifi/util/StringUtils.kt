@@ -13,5 +13,6 @@ object StringUtils {
    * @param value 文字列
    * @return 文字列(ダブルクォート付与)
    */
-  fun getFormatDoubleQuote(value: String): String = ApplicationConst.DOUBLE_QUOTE + value + ApplicationConst.DOUBLE_QUOTE
+  fun getFormatDoubleQuote(
+      value: String): String = ApplicationConst.DOUBLE_QUOTE + value + ApplicationConst.DOUBLE_QUOTE
 }

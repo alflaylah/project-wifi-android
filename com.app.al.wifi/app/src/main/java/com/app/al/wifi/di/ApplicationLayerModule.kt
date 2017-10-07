@@ -1,6 +1,7 @@
 package com.app.al.wifi.di
 
 import android.content.Context
+import com.app.al.wifi.viewmodel.MainViewModel
 import com.app.al.wifi.viewmodel.WifiListViewModel
 import dagger.Module
 import dagger.Provides
@@ -16,5 +17,11 @@ class ApplicationLayerModule {
   @Singleton
   fun provideWifiListViewModel(context: Context): WifiListViewModel {
     return WifiListViewModel(context)
+  }
+
+  @Provides
+  @Singleton
+  fun provideMainViewModel(): MainViewModel {
+    return MainViewModel()
   }
 }

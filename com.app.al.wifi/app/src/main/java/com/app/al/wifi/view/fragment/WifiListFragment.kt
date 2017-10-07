@@ -1,6 +1,5 @@
 package com.app.al.wifi.view.fragment
 
-import android.content.Context
 import android.net.wifi.ScanResult
 import android.os.Build
 import android.os.Bundle
@@ -15,10 +14,9 @@ import com.app.al.wifi.ui.ada.WifiListAdapter
 import com.app.al.wifi.util.ApplicationUtils
 import com.app.al.wifi.util.PermissionUtils
 import com.app.al.wifi.util.WifiUtils
-import com.app.al.wifi.view.activity.WebViewActivity
+import com.app.al.wifi.view.activity.WebActivity
 import com.app.al.wifi.view.fragment.base.BaseFragment
 import com.app.al.wifi.viewmodel.WifiListViewModel
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 import javax.inject.Inject
 
@@ -27,7 +25,6 @@ import javax.inject.Inject
  */
 class WifiListFragment : BaseFragment() {
 
-  private var compositeDisposable = CompositeDisposable()
   private lateinit var recyclerView: RecyclerView
   private lateinit var adapter: WifiListAdapter
   private var wifiInformationList = listOf<ScanResult>()
@@ -46,15 +43,6 @@ class WifiListFragment : BaseFragment() {
   }
 
   /**
-   * onAttach
-   *
-   * @param context context
-   */
-  override fun onAttach(context: Context) {
-    super.onAttach(context)
-  }
-
-  /**
    * onDestroy
    */
   override fun onDestroy() {
@@ -69,7 +57,8 @@ class WifiListFragment : BaseFragment() {
    * @param container container
    * @param savedInstanceState savedInstanceState
    */
-  override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+  override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+      savedInstanceState: Bundle?): View? {
     val view = inflater!!.inflate(R.layout.fragment_wifi_list, container, false)
     recyclerView = view.findViewById<View>(R.id.recycler_view) as RecyclerView
     recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -94,15 +83,18 @@ class WifiListFragment : BaseFragment() {
    * @param permissions permissions
    * @param grantResults grantResults
    */
-  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
+      grantResults: IntArray) {
     when (requestCode) {
-      PermissionUtils.REQUEST_PERMISSION -> if (PermissionUtils.isRequestPermissionResult(grantResults)) {
+      PermissionUtils.REQUEST_PERMISSION -> if (PermissionUtils.isRequestPermissionResult(
+          grantResults)) {
         // 許可されました
         setAdapter()
         setAdapterEvent()
       } else {
         // 許可されませんでした
-        PermissionUtils.checkNeverRequestPermission(this, permissions, R.string.permission_denied_message)
+        PermissionUtils.checkNeverRequestPermission(this, permissions,
+            R.string.permission_denied_message)
       }
       else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
@@ -119,7 +111,8 @@ class WifiListFragment : BaseFragment() {
    * 権限初期処理
    */
   private fun initPermission() {
-    if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.M) || PermissionUtils.isRequestPermission(this, ApplicationConst.PERMISSIONS)) {
+    if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.M) || PermissionUtils.isRequestPermission(this,
+        ApplicationConst.PERMISSIONS)) {
       setAdapter()
       setAdapterEvent()
     }
@@ -141,7 +134,7 @@ class WifiListFragment : BaseFragment() {
     disposable = adapter.clickEvent
         .compose(bindToLifecycle())
         .subscribe({
-          ApplicationUtils.startActivity(context, WebViewActivity::class.java)
+          ApplicationUtils.startActivity(context, WebActivity::class.java)
 //          PermissionDialogFragment.newInstance("テストです").show(fragmentManager, "test")
           wifiListViewModel.OnItemClicked(it)
         })

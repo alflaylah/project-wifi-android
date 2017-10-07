@@ -8,9 +8,9 @@ import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
 import android.support.v4.app.FragmentActivity
 import com.app.al.wifi.const.ApplicationConst
-import com.app.al.wifi.const.ApplicationConst.SecurityType
-import com.app.al.wifi.const.ApplicationConst.SecurityType.SECURITY_PSK
-import com.app.al.wifi.const.ApplicationConst.SecurityType.SECURITY_WEP
+import com.app.al.wifi.const.ApplicationConst.WifiSecurityType
+import com.app.al.wifi.const.ApplicationConst.WifiSecurityType.PSK
+import com.app.al.wifi.const.ApplicationConst.WifiSecurityType.WEP
 
 /**
  * WIFIユーティリティ
@@ -18,7 +18,7 @@ import com.app.al.wifi.const.ApplicationConst.SecurityType.SECURITY_WEP
 object WifiUtils {
 
   /**
-   * 接続可能状態に設定
+   * 接続可能にする
    *
    * @param context context
    * @return true：WIFI接続可能 false：WIFI接続不可
@@ -35,7 +35,8 @@ object WifiUtils {
    * @return true：接続中 false：未接続
    */
   fun isConnected(context: Context): Boolean {
-    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val connectivityManager = context.getSystemService(
+        Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val networkInfo = connectivityManager.activeNetworkInfo
     return networkInfo != null && networkInfo.isConnected && networkInfo.type == ConnectivityManager.TYPE_WIFI
   }
@@ -51,7 +52,9 @@ object WifiUtils {
   fun connect(context: Context, ssid: String, capabilities: String, password: String) {
     val wifiManager = context.getSystemService(WIFI_SERVICE) as WifiManager
     // SSIDが端末に登録済みか判定
-    val targetWifiConfiguration: WifiConfiguration? = wifiManager.configuredNetworks.lastOrNull { it.SSID.contains(ssid) }
+    val targetWifiConfiguration: WifiConfiguration? = wifiManager.configuredNetworks.lastOrNull {
+      it.SSID.contains(ssid)
+    }
     if (targetWifiConfiguration != null) {
       // 登録済
       connect(context, targetWifiConfiguration.networkId)
@@ -98,18 +101,20 @@ object WifiUtils {
    * @param password パスワード
    * @return WIFI接続設定
    */
-  private fun getWifiConfiguration(ssid: String, capabilities: String, password: String): WifiConfiguration? {
+  private fun getWifiConfiguration(ssid: String, capabilities: String,
+      password: String): WifiConfiguration? {
     val wifiConfiguration = WifiConfiguration()
     val securityType = getSecurity(capabilities)
     when (securityType) {
-      SecurityType.SECURITY_NONE -> wifiConfiguration.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE)
-      SecurityType.SECURITY_WEP -> {
+      WifiSecurityType.NONE -> wifiConfiguration.allowedKeyManagement.set(
+          WifiConfiguration.KeyMgmt.NONE)
+      WifiSecurityType.WEP -> {
         wifiConfiguration.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE)
         wifiConfiguration.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN)
         wifiConfiguration.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.SHARED)
         wifiConfiguration.wepKeys[0] = getPassword(securityType, password)
       }
-      SecurityType.SECURITY_PSK -> {
+      WifiSecurityType.PSK -> {
         wifiConfiguration.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK)
         wifiConfiguration.preSharedKey = getPassword(securityType, password)
       }
@@ -124,28 +129,30 @@ object WifiUtils {
    *
    * @return セキュリティ情報
    */
-  private fun getSecurity(capabilities: String): SecurityType = when {
-    capabilities.contains(SecurityType.SECURITY_WEP.securityType) -> SecurityType.SECURITY_WEP
-    capabilities.contains(SecurityType.SECURITY_PSK.securityType) -> SecurityType.SECURITY_PSK
-    else -> SecurityType.SECURITY_NONE
+  private fun getSecurity(capabilities: String): WifiSecurityType = when {
+    capabilities.contains(WifiSecurityType.WEP.type) -> WifiSecurityType.WEP
+    capabilities.contains(WifiSecurityType.PSK.type) -> WifiSecurityType.PSK
+    else -> WifiSecurityType.NONE
   }
 
   /**
    * パスワード返却
    *
-   * @param securityType セキュリティ情報
+   * @param wifiSecurityType セキュリティ情報
    * @param password パスワード
    * @return セキュリティ情報
    */
-  private fun getPassword(securityType: SecurityType, password: String): String = when (securityType) {
-    SECURITY_WEP -> {
-      if ((password.length == 10 || password.length == 26) && password.matches(ApplicationConst.REGEX_WEP.toRegex())) {
+  private fun getPassword(wifiSecurityType: WifiSecurityType,
+      password: String): String = when (wifiSecurityType) {
+    WEP -> {
+      if ((password.length == 10 || password.length == 26) && password.matches(
+          ApplicationConst.REGEX_WEP.toRegex())) {
         password
       } else {
         StringUtils.getFormatDoubleQuote(password)
       }
     }
-    SECURITY_PSK -> {
+    PSK -> {
       if (password.matches(ApplicationConst.REGEX_PSK.toRegex())) {
         password
       } else {

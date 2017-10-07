@@ -16,7 +16,8 @@ object NetworkUtils {
    * @return true：通信可能 false：通信不可
    */
   fun isOnline(context: Context): Boolean {
-    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val connectivityManager = context.getSystemService(
+        Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     return connectivityManager.activeNetworkInfo != null && connectivityManager.activeNetworkInfo.isConnected
   }
 

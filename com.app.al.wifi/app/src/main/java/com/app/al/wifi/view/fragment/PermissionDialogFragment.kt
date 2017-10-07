@@ -4,7 +4,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import com.app.al.wifi.R
-import com.app.al.wifi.util.PermissionUtils
+import com.app.al.wifi.util.ApplicationUtils
 import com.app.al.wifi.view.fragment.base.BaseDialogFragment
 
 /**
@@ -26,9 +26,10 @@ class PermissionDialogFragment : BaseDialogFragment() {
         .setMessage(message)
         .setPositiveButton(activity.getString(R.string.permission_move)) { dialog, which ->
           dismiss()
-          PermissionUtils.startApplicationDetailSettings(activity)
+          ApplicationUtils.startApplicationDetailSettings(activity)
         }
-        .setNegativeButton(activity.getString(R.string.permission_not_move), { dialog, which -> dismiss() })
+        .setNegativeButton(activity.getString(R.string.permission_not_move),
+            { dialog, which -> dismiss() })
     return dialogBuilder.create()
   }
 

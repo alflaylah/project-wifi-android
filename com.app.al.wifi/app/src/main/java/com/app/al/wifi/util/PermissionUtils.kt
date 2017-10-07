@@ -1,16 +1,12 @@
 package com.app.al.wifi.util
 
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Handler
-import android.provider.Settings
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.support.v4.content.ContextCompat
-import com.app.al.wifi.R
 import com.app.al.wifi.view.fragment.PermissionDialogFragment
 
 /**
@@ -21,11 +17,11 @@ object PermissionUtils {
   private val TAG = PermissionUtils::class.simpleName!!
   val REQUEST_PERMISSION = 1
 
-  // 初回要求フラグs
+  // 初回要求フラグ
   private var isFirstShouldShowRequest = false
 
   /**
-   * 権限要求判定
+   * 要求した権限の許可/不許可を返却する
    *
    * @param activity 遷移元Activity
    * @param permissions 要求権限
@@ -36,7 +32,7 @@ object PermissionUtils {
   }
 
   /**
-   * 権限要求判定
+   * 要求した権限の許可/不許可を返却する
    *
    * @param fragment 遷移元Fragment
    * @param permissions 要求権限
@@ -47,17 +43,19 @@ object PermissionUtils {
   }
 
   /**
-   * 権限要求判定
+   * 要求した権限の許可/不許可を返却する
    *
    * @param activity 遷移元Activity
    * @param permissions 要求権限
    * @param requestCode リクエストコード
    * @return true：許可済み false：不許可
    */
-  private fun isRequestPermission(activity: FragmentActivity, permissions: Array<String>, requestCode: Int): Boolean {
+  private fun isRequestPermission(activity: FragmentActivity, permissions: Array<String>,
+      requestCode: Int): Boolean {
     // アプリケーションで要求した権限をユーザーが許可しているか判定
     for (permission in permissions) {
-      if (ContextCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED) {
+      if (ContextCompat.checkSelfPermission(activity,
+          permission) != PackageManager.PERMISSION_GRANTED) {
         // ユーザー許可していない状態
         // ユーザー許可ダイアログを表示
         ActivityCompat.requestPermissions(activity, permissions, requestCode)
@@ -69,17 +67,19 @@ object PermissionUtils {
   }
 
   /**
-   * 権限要求判定
+   * 要求した権限の許可/不許可を返却する
    *
    * @param fragment 遷移元Fragment
    * @param permissions 要求権限
    * @param requestCode リクエストコード
    * @return true：許可済み false：不許可
    */
-  private fun isRequestPermission(fragment: Fragment, permissions: Array<String>, requestCode: Int): Boolean {
+  private fun isRequestPermission(fragment: Fragment, permissions: Array<String>,
+      requestCode: Int): Boolean {
     // アプリケーションで要求した権限をユーザーが許可しているか判定
     for (permission in permissions) {
-      if (ContextCompat.checkSelfPermission(fragment.context, permission) != PackageManager.PERMISSION_GRANTED) {
+      if (ContextCompat.checkSelfPermission(fragment.context,
+          permission) != PackageManager.PERMISSION_GRANTED) {
         // ユーザー許可していない状態
         // ユーザー許可ダイアログを表示
         fragment.requestPermissions(permissions, requestCode)
@@ -91,18 +91,19 @@ object PermissionUtils {
   }
 
   /**
-   * 今後表示しないチェック
+   * 今後表示しないチェックボックスの状態（チェック済/未チェック）を確認する
    *
    * @param activity 遷移元Activity
    * @param permissions 要求権限
    * @param messageId メッセージID
    */
-  fun checkNeverRequestPermission(activity: FragmentActivity, permissions: Array<String>, messageId: Int) {
+  fun checkNeverRequestPermission(activity: FragmentActivity, permissions: Array<String>,
+      messageId: Int) {
     checkNeverRequestPermission(activity, permissions, activity.getString(messageId))
   }
 
   /**
-   * 今後表示しないチェック
+   * 今後表示しないチェックボックスの状態（チェック済/未チェック）を確認する
    *
    * @param fragment 遷移元Fragment
    * @param permissions 要求権限
@@ -113,13 +114,20 @@ object PermissionUtils {
   }
 
   /**
-   * 今後表示しないチェック
+   * 今後表示しないチェックボックスの状態（チェック済/未チェック）を確認する
+   *
+   * <pre>
+   * 権限要求時に表示されるダイアログに存在する「今後表示しない」チェックボックスのチェック済/未チェックを確認します。
+   * チェック済みで要求した権限が許可されていない場合、アプリケーションの設定画面に飛ばして権限を許可してもらう旨を
+   * 表示したダイアログ
+   * </pre>
    *
    * @param activity 遷移元Activity
    * @param permissions 要求権限
    * @param message メッセージ
    */
-  private fun checkNeverRequestPermission(activity: FragmentActivity, permissions: Array<String>, message: String) {
+  private fun checkNeverRequestPermission(activity: FragmentActivity, permissions: Array<String>,
+      message: String) {
     val isShouldShowRequest = permissions.any { permission ->
       !ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)
     }
@@ -138,13 +146,20 @@ object PermissionUtils {
   }
 
   /**
-   * 今後表示しないチェック
+   * 今後表示しないチェックボックスの状態（チェック済/未チェック）を確認する
+   *
+   * <pre>
+   * 権限要求時に表示されるダイアログに存在する「今後表示しない」チェックボックスのチェック済/未チェックを確認します。
+   * チェック済みで要求した権限が許可されていない場合、アプリケーションの設定画面に飛ばして権限を許可してもらう旨を
+   * 表示したダイアログ
+   * </pre>
    *
    * @param fragment 遷移元Activity
    * @param permissions 要求権限
    * @param message メッセージ
    */
-  private fun checkNeverRequestPermission(fragment: Fragment, permissions: Array<String>, message: String) {
+  private fun checkNeverRequestPermission(fragment: Fragment, permissions: Array<String>,
+      message: String) {
     val isShouldShowRequest = permissions.any { permission ->
       !fragment.shouldShowRequestPermissionRationale(permission)
     }
@@ -163,7 +178,7 @@ object PermissionUtils {
   }
 
   /**
-   * 権限要求結果判定
+   * 要求した権限の結果を返却する
    *
    * @param grantResults 要求結果
    * @return true：許可 false：不許可
@@ -177,20 +192,10 @@ object PermissionUtils {
   }
 
   /**
-   * アプリケーション詳細設定画面遷移
-   *
-   * @param activity 遷移元Activity
-   */
-  fun startApplicationDetailSettings(activity: FragmentActivity) {
-    val parse = String.format(activity.getString(R.string.permission_package), activity.packageName)
-    activity.startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse(parse)))
-  }
-
-  /**
    * ダイアログ表示
    *
    * @param fragmentManager fragmentManager
-   * @param message メッセージ
+   * @param message 表示メッセージ
    */
   private fun showDialog(fragmentManager: FragmentManager, message: String) {
     PermissionDialogFragment.newInstance(message).show(fragmentManager, TAG)

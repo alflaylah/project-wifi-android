@@ -14,11 +14,11 @@ import com.app.al.wifi.viewmodel.WifiViewModel
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
-
 /**
  * Wifi一覧アダプタ
  */
-class WifiListAdapter(context: Context, private val wifiInformationList: List<ScanResult>) : RecyclerView.Adapter<WifiListAdapter.ViewHolder>() {
+class WifiListAdapter(context: Context,
+    private val wifiInformationList: List<ScanResult>) : RecyclerView.Adapter<WifiListAdapter.ViewHolder>() {
 
   private val inflater: LayoutInflater = LayoutInflater.from(context)
   private val publishSubject = PublishSubject.create<WifiViewModel>()
@@ -30,7 +30,9 @@ class WifiListAdapter(context: Context, private val wifiInformationList: List<Sc
    * @param viewGroup viewGroup
    * @param i 位置
    */
-  override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): WifiListAdapter.ViewHolder = ViewHolder(inflater.inflate(R.layout.list_item_wifi, viewGroup, false))
+  override fun onCreateViewHolder(viewGroup: ViewGroup,
+      i: Int): WifiListAdapter.ViewHolder = ViewHolder(
+      inflater.inflate(R.layout.list_item_wifi, viewGroup, false))
 
   /**
    * onBindViewHolder

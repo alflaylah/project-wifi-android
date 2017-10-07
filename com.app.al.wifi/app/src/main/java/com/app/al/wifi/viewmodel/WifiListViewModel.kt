@@ -2,8 +2,7 @@ package com.app.al.wifi.viewmodel
 
 import android.content.Context
 import android.databinding.ObservableBoolean
-import com.app.al.wifi.model.WifiListModel
-
+import com.app.al.wifi.model.WifiModel
 
 /**
  * Wifi一覧ViewModel
@@ -12,17 +11,17 @@ import com.app.al.wifi.model.WifiListModel
  */
 class WifiListViewModel(context: Context) {
 
-  private var wifiListModel: WifiListModel = WifiListModel(context)
+  private var wifiModel: WifiModel = WifiModel(context)
   var isLoading = ObservableBoolean()
 
   /**
    * Wifi一覧押下時イベント
    *
-   * @param wifiListItemViewModel WifiViewModel
+   * @param wifiViewModel WifiViewModel
    */
-  fun OnItemClicked(wifiListItemViewModel: WifiViewModel) {
+  fun OnItemClicked(wifiViewModel: WifiViewModel) {
     // Wifi接続
-    wifiListModel.connect(wifiListItemViewModel)
+    wifiModel.connect(wifiViewModel)
   }
 
   /**

@@ -73,7 +73,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
    * @return boolean
    */
   override fun onNavigationItemSelected(item: MenuItem): Boolean {
-
     mainViewModel.onNavigationItemSelected(item.itemId)
     drawerLayout.closeDrawer(GravityCompat.START)
     return true

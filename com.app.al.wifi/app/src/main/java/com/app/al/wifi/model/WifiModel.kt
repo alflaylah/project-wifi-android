@@ -1,22 +1,20 @@
 package com.app.al.wifi.model
 
-import android.content.Context
-import com.app.al.wifi.util.WifiUtils
-import com.app.al.wifi.viewmodel.WifiViewModel
+import com.app.al.wifi.event.WifiConnectEvent
+import org.greenrobot.eventbus.EventBus
 
 /**
  * WifiModel
- *
- * @param context Context
  */
-class WifiModel(private val context: Context) {
+class WifiModel {
 
   /**
    * WIFI接続
    *
-   * @param wifiListItemViewModel WifiViewModel
+   * @param ssId ssId
+   * @param capabilities capabilities
    */
-  fun connect(wifiListItemViewModel: WifiViewModel) {
-    WifiUtils.connect(context, wifiListItemViewModel.ssId, wifiListItemViewModel.capabilities, "")
+  fun connect(ssId: String, capabilities: String) {
+    EventBus.getDefault().post(WifiConnectEvent(ssId, capabilities))
   }
 }

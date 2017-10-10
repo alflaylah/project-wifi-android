@@ -14,4 +14,15 @@
   <string name="navigation_drawer_open">ナビゲーションドロワーを開きます</string>
   <string name="navigation_drawer_close">ナビゲーションドロワーを閉じます</string>
   <string name="navigation_drawer_menu_license">ライセンス</string>
+
+  <!-- Wifiダイアログ -->
+  <string name="themed">Themed</string>
+  <string name="signalStrength">Signal strength</string>
+  <string name="excellent">Excellent</string>
+  <string name="security">Security</string>
+  <string name="securityType">802.1x EAP</string>
+  <string name="password">Password</string>
+  <string name="showPassword">Show password</string>
+  <string name="ssid">SSID</string>
+  <string name="ssidLit">Material Dialogs</string>
 </resources>

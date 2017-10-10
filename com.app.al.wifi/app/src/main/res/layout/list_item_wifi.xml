@@ -3,7 +3,7 @@
   <data>
     <variable
         name="viewModel"
-        type="com.app.al.wifi.viewmodel.WifiViewModel"
+        type="com.app.al.wifi.viewmodel.WifiListViewModel"
         />
   </data>
 

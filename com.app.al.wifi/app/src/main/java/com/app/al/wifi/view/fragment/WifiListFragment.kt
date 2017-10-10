@@ -10,15 +10,15 @@ import android.view.View
 import android.view.ViewGroup
 import com.app.al.wifi.R
 import com.app.al.wifi.const.ApplicationConst
+import com.app.al.wifi.event.WifiConnectEvent
 import com.app.al.wifi.ui.ada.WifiListAdapter
-import com.app.al.wifi.util.ApplicationUtils
 import com.app.al.wifi.util.PermissionUtils
 import com.app.al.wifi.util.WifiUtils
-import com.app.al.wifi.view.activity.WebActivity
 import com.app.al.wifi.view.fragment.base.BaseFragment
-import com.app.al.wifi.viewmodel.WifiListViewModel
 import io.reactivex.disposables.Disposable
-import javax.inject.Inject
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /*
  * Wifi一覧Fragment
@@ -27,11 +27,8 @@ class WifiListFragment : BaseFragment() {
 
   private lateinit var recyclerView: RecyclerView
   private lateinit var adapter: WifiListAdapter
-  private var wifiInformationList = listOf<ScanResult>()
+  private var wifiInformations = listOf<ScanResult>()
   private var disposable: Disposable? = null
-
-  @Inject
-  lateinit var wifiListViewModel: WifiListViewModel
 
   companion object {
     /**
@@ -43,22 +40,13 @@ class WifiListFragment : BaseFragment() {
   }
 
   /**
-   * onDestroy
-   */
-  override fun onDestroy() {
-    super.onDestroy()
-    disposable?.dispose()
-  }
-
-  /**
    * onCreateView
    *
    * @param inflater inflater
    * @param container container
    * @param savedInstanceState savedInstanceState
    */
-  override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
-      savedInstanceState: Bundle?): View? {
+  override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     val view = inflater!!.inflate(R.layout.fragment_wifi_list, container, false)
     recyclerView = view.findViewById<View>(R.id.recycler_view) as RecyclerView
     recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -73,7 +61,30 @@ class WifiListFragment : BaseFragment() {
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
     init()
-    initPermission()
+  }
+
+  /**
+   * onStart
+   */
+  override fun onStart() {
+    super.onStart()
+    EventBus.getDefault().register(this)
+  }
+
+  /**
+   * onStop
+   */
+  override fun onStop() {
+    super.onStop()
+    EventBus.getDefault().unregister(this)
+  }
+
+  /**
+   * onDestroy
+   */
+  override fun onDestroy() {
+    super.onDestroy()
+    disposable?.dispose()
   }
 
   /**
@@ -90,7 +101,6 @@ class WifiListFragment : BaseFragment() {
           grantResults)) {
         // 許可されました
         setAdapter()
-        setAdapterEvent()
       } else {
         // 許可されませんでした
         PermissionUtils.checkNeverRequestPermission(this, permissions,
@@ -104,17 +114,15 @@ class WifiListFragment : BaseFragment() {
    * 初期処理
    */
   private fun init() {
-    getApplicationComponent().inject(this)
+    initPermission()
   }
 
   /**
    * 権限初期処理
    */
   private fun initPermission() {
-    if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.M) || PermissionUtils.isRequestPermission(this,
-        ApplicationConst.PERMISSIONS)) {
+    if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.M) || PermissionUtils.isRequestPermission(this, ApplicationConst.PERMISSIONS)) {
       setAdapter()
-      setAdapterEvent()
     }
   }
 
@@ -122,21 +130,23 @@ class WifiListFragment : BaseFragment() {
    * Wifi一覧アダプタ設定
    */
   private fun setAdapter() {
-    wifiInformationList = WifiUtils.getWifiInformationList(activity)
-    adapter = WifiListAdapter(activity, wifiInformationList)
+    wifiInformations = WifiUtils.getWifiInformationList(activity)
+    adapter = WifiListAdapter(activity, wifiInformations)
     recyclerView.adapter = adapter
-  }
-
-  /**
-   * Wifi一覧イベント設定
-   */
-  private fun setAdapterEvent() {
     disposable = adapter.clickEvent
         .compose(bindToLifecycle())
         .subscribe({
-          ApplicationUtils.startActivity(context, WebActivity::class.java)
-//          PermissionDialogFragment.newInstance("テストです").show(fragmentManager, "test")
-          wifiListViewModel.OnItemClicked(it)
+          WifiDialogFragment.newInstance("テストです").show(fragmentManager, "test")
         })
+  }
+
+  /**
+   * EventBus Wifi接続
+   *
+   * @param event Wifi接続イベント
+   */
+  @Subscribe(threadMode = ThreadMode.POSTING)
+  fun onWifiConnectEvent(event: WifiConnectEvent) {
+    WifiUtils.connect(context, event.ssId, event.capabilities, ApplicationConst.EMPTY)
   }
 }

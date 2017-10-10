@@ -1,8 +1,6 @@
 package com.app.al.wifi.di
 
-import android.content.Context
 import com.app.al.wifi.viewmodel.MainViewModel
-import com.app.al.wifi.viewmodel.WifiListViewModel
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -12,12 +10,6 @@ import javax.inject.Singleton
  */
 @Module
 class ApplicationLayerModule {
-
-  @Provides
-  @Singleton
-  fun provideWifiListViewModel(context: Context): WifiListViewModel {
-    return WifiListViewModel(context)
-  }
 
   @Provides
   @Singleton

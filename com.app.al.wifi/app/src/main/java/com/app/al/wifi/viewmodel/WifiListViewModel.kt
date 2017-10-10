@@ -1,27 +1,31 @@
 package com.app.al.wifi.viewmodel
 
-import android.content.Context
 import android.databinding.ObservableBoolean
+import android.net.wifi.ScanResult
 import com.app.al.wifi.model.WifiModel
 
 /**
  * Wifi一覧ViewModel
  *
- * @param context コンテキスト
+ * @param scanResult アクセスポイント検索結果
  */
-class WifiListViewModel(context: Context) {
+class WifiListViewModel(scanResult: ScanResult) {
 
-  private var wifiModel: WifiModel = WifiModel(context)
+  val ssId: String = scanResult.SSID
+  val bssId: String = scanResult.BSSID
+  val capabilities: String = scanResult.capabilities
+  val level: String = scanResult.level.toString()
+  val frequency: String = scanResult.frequency.toString()
   var isLoading = ObservableBoolean()
+
+  private var wifiModel: WifiModel = WifiModel()
 
   /**
    * Wifi一覧押下時イベント
-   *
-   * @param wifiViewModel WifiViewModel
    */
-  fun OnItemClicked(wifiViewModel: WifiViewModel) {
+  fun onItemClick() {
     // Wifi接続
-    wifiModel.connect(wifiViewModel)
+    wifiModel.connect(ssId, capabilities)
   }
 
   /**

@@ -14,89 +14,83 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:orientation="vertical"
+      android:padding="@dimen/dialog_padding"
       >
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/signalStrength"
+        android:text="@string/wifi_signal_strength"
         android:textColor="#80000000"
-        android:textSize="@dimen/customTitle"
+        android:textSize="@dimen/dialog_item_title"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="@string/excellent"
+        android:text="@{viewModel.capabilities}"
         android:textColor="#000000"
-        android:textSize="@dimen/customEntry"
+        android:textSize="@dimen/dialog_item_entry"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:text="@string/ssid"
+        android:text="@string/wifi_ssid"
         android:textColor="#80000000"
-        android:textSize="@dimen/customTitle"
+        android:textSize="@dimen/dialog_item_title"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="@string/ssidLit"
+        android:text="@{viewModel.ssId}"
         android:textColor="#000000"
-        android:textSize="@dimen/customEntry"
+        android:textSize="@dimen/dialog_item_entry"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:text="@string/security"
+        android:text="@string/wifi_security"
         android:textColor="#80000000"
-        android:textSize="@dimen/customTitle"
+        android:textSize="@dimen/dialog_item_title"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="@string/securityType"
+        android:text="@{viewModel.capabilities}"
         android:textColor="#000000"
-        android:textSize="@dimen/customEntry"
+        android:textSize="@dimen/dialog_item_entry"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
-        android:text="@string/password"
+        android:text="@string/wifi_password"
         android:textColor="#80000000"
-        android:textSize="@dimen/customTitle"
+        android:textSize="@dimen/dialog_item_title"
         />
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="match_parent"
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:inputType="textPassword"
-        android:textColor="#000000"
-        android:textSize="@dimen/customEntry"
-        />
-
-    <CheckBox
-        android:id="@+id/showPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:text="@string/showPassword"
-        android:textColor="#000000"
-        android:textSize="@dimen/customEntry"
-        />
-
+        >
+      <EditText
+          android:id="@+id/password"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="4dp"
+          android:inputType="textPassword"
+          android:textColor="#000000"
+          android:textSize="@dimen/dialog_item_entry"
+          />
+    </android.support.design.widget.TextInputLayout>
   </LinearLayout>
 </layout>

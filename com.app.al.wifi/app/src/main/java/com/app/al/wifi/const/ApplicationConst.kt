@@ -16,6 +16,7 @@ object ApplicationConst {
 
   // Bundle
   val BUNDLE_URL = "BUNDLE_URL"
+  val BUNDLE_OBJECT = "BUNDLE_OBJECT"
 
   // 権限
   val PERMISSIONS = arrayOf(

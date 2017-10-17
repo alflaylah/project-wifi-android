@@ -1,12 +1,16 @@
 package com.app.al.wifi.view.fragment
 
-import android.app.Dialog
+import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v7.app.AlertDialog.Builder
 import android.view.LayoutInflater
-import android.view.WindowManager
+import android.view.View
+import android.view.ViewGroup
 import com.app.al.wifi.R
+import com.app.al.wifi.const.ApplicationConst.BUNDLE_OBJECT
+import com.app.al.wifi.databinding.FragmentWifiDialogBinding
 import com.app.al.wifi.view.fragment.base.BaseDialogFragment
+import com.app.al.wifi.viewmodel.WifiListViewModel
+
 
 /**
  * 権限ダイアログフラグメントクラス
@@ -18,30 +22,26 @@ class WifiDialogFragment : BaseDialogFragment() {
    *
    * @param savedInstanceState 引き継ぎパラメータ
    */
-  override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-    val message = arguments.getString(ARG_PERMISSION_NAME)
-
-    val view = LayoutInflater.from(activity).inflate(R.layout.fragment_wifi_dialog, null)
-    val dialogBuilder = Builder(activity).setView(view)
-    val dialog: Dialog = dialogBuilder.create()
-    dialog.window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN)
-    return dialog
+  override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    val binding = DataBindingUtil.inflate<FragmentWifiDialogBinding>(inflater,
+        R.layout.fragment_wifi_dialog, container, false)
+    val wifiListViewModel = arguments.getSerializable(BUNDLE_OBJECT) as WifiListViewModel
+    binding.viewModel = wifiListViewModel
+    return binding.root
   }
 
   companion object {
-    private val ARG_PERMISSION_NAME = "permissionName"
-
     /**
      * インスタンス生成
      *
-     * @param message 表示メッセージ
+     * @param wifiListViewModel 表示メッセー
      * @return 権限ダイアログフラグメント
      */
-    fun newInstance(message: String): WifiDialogFragment {
+    fun newInstance(wifiListViewModel: WifiListViewModel): WifiDialogFragment {
       val fragment = WifiDialogFragment()
-      val args = Bundle()
-      args.putString(ARG_PERMISSION_NAME, message)
-      fragment.arguments = args
+      val bundle = Bundle()
+      bundle.putSerializable(BUNDLE_OBJECT, wifiListViewModel)
+      fragment.arguments = bundle
       return fragment
     }
   }

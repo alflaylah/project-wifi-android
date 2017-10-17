@@ -27,7 +27,7 @@ class WifiListFragment : BaseFragment() {
 
   private lateinit var recyclerView: RecyclerView
   private lateinit var adapter: WifiListAdapter
-  private var wifiInformations = listOf<ScanResult>()
+  private var wifiInformation = listOf<ScanResult>()
   private var disposable: Disposable? = null
 
   companion object {
@@ -46,7 +46,8 @@ class WifiListFragment : BaseFragment() {
    * @param container container
    * @param savedInstanceState savedInstanceState
    */
-  override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+  override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
+      savedInstanceState: Bundle?): View? {
     val view = inflater!!.inflate(R.layout.fragment_wifi_list, container, false)
     recyclerView = view.findViewById<View>(R.id.recycler_view) as RecyclerView
     recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -121,7 +122,8 @@ class WifiListFragment : BaseFragment() {
    * 権限初期処理
    */
   private fun initPermission() {
-    if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.M) || PermissionUtils.isRequestPermission(this, ApplicationConst.PERMISSIONS)) {
+    if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.M) || PermissionUtils.isRequestPermission(this,
+        ApplicationConst.PERMISSIONS)) {
       setAdapter()
     }
   }
@@ -130,13 +132,13 @@ class WifiListFragment : BaseFragment() {
    * Wifi一覧アダプタ設定
    */
   private fun setAdapter() {
-    wifiInformations = WifiUtils.getWifiInformationList(activity)
-    adapter = WifiListAdapter(activity, wifiInformations)
+    wifiInformation = WifiUtils.getWifiInformationList(activity)
+    adapter = WifiListAdapter(activity, wifiInformation)
     recyclerView.adapter = adapter
     disposable = adapter.clickEvent
         .compose(bindToLifecycle())
         .subscribe({
-          WifiDialogFragment.newInstance("テストです").show(fragmentManager, "test")
+          WifiDialogFragment.newInstance(it).show(fragmentManager, "test")
         })
   }
 

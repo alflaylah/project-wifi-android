@@ -16,13 +16,8 @@
   <string name="navigation_drawer_menu_license">ライセンス</string>
 
   <!-- Wifiダイアログ -->
-  <string name="themed">Themed</string>
-  <string name="signalStrength">Signal strength</string>
-  <string name="excellent">Excellent</string>
-  <string name="security">Security</string>
-  <string name="securityType">802.1x EAP</string>
-  <string name="password">Password</string>
-  <string name="showPassword">Show password</string>
-  <string name="ssid">SSID</string>
-  <string name="ssidLit">Material Dialogs</string>
+  <string name="wifi_signal_strength">Signal strength</string>
+  <string name="wifi_security">Security</string>
+  <string name="wifi_password">Password</string>
+  <string name="wifi_ssid">SSID</string>
 </resources>

@@ -6,6 +6,7 @@ import android.Manifest.permission
  * 定数
  */
 object ApplicationConst {
+
   // 汎用
   val EMPTY = ""
   val DOUBLE_QUOTE = "\""
@@ -26,7 +27,7 @@ object ApplicationConst {
       permission.CHANGE_WIFI_STATE
   )
 
-  // Wifiセキュリティタイプ
+  // Wifi Securityタイプ
   enum class WifiSecurityType(val type: String) {
     NONE("NONE"),
     WEP("WEP"),

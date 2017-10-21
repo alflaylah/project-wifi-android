@@ -8,10 +8,7 @@ import com.app.al.wifi.util.ApplicationUtils
 import com.app.al.wifi.view.fragment.base.BaseDialogFragment
 
 /**
- * WIFIユーティリティ
- */
-/**
- * 権限ダイアログフラグメントクラス
+ * 権限ダイアログFragment
  */
 class PermissionDialogFragment : BaseDialogFragment() {
 

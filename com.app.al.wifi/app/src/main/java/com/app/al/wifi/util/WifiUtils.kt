@@ -142,8 +142,7 @@ object WifiUtils {
    * @param password パスワード
    * @return セキュリティ情報
    */
-  private fun getPassword(wifiSecurityType: WifiSecurityType,
-      password: String): String = when (wifiSecurityType) {
+  private fun getPassword(wifiSecurityType: WifiSecurityType, password: String): String = when (wifiSecurityType) {
     WEP -> {
       if ((password.length == 10 || password.length == 26) && password.matches(
           ApplicationConst.REGEX_WEP.toRegex())) {

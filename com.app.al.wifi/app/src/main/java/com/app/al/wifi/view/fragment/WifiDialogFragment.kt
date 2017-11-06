@@ -2,7 +2,6 @@ package com.app.al.wifi.view.fragment
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import com.app.al.wifi.const.DisplayConst
 import com.app.al.wifi.databinding.FragmentWifiDialogBinding
 import com.app.al.wifi.view.fragment.base.BaseDialogFragment
 import com.app.al.wifi.viewmodel.WifiListViewModel
+
 
 /**
  * Wifiパスワード入力ダイアログFragment
@@ -25,9 +25,9 @@ class WifiDialogFragment : BaseDialogFragment() {
    * @param container container
    * @param savedInstanceState 引き継ぎパラメータ
    */
-  override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     val binding = DataBindingUtil.inflate<FragmentWifiDialogBinding>(inflater, R.layout.fragment_wifi_dialog, container, false)
-    val wifiListViewModel = arguments.getSerializable(BUNDLE_OBJECT) as WifiListViewModel
+    val wifiListViewModel = arguments?.getSerializable(BUNDLE_OBJECT) as WifiListViewModel
     binding.viewModel = wifiListViewModel
     return binding.root
   }
@@ -47,9 +47,9 @@ class WifiDialogFragment : BaseDialogFragment() {
    */
   private fun initLayout() {
     val layoutParams = dialog.window.attributes
-    activity.windowManager.defaultDisplay.getMetrics(DisplayMetrics())
-    // 画面幅×指定スケールの幅でダイアログを表示
-    layoutParams.width = (DisplayMetrics().widthPixels * DisplayConst.DIALOG_WIDTH_SCALE).toInt()
+    activity?.windowManager?.defaultDisplay?.getMetrics(resources.displayMetrics)
+    // 画面幅×指定スケールでダイアログを表示
+    layoutParams.width = (resources.displayMetrics.widthPixels * DisplayConst.DIALOG_WIDTH_SCALE).toInt()
     dialog.window.attributes = layoutParams
   }
 

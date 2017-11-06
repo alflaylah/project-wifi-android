@@ -5,7 +5,6 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.Toolbar
 import com.app.al.wifi.MainApplication
 import com.app.al.wifi.R
-import com.app.al.wifi.R.id
 import com.app.al.wifi.const.ApplicationConst.NavigationIconEventType
 import com.app.al.wifi.const.ApplicationConst.NavigationIconEventType.RETURN
 import com.app.al.wifi.di.ApplicationComponent
@@ -87,7 +86,7 @@ open class BaseActivity : RxAppCompatActivity() {
   protected fun replaceFragment(fragment: Fragment) {
     val fragmentManager = supportFragmentManager
     val transaction = fragmentManager.beginTransaction()
-    transaction.replace(id.fragment_container, fragment)
+    transaction.replace(R.id.fragment_container, fragment)
     transaction.addToBackStack(null)
     transaction.commit()
   }

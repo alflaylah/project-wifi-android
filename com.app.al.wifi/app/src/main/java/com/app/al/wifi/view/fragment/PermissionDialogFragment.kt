@@ -18,15 +18,16 @@ class PermissionDialogFragment : BaseDialogFragment() {
    * @param savedInstanceState 引き継ぎパラメータ
    */
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-    val message = arguments.getString(ARG_PERMISSION_NAME)
-    val dialogBuilder = AlertDialog.Builder(activity)
+    val message = arguments?.getString(ARG_PERMISSION_NAME)
+    val dialogBuilder = AlertDialog.Builder(context!!)
         .setMessage(message)
-        .setPositiveButton(activity.getString(R.string.permission_move)) { dialog, which ->
+        .setPositiveButton(activity?.getString(R.string.permission_move)) { dialog, which ->
           dismiss()
-          ApplicationUtils.startApplicationDetailSettings(activity)
+          ApplicationUtils.startApplicationDetailSettings(activity!!)
         }
-        .setNegativeButton(activity.getString(R.string.permission_not_move),
-            { dialog, which -> dismiss() })
+        .setNegativeButton(activity?.getString(R.string.permission_not_move), { dialog, which ->
+          dismiss()
+        })
     return dialogBuilder.create()
   }
 

@@ -74,12 +74,10 @@ object PermissionUtils {
    * @param requestCode リクエストコード
    * @return true：許可済み false：不許可
    */
-  private fun isRequestPermission(fragment: Fragment, permissions: Array<String>,
-      requestCode: Int): Boolean {
+  private fun isRequestPermission(fragment: Fragment, permissions: Array<String>, requestCode: Int): Boolean {
     // アプリケーションで要求した権限をユーザーが許可しているか判定
     for (permission in permissions) {
-      if (ContextCompat.checkSelfPermission(fragment.context,
-          permission) != PackageManager.PERMISSION_GRANTED) {
+      if (ContextCompat.checkSelfPermission(fragment.context!!, permission) != PackageManager.PERMISSION_GRANTED) {
         // ユーザー許可していない状態
         // ユーザー許可ダイアログを表示
         fragment.requestPermissions(permissions, requestCode)
@@ -97,8 +95,7 @@ object PermissionUtils {
    * @param permissions 要求権限
    * @param messageId メッセージID
    */
-  fun checkNeverRequestPermission(activity: FragmentActivity, permissions: Array<String>,
-      messageId: Int) {
+  fun checkNeverRequestPermission(activity: FragmentActivity, permissions: Array<String>, messageId: Int) {
     checkNeverRequestPermission(activity, permissions, activity.getString(messageId))
   }
 
@@ -126,8 +123,7 @@ object PermissionUtils {
    * @param permissions 要求権限
    * @param message メッセージ
    */
-  private fun checkNeverRequestPermission(activity: FragmentActivity, permissions: Array<String>,
-      message: String) {
+  private fun checkNeverRequestPermission(activity: FragmentActivity, permissions: Array<String>, message: String) {
     val isShouldShowRequest = permissions.any { permission ->
       !ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)
     }
@@ -158,8 +154,7 @@ object PermissionUtils {
    * @param permissions 要求権限
    * @param message メッセージ
    */
-  private fun checkNeverRequestPermission(fragment: Fragment, permissions: Array<String>,
-      message: String) {
+  private fun checkNeverRequestPermission(fragment: Fragment, permissions: Array<String>, message: String) {
     val isShouldShowRequest = permissions.any { permission ->
       !fragment.shouldShowRequestPermissionRationale(permission)
     }
@@ -173,7 +168,7 @@ object PermissionUtils {
     }
     // 今後表示しないを選択済み、かつ、選択が2回目以降ならダイアログを表示する
     if (isShouldShowRequest && isFirstShouldShowRequest) Handler().post {
-      showDialog(fragment.fragmentManager, message)
+      showDialog(fragment.fragmentManager!!, message)
     }
   }
 

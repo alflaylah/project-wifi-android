@@ -10,11 +10,11 @@ import com.app.al.wifi.const.ApplicationConst.BUNDLE_OBJECT
 import com.app.al.wifi.const.DisplayConst
 import com.app.al.wifi.databinding.FragmentWifiDialogBinding
 import com.app.al.wifi.view.fragment.base.BaseDialogFragment
+import com.app.al.wifi.viewmodel.WifiDialogViewModel
 import com.app.al.wifi.viewmodel.WifiListViewModel
 
-
 /**
- * Wifiパスワード入力ダイアログFragment
+ * WifiダイアログFragment
  */
 class WifiDialogFragment : BaseDialogFragment() {
 
@@ -28,7 +28,7 @@ class WifiDialogFragment : BaseDialogFragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     val binding = DataBindingUtil.inflate<FragmentWifiDialogBinding>(inflater, R.layout.fragment_wifi_dialog, container, false)
     val wifiListViewModel = arguments?.getSerializable(BUNDLE_OBJECT) as WifiListViewModel
-    binding.viewModel = wifiListViewModel
+    binding.viewModel = WifiDialogViewModel(wifiListViewModel.ssId)
     return binding.root
   }
 

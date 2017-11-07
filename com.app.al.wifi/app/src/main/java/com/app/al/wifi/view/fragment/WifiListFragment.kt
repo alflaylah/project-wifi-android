@@ -103,8 +103,7 @@ class WifiListFragment : BaseFragment() {
         setAdapter()
       } else {
         // 許可されませんでした
-        PermissionUtils.checkNeverRequestPermission(this, permissions,
-            R.string.permission_denied_message)
+        PermissionUtils.checkNeverRequestPermission(this, permissions, R.string.permission_denied_message)
       }
       else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }

@@ -6,11 +6,14 @@ import android.support.v7.app.AlertDialog
 import com.app.al.wifi.R
 import com.app.al.wifi.util.ApplicationUtils
 import com.app.al.wifi.view.fragment.base.BaseDialogFragment
+import com.app.al.wifi.viewmodel.PermissionDialogViewModel
 
 /**
  * 権限ダイアログFragment
  */
 class PermissionDialogFragment : BaseDialogFragment() {
+
+  private lateinit var permissionDialogViewModel: PermissionDialogViewModel
 
   /**
    * ダイアログ生成
@@ -18,6 +21,7 @@ class PermissionDialogFragment : BaseDialogFragment() {
    * @param savedInstanceState 引き継ぎパラメータ
    */
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+    permissionDialogViewModel = PermissionDialogViewModel()
     val message = arguments?.getString(ARG_PERMISSION_NAME)
     val dialogBuilder = AlertDialog.Builder(context!!)
         .setMessage(message)
@@ -26,7 +30,7 @@ class PermissionDialogFragment : BaseDialogFragment() {
           ApplicationUtils.startApplicationDetailSettings(activity!!)
         }
         .setNegativeButton(activity?.getString(R.string.permission_not_move), { dialog, which ->
-          dismiss()
+          permissionDialogViewModel.onCancelClicked()
         })
     return dialogBuilder.create()
   }

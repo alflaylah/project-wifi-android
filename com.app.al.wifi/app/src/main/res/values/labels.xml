@@ -2,6 +2,12 @@
 <resources>
   <string name="application_name">WiFi</string>
 
+  <!-- 汎用 -->
+  <string name="cancel">キャンセル</string>
+  <string name="connect">接続</string>
+  <string name="save">保存</string>
+
+  <!-- 権限許可ダイアログで利用 -->
   <string name="permission_package">package:%s</string>
   <string name="permission_move">移動する</string>
   <string name="permission_not_move">移動しない</string>

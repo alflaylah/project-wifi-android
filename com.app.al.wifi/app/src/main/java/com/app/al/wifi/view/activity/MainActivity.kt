@@ -94,8 +94,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
   private fun initDrawerLayout() {
     drawerLayout = findViewById(R.id.drawer_layout)
     val navigationView = findViewById<NavigationView>(R.id.navigation_view)
-    val actionBarDrawerToggle = ActionBarDrawerToggle(this, drawerLayout,
-        getToolbar(), R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+    val actionBarDrawerToggle = ActionBarDrawerToggle(this, drawerLayout, getToolbar(), R.string.navigation_drawer_open, R.string.navigation_drawer_close)
     navigationView.setNavigationItemSelectedListener(this)
     drawerLayout.addDrawerListener(actionBarDrawerToggle)
   }

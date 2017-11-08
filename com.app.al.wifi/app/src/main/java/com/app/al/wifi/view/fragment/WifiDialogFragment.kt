@@ -28,7 +28,7 @@ class WifiDialogFragment : BaseDialogFragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     val binding = DataBindingUtil.inflate<FragmentWifiDialogBinding>(inflater, R.layout.fragment_wifi_dialog, container, false)
     val wifiListViewModel = arguments?.getSerializable(BUNDLE_OBJECT) as WifiListViewModel
-    binding.viewModel = WifiDialogViewModel(wifiListViewModel.ssId)
+    binding.viewModel = WifiDialogViewModel(wifiListViewModel.ssId, wifiListViewModel.capabilities)
     return binding.root
   }
 

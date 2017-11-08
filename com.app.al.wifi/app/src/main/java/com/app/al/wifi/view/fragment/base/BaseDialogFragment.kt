@@ -34,9 +34,7 @@ open class BaseDialogFragment : RxDialogFragment() {
    *
    * @return ApplicationComponent
    */
-  protected fun getApplicationComponent(): ApplicationComponent {
-    return (context?.applicationContext as MainApplication).getApplicationComponent()
-  }
+  protected fun getApplicationComponent(): ApplicationComponent = (context?.applicationContext as MainApplication).getApplicationComponent()
 
   /**
    * EventBus ダイアログクローズ

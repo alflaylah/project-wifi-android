@@ -56,10 +56,11 @@ object WifiUtils {
       it.SSID.contains(ssid)
     }
     if (targetWifiConfiguration != null) {
-      // 登録済
+      // 登録済の場合
+      // 接続します
       connect(context, targetWifiConfiguration.networkId)
     } else {
-      // 未登録
+      // 未登録の場合
       // 登録します
       val networkId = wifiManager.addNetwork(getWifiConfiguration(ssid, capabilities, password))
       if (networkId != -1) {
@@ -101,8 +102,7 @@ object WifiUtils {
    * @param password パスワード
    * @return WIFI接続設定
    */
-  private fun getWifiConfiguration(ssid: String, capabilities: String,
-      password: String): WifiConfiguration? {
+  private fun getWifiConfiguration(ssid: String, capabilities: String, password: String): WifiConfiguration? {
     val wifiConfiguration = WifiConfiguration()
     val securityType = getSecurity(capabilities)
     when (securityType) {

@@ -83,6 +83,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/area_password"
+        android:onClick="@{viewModel.onConnectClicked}"
         android:text="@string/connect"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         style="@style/Widget.AppCompat.Button.Borderless"

@@ -1,6 +1,7 @@
 package com.app.al.wifi.model
 
 import com.app.al.wifi.event.WifiConnectEvent
+
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -11,7 +12,7 @@ class WifiModel {
   /**
    * WIFI接続
    *
-   * @param ssId ssId
+   * @param ssId SSID
    * @param capabilities capabilities
    */
   fun connect(ssId: String, capabilities: String) {

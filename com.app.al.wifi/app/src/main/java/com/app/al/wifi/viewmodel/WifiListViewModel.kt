@@ -2,7 +2,6 @@ package com.app.al.wifi.viewmodel
 
 import android.databinding.ObservableBoolean
 import android.net.wifi.ScanResult
-import com.app.al.wifi.model.WifiModel
 import java.io.Serializable
 
 /**
@@ -18,16 +17,6 @@ class WifiListViewModel(scanResult: ScanResult) : Serializable {
   val level: String = scanResult.level.toString()
   val frequency: String = scanResult.frequency.toString()
   var isLoading = ObservableBoolean()
-
-  private var wifiModel: WifiModel = WifiModel()
-
-  /**
-   * Wifi一覧押下時イベント
-   */
-  fun onItemClick() {
-    // Wifi接続
-    wifiModel.connect(ssId, capabilities)
-  }
 
   /**
    * Wifi一覧更新時イベント

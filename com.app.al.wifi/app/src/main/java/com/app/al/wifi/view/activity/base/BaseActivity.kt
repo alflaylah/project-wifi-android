@@ -22,8 +22,7 @@ open class BaseActivity : RxAppCompatActivity() {
    *
    * @return ApplicationComponent
    */
-  protected fun getApplicationComponent(): ApplicationComponent =
-      (applicationContext as MainApplication).getApplicationComponent()
+  protected fun getApplicationComponent(): ApplicationComponent = (applicationContext as MainApplication).getApplicationComponent()
 
   /**
    * ToolBar初期処理

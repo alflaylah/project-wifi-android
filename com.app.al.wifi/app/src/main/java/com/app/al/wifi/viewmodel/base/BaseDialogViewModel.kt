@@ -11,17 +11,17 @@ open class BaseDialogViewModel {
 
   /**
    * キャンセルボタン押下
-   */
-  fun onCancelClicked() {
-    EventBus.getDefault().post(CloseDialogEvent())
-  }
-
-  /**
-   * キャンセルボタン押下
    *
    * @param view view
    */
   fun onCancelClicked(view: View) {
+    onCancelClicked()
+  }
+
+  /**
+   * キャンセルボタン押下
+   */
+  fun onCancelClicked() {
     EventBus.getDefault().post(CloseDialogEvent())
   }
 }

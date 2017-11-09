@@ -14,8 +14,9 @@ class WifiModel {
    *
    * @param ssId SSID
    * @param capabilities capabilities
+   * @param password パスワード
    */
-  fun connect(ssId: String, capabilities: String) {
-    EventBus.getDefault().post(WifiConnectEvent(ssId, capabilities))
+  fun connect(ssId: String, capabilities: String, password: String) {
+    EventBus.getDefault().post(WifiConnectEvent(ssId, capabilities, password))
   }
 }

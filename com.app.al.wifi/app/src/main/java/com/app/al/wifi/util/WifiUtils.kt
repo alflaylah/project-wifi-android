@@ -24,7 +24,7 @@ object WifiUtils {
    * @return true：WIFI接続可能 false：WIFI接続不可
    */
   fun enable(context: Context) {
-    val wifiManager = context.getSystemService(WIFI_SERVICE) as WifiManager
+    val wifiManager = context.applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
     wifiManager.isWifiEnabled = true
   }
 
@@ -50,7 +50,7 @@ object WifiUtils {
    * @param password パスワード
    */
   fun connect(context: Context, ssid: String, capabilities: String, password: String) {
-    val wifiManager = context.getSystemService(WIFI_SERVICE) as WifiManager
+    val wifiManager = context.applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
     // SSIDが端末に登録済みか判定
     val targetWifiConfiguration: WifiConfiguration? = wifiManager.configuredNetworks.lastOrNull {
       it.SSID.contains(ssid)
@@ -81,7 +81,7 @@ object WifiUtils {
    */
   private fun connect(context: Context, networkId: Int) {
     disconnect(context)
-    (context.getSystemService(WIFI_SERVICE) as WifiManager).enableNetwork(networkId, true)
+    (context.applicationContext.getSystemService(WIFI_SERVICE) as WifiManager).enableNetwork(networkId, true)
   }
 
   /**
@@ -90,7 +90,7 @@ object WifiUtils {
    * @param context context
    */
   private fun disconnect(context: Context) {
-    val wifiManager = context.getSystemService(WIFI_SERVICE) as WifiManager
+    val wifiManager = context.applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
     wifiManager.configuredNetworks.forEach { wifiManager.enableNetwork(it.networkId, false) }
   }
 
@@ -170,7 +170,7 @@ object WifiUtils {
    * @return 検索結果一覧
    */
   fun getWifiInformationList(activity: FragmentActivity): List<ScanResult> {
-    val wifiManager = activity.getSystemService(WIFI_SERVICE) as WifiManager
+    val wifiManager = activity.applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
     var scanResults = listOf<ScanResult>()
     if (wifiManager.startScan()) {
       // SSIDが空でない情報のみ抽出

@@ -146,6 +146,6 @@ class WifiListFragment : BaseFragment() {
    */
   @Subscribe(threadMode = ThreadMode.POSTING)
   fun onWifiConnectEvent(event: WifiConnectEvent) {
-    WifiUtils.connect(context!!, event.ssId, event.capabilities, ApplicationConst.EMPTY)
+    WifiUtils.connect(context!!, event.ssId, event.capabilities, event.password)
   }
 }

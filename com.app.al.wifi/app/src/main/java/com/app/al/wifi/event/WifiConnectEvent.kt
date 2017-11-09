@@ -5,5 +5,6 @@ package com.app.al.wifi.event
  *
  * @param ssId ssId
  * @param capabilities capabilities
+ * @param password パスワード
  */
-class WifiConnectEvent(val ssId: String, val capabilities: String)
+class WifiConnectEvent(val ssId: String, val capabilities: String, val password: String)

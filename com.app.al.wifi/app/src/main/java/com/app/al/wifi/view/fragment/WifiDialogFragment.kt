@@ -18,6 +18,8 @@ import com.app.al.wifi.viewmodel.WifiListViewModel
  */
 class WifiDialogFragment : BaseDialogFragment() {
 
+  private lateinit var wifiDialogViewModel: WifiDialogViewModel
+
   /**
    * ダイアログ生成
    *
@@ -28,7 +30,8 @@ class WifiDialogFragment : BaseDialogFragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     val binding = DataBindingUtil.inflate<FragmentWifiDialogBinding>(inflater, R.layout.fragment_wifi_dialog, container, false)
     val wifiListViewModel = arguments?.getSerializable(BUNDLE_OBJECT) as WifiListViewModel
-    binding.viewModel = WifiDialogViewModel(wifiListViewModel.ssId, wifiListViewModel.capabilities)
+    wifiDialogViewModel = WifiDialogViewModel(wifiListViewModel.ssId, wifiListViewModel.capabilities)
+    binding.viewModel = wifiDialogViewModel
     return binding.root
   }
 
@@ -40,6 +43,14 @@ class WifiDialogFragment : BaseDialogFragment() {
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
     initLayout()
+  }
+
+  /**
+   * onDestroy
+   */
+  override fun onDestroy() {
+    wifiDialogViewModel.dispose()
+    super.onDestroy()
   }
 
   /**

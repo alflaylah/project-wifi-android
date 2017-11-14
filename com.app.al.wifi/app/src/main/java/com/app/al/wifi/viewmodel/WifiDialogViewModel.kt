@@ -17,6 +17,7 @@ import org.greenrobot.eventbus.EventBus
  * @param ssId SSID
  * @param capabilities capabilities
  */
+
 class WifiDialogViewModel(val ssId: String, val capabilities: String) : BaseDialogViewModel(), Disposable {
 
   private var wifiModel: WifiModel = WifiModel()

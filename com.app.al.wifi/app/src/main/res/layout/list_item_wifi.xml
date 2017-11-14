@@ -25,21 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/list_item_height_middle"
         android:gravity="center"
-        android:text="@{viewModel.bssId}"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/list_item_height_middle"
-        android:gravity="center"
         android:text="@{viewModel.capabilities}"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/list_item_height_middle"
-        android:gravity="center"
-        android:text="@{viewModel.frequency}"
         />
 
     <TextView

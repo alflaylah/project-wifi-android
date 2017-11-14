@@ -1,7 +1,11 @@
 package com.app.al.wifi.viewmodel
 
+import android.content.ContentValues.TAG
+import android.databinding.BindingAdapter
 import android.databinding.ObservableBoolean
 import android.net.wifi.ScanResult
+import android.support.v4.widget.SwipeRefreshLayout
+import android.util.Log
 import java.io.Serializable
 
 /**
@@ -12,16 +16,11 @@ import java.io.Serializable
 class WifiListViewModel(scanResult: ScanResult) : Serializable {
 
   val ssId: String = scanResult.SSID
-  val bssId: String = scanResult.BSSID
   val capabilities: String = scanResult.capabilities
   val level: String = scanResult.level.toString()
-  val frequency: String = scanResult.frequency.toString()
   var isLoading = ObservableBoolean()
 
-  /**
-   * Wifi一覧更新時イベント
-   */
   fun onRefresh() {
-    isLoading.set(false)
+    Log.d(TAG, "onRefresh")
   }
 }

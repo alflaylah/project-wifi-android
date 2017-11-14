@@ -1,10 +1,13 @@
 package com.app.al.wifi.view.fragment
 
+import android.content.ContentValues
 import android.net.wifi.ScanResult
 import android.os.Build
 import android.os.Bundle
+import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +26,7 @@ import org.greenrobot.eventbus.ThreadMode
 /*
  * Wifi一覧Fragment
  */
-class WifiListFragment : BaseFragment() {
+class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
   private lateinit var recyclerView: RecyclerView
   private lateinit var adapter: WifiListAdapter
@@ -48,9 +51,16 @@ class WifiListFragment : BaseFragment() {
    */
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     val view = inflater.inflate(R.layout.fragment_wifi_list, container, false)
+    // TODO DataBindingが利用できないので暫定対応
+    var swipeRefreshLayout: SwipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout)
+//    swipeRefreshLayout.setOnRefreshListener(this)
     recyclerView = view.findViewById<View>(R.id.recycler_view) as RecyclerView
     recyclerView.layoutManager = LinearLayoutManager(activity)
     return view
+  }
+
+  override fun onRefresh() {
+    Log.d(ContentValues.TAG, "onRefresh")
   }
 
   /**

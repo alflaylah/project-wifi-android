@@ -1,10 +1,8 @@
 package com.app.al.wifi.viewmodel
 
 import android.content.ContentValues.TAG
-import android.databinding.BindingAdapter
 import android.databinding.ObservableBoolean
 import android.net.wifi.ScanResult
-import android.support.v4.widget.SwipeRefreshLayout
 import android.util.Log
 import java.io.Serializable
 

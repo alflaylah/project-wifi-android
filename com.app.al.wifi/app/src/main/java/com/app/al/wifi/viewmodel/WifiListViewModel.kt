@@ -16,9 +16,4 @@ class WifiListViewModel(scanResult: ScanResult) : Serializable {
   val ssId: String = scanResult.SSID
   val capabilities: String = scanResult.capabilities
   val level: String = scanResult.level.toString()
-  var isLoading = ObservableBoolean()
-
-  fun onRefresh() {
-    Log.d(TAG, "onRefresh")
-  }
 }

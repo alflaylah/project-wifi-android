@@ -28,6 +28,8 @@ import org.greenrobot.eventbus.ThreadMode
  */
 class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
+  private val TAG = WifiListFragment::class.simpleName!!
+
   private lateinit var recyclerView: RecyclerView
   private lateinit var adapter: WifiListAdapter
   private var wifiInformation = listOf<ScanResult>()
@@ -52,15 +54,11 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     val view = inflater.inflate(R.layout.fragment_wifi_list, container, false)
     // TODO DataBindingが利用できないので暫定対応
-    var swipeRefreshLayout: SwipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout)
-//    swipeRefreshLayout.setOnRefreshListener(this)
+    val swipeRefreshLayout: SwipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout)
+    swipeRefreshLayout.setOnRefreshListener(this)
     recyclerView = view.findViewById<View>(R.id.recycler_view) as RecyclerView
     recyclerView.layoutManager = LinearLayoutManager(activity)
     return view
-  }
-
-  override fun onRefresh() {
-    Log.d(ContentValues.TAG, "onRefresh")
   }
 
   /**
@@ -98,17 +96,22 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
   }
 
   /**
+   * Wifi一覧の更新
+   */
+  override fun onRefresh() {
+    Log.d(TAG, "onRefresh")
+  }
+
+  /**
    * 権限要求結果
    *
    * @param requestCode requestCode
    * @param permissions permissions
    * @param grantResults grantResults
    */
-  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>,
-      grantResults: IntArray) {
+  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
     when (requestCode) {
-      PermissionUtils.REQUEST_PERMISSION -> if (PermissionUtils.isRequestPermissionResult(
-          grantResults)) {
+      PermissionUtils.REQUEST_PERMISSION -> if (PermissionUtils.isRequestPermissionResult(grantResults)) {
         // 許可されました
         setAdapter()
       } else {

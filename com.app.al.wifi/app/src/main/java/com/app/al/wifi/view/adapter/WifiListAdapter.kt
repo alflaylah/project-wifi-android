@@ -20,8 +20,7 @@ import io.reactivex.subjects.PublishSubject
  * @param context context
  * @param wifiList Wifi一覧
  */
-class WifiListAdapter(context: Context, private val wifiList: List<ScanResult>) :
-    RecyclerView.Adapter<WifiListAdapter.ViewHolder>() {
+class WifiListAdapter(context: Context?, private var wifiList: List<ScanResult>) : RecyclerView.Adapter<WifiListAdapter.ViewHolder>() {
 
   private val inflater: LayoutInflater = LayoutInflater.from(context)
   private val publishSubject = PublishSubject.create<WifiListViewModel>()
@@ -52,6 +51,16 @@ class WifiListAdapter(context: Context, private val wifiList: List<ScanResult>) 
    * @return ItemCount
    */
   override fun getItemCount(): Int = wifiList.size
+
+  /**
+   * Wifi一覧更新
+   *
+   * @param wifiList Wifi一覧
+   */
+  fun reload(wifiList: List<ScanResult>) {
+    this.wifiList = wifiList
+    this.notifyDataSetChanged()
+  }
 
   /**
    * ViewHolderクラス

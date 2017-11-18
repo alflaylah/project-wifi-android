@@ -169,8 +169,8 @@ object WifiUtils {
    * @param activity Activity
    * @return 検索結果一覧
    */
-  fun getWifiInformationList(activity: FragmentActivity): List<ScanResult> {
-    val wifiManager = activity.applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
+  fun getWifiInformationList(activity: FragmentActivity?): List<ScanResult> {
+    val wifiManager = activity?.applicationContext?.getSystemService(WIFI_SERVICE) as WifiManager
     var scanResults = listOf<ScanResult>()
     if (wifiManager.startScan()) {
       // SSIDが空でない情報のみ抽出

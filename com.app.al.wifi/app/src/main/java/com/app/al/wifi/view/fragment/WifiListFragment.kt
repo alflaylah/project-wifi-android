@@ -1,7 +1,5 @@
 package com.app.al.wifi.view.fragment
 
-import android.content.ContentValues
-import android.net.wifi.ScanResult
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
@@ -32,7 +30,7 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
   private lateinit var recyclerView: RecyclerView
   private lateinit var adapter: WifiListAdapter
-  private var wifiInformation = listOf<ScanResult>()
+  private lateinit var swipeRefreshLayout: SwipeRefreshLayout
   private var disposable: Disposable? = null
 
   companion object {
@@ -53,8 +51,8 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
    */
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     val view = inflater.inflate(R.layout.fragment_wifi_list, container, false)
-    // TODO DataBindingが利用できないので暫定対応
-    val swipeRefreshLayout: SwipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout)
+    // TODO DataBindingが動作しないので暫定対応
+    swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout)
     swipeRefreshLayout.setOnRefreshListener(this)
     recyclerView = view.findViewById<View>(R.id.recycler_view) as RecyclerView
     recyclerView.layoutManager = LinearLayoutManager(activity)
@@ -100,6 +98,8 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
    */
   override fun onRefresh() {
     Log.d(TAG, "onRefresh")
+    adapter.reload(WifiUtils.getWifiInformationList(activity))
+    swipeRefreshLayout.isRefreshing = false
   }
 
   /**
@@ -142,8 +142,7 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
    * Wifi一覧アダプタ設定
    */
   private fun setAdapter() {
-    wifiInformation = WifiUtils.getWifiInformationList(activity!!)
-    adapter = WifiListAdapter(activity!!, wifiInformation)
+    adapter = WifiListAdapter(context, WifiUtils.getWifiInformationList(activity))
     recyclerView.adapter = adapter
     disposable = adapter.clickEvent
         .compose(bindToLifecycle())

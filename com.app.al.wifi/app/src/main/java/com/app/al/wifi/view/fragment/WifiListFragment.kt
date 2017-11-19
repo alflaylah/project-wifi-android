@@ -98,7 +98,7 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
    */
   override fun onRefresh() {
     Log.d(TAG, "onRefresh")
-    adapter.reload(WifiUtils.getWifiInformationList(activity))
+    adapter.reload(WifiUtils.getWifiList(activity))
     swipeRefreshLayout.isRefreshing = false
   }
 
@@ -142,7 +142,7 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
    * Wifi一覧アダプタ設定
    */
   private fun setAdapter() {
-    adapter = WifiListAdapter(context, WifiUtils.getWifiInformationList(activity))
+    adapter = WifiListAdapter(context, WifiUtils.getWifiList(activity))
     recyclerView.adapter = adapter
     disposable = adapter.clickEvent
         .compose(bindToLifecycle())

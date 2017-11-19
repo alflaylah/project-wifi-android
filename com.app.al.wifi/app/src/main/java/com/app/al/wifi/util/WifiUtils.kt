@@ -173,10 +173,9 @@ object WifiUtils {
     val wifiManager = activity?.applicationContext?.getSystemService(WIFI_SERVICE) as WifiManager
     var scanResults = listOf<ScanResult>()
     if (wifiManager.startScan()) {
-      // SSIDが空でない情報のみ抽出
-      scanResults = wifiManager.scanResults.filter { it.SSID.isNotEmpty() }
+      // SSIDが空でない情報をSSID、BSSID順にソートする
+      scanResults = wifiManager.scanResults.filter { it.SSID.isNotEmpty() }.sortedWith(compareBy({ it.SSID }, { it.BSSID }))
     }
-    // SSID、BSSID順にソートした状態で返却
-    return scanResults.sortedWith(compareBy({ it.SSID }, { it.BSSID }))
+    return scanResults
   }
 }

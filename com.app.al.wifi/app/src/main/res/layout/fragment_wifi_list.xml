@@ -3,10 +3,6 @@
     >
   <data>
     <variable
-        name="handlers"
-        type="com.app.al.wifi.Handlers"
-        />
-    <variable
         name="viewModel"
         type="com.app.al.wifi.viewmodel.WifiListViewModel"
         />

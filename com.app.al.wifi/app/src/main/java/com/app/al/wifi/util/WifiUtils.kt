@@ -173,22 +173,25 @@ object WifiUtils {
     val wifiManager = activity?.applicationContext?.getSystemService(WIFI_SERVICE) as WifiManager
     var scanResults = listOf<ScanResult>()
     if (wifiManager.startScan()) {
-      // SSIDが空でない情報をSSID、BSSID、level順にSortする
-      scanResults = wifiManager.scanResults.filter { it.SSID.isNotEmpty() }.sortedWith(compareBy({ it.SSID }, { it.BSSID }, { it.level }))
+      // TODO 条件が雑
+      scanResults = wifiManager.scanResults.
+          filter {
+            // SSIDが空ではない
+            it.SSID.isNotEmpty()
+          }.
+          sortedByDescending {
+            // levelで降順
+            it.level
+          }.
+          distinctBy {
+            // SSIDの重複排除
+            it.SSID
+          }.
+          sortedBy {
+            // SSIDで昇順
+            it.SSID
+          }
     }
-    // SSIDとBSSIDが同一の情報からLevelが一番高い情報のみを返却する
-    // TODO Sort順が変更されると成り立ちません
-    val wifiList = mutableListOf<ScanResult>()
-    for (scanResult in scanResults) {
-      val ssid = scanResult.SSID
-      val bssid = scanResult.BSSID
-      val level = scanResult.level
-      if (ssid == scanResult.SSID && bssid == scanResult.BSSID) {
-        if (level >= scanResult.level) {
-          wifiList.add(scanResult)
-        }
-      }
-    }
-    return wifiList
+    return scanResults
   }
 }

@@ -60,9 +60,16 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
    */
   override fun onBackPressed() {
     if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+      // ナビゲーションドロワー閉じます
       drawerLayout.closeDrawer(GravityCompat.START)
     } else {
-      super.onBackPressed()
+      if (fragmentManager.backStackEntryCount == 0) {
+        // アプリ終了します
+        finish()
+      } else {
+        // 前画面へ
+        fragmentManager.popBackStack()
+      }
     }
   }
 
@@ -116,6 +123,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     var bundle = Bundle()
     when (event.resId) {
       R.id.menu_license -> {
+        // ライセンス画面を開きます
         bundle.putString(ApplicationConst.BUNDLE_URL, getString(R.string.url_license))
         ApplicationUtils.startActivity(this, WebActivity::class.java, bundle)
       }

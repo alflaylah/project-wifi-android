@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="application_name">WiFi</string>
+  <!-- アプリケーション名 -->
+  <string name="application_name">Hanke Wi-Fi</string>
 
   <!-- 汎用 -->
   <string name="cancel">キャンセル</string>
@@ -13,13 +14,13 @@
   <string name="permission_not_move">移動しない</string>
 
   <!-- 画面タイトル -->
-  <string name="title_main">Wifi設定（仮）</string>
+  <string name="title_main">@string/application_name</string>
   <string name="title_license">ライセンス</string>
 
   <!-- ナビゲーション -->
   <string name="navigation_drawer_open">ナビゲーションドロワーを開きます</string>
   <string name="navigation_drawer_close">ナビゲーションドロワーを閉じます</string>
-  <string name="navigation_drawer_menu_license">ライセンス</string>
+  <string name="navigation_drawer_menu_license">@string/title_license</string>
 
   <!-- Wifiダイアログ -->
   <string name="wifi_signal_strength">Signal strength</string>

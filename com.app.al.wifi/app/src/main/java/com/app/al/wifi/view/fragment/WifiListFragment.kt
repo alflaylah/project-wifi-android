@@ -1,6 +1,5 @@
 package com.app.al.wifi.view.fragment
 
-import android.os.Build
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
@@ -10,10 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.app.al.wifi.R
-import com.app.al.wifi.const.ApplicationConst
 import com.app.al.wifi.event.WifiConnectEvent
 import com.app.al.wifi.ui.ada.WifiListAdapter
-import com.app.al.wifi.util.PermissionUtils
 import com.app.al.wifi.util.WifiUtils
 import com.app.al.wifi.view.fragment.base.BaseFragment
 import io.reactivex.disposables.Disposable
@@ -78,6 +75,14 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
   }
 
   /**
+   * onResume
+   */
+  override fun onResume() {
+    super.onResume()
+    onRefresh()
+  }
+
+  /**
    * onStop
    */
   override fun onStop() {
@@ -103,45 +108,16 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
   }
 
   /**
-   * 権限要求結果
-   *
-   * @param requestCode requestCode
-   * @param permissions permissions
-   * @param grantResults grantResults
-   */
-  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-    when (requestCode) {
-      PermissionUtils.REQUEST_PERMISSION -> if (PermissionUtils.isRequestPermissionResult(grantResults)) {
-        // 許可されました
-        setAdapter()
-      } else {
-        // 許可されませんでした
-        PermissionUtils.checkNeverRequestPermission(this, permissions, R.string.permission_denied_message)
-      }
-      else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-    }
-  }
-
-  /**
    * 初期処理
    */
   private fun init() {
-    initPermission()
-  }
-
-  /**
-   * 権限初期処理
-   */
-  private fun initPermission() {
-    if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.M) || PermissionUtils.isRequestPermission(this, ApplicationConst.PERMISSIONS)) {
-      setAdapter()
-    }
+    initAdapter()
   }
 
   /**
    * Wifi一覧アダプタ設定
    */
-  private fun setAdapter() {
+  private fun initAdapter() {
     adapter = WifiListAdapter(context, WifiUtils.getWifiList(activity))
     recyclerView.adapter = adapter
     disposable = adapter.clickEvent

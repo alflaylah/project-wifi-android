@@ -40,7 +40,7 @@ object ApplicationUtils {
   }
 
   /**
-   * アプリケーション詳細設定画面遷移
+   * アプリケーション設定画面遷移
    *
    * @param activity 遷移元Activity
    */

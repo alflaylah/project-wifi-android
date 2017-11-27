@@ -2,7 +2,8 @@ package com.app.al.wifi.view.fragment.base
 
 import com.app.al.wifi.MainApplication
 import com.app.al.wifi.di.ApplicationComponent
-import com.app.al.wifi.event.CloseDialogEvent
+import com.app.al.wifi.event.CloseEvent
+import com.app.al.wifi.event.CloseEvent.Companion.CloseType.DIALOG
 import com.trello.rxlifecycle2.components.support.RxDialogFragment
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -37,10 +38,16 @@ open class BaseDialogFragment : RxDialogFragment() {
   protected fun getApplicationComponent(): ApplicationComponent = (context?.applicationContext as MainApplication).getApplicationComponent()
 
   /**
-   * EventBus ダイアログクローズ
+   * EventBus クローズ
    */
   @Subscribe(threadMode = ThreadMode.POSTING)
-  protected fun onCloseDialogEvent(event: CloseDialogEvent) {
-    dismiss()
+  protected fun onCloseDialogEvent(event: CloseEvent) {
+    when (event.closeType) {
+      DIALOG -> {
+        dismiss()
+      }
+      else -> {
+      }
+    }
   }
 }

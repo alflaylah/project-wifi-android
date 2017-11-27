@@ -19,7 +19,11 @@ object ApplicationConst {
   val BUNDLE_URL = "BUNDLE_URL"
   val BUNDLE_OBJECT = "BUNDLE_OBJECT"
 
-  // 権限
+  // REQUEST_CODE
+  val REQUEST_PERMISSION = 20
+  val REQUEST_LOCATION = 20
+
+  // 許可が必要な権限
   val PERMISSIONS = arrayOf(
       permission.ACCESS_NETWORK_STATE,
       permission.ACCESS_WIFI_STATE,
@@ -31,7 +35,7 @@ object ApplicationConst {
   enum class WifiSecurityType(val type: String) {
     NONE("NONE"),
     WEP("WEP"),
-    PSK("PSK"),
+    PSK("PSK")
   }
 
   // Toolbar NavigationIconイベントタイプ

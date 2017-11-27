@@ -5,7 +5,6 @@ import android.databinding.ObservableField
 import io.reactivex.BackpressureStrategy
 import io.reactivex.Flowable
 
-
 /**
  * Reactiveユーティリティ
  */

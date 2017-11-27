@@ -1,6 +1,7 @@
 package com.app.al.wifi.viewmodel.base
 
-import com.app.al.wifi.event.CloseDialogEvent
+import com.app.al.wifi.event.CloseEvent
+import com.app.al.wifi.event.CloseEvent.Companion.CloseType.DIALOG
 import org.greenrobot.eventbus.EventBus
 
 /**
@@ -9,9 +10,9 @@ import org.greenrobot.eventbus.EventBus
 open class BaseDialogViewModel {
 
   /**
-   * キャンセルボタン押下
+   * NegativeButton押下
    */
-  fun onCancelClicked() {
-    EventBus.getDefault().post(CloseDialogEvent())
+  fun onNegativeButtonClicked() {
+    EventBus.getDefault().post(CloseEvent(DIALOG))
   }
 }

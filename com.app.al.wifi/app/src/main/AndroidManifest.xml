@@ -16,6 +16,7 @@
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
 
+    <!-- Activity -->
     <activity
         android:name=".view.activity.MainActivity"
         android:label="@string/application_name">
@@ -26,6 +27,21 @@
       </intent-filter>
     </activity>
 
-    <activity android:name=".view.activity.WebActivity"/>
+    <activity
+        android:name=".view.activity.WebActivity"
+        android:exported="false"/>
+
+    <!-- Service -->
+    <service android:name=".service.WifiService" android:exported="false"/>
+
+    <!-- BroadcastReceiver -->
+    <receiver
+        android:name=".receiver.WifiReceiver"
+        android:enabled="true"
+        android:exported="false">
+      <intent-filter>
+        <action android:name="android.net.wifi.STATE_CHANGE"/>
+      </intent-filter>
+    </receiver>
   </application>
 </manifest>

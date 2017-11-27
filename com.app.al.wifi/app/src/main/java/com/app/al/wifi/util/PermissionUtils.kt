@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.support.v4.content.ContextCompat
+import com.app.al.wifi.const.ApplicationConst
 import com.app.al.wifi.view.fragment.PermissionDialogFragment
 
 /**
@@ -15,7 +16,8 @@ import com.app.al.wifi.view.fragment.PermissionDialogFragment
 object PermissionUtils {
 
   private val TAG = PermissionUtils::class.simpleName!!
-  val REQUEST_PERMISSION = 1
+
+  val REQUEST_CODE = ApplicationConst.REQUEST_PERMISSION
 
   // 初回要求フラグ
   private var isFirstShouldShowRequest = false
@@ -27,9 +29,7 @@ object PermissionUtils {
    * @param permissions 要求権限
    * @return true：許可済み false：不許可
    */
-  fun isRequestPermission(activity: FragmentActivity, permissions: Array<String>): Boolean {
-    return isRequestPermission(activity, permissions, REQUEST_PERMISSION)
-  }
+  fun isRequestPermission(activity: FragmentActivity, permissions: Array<String>): Boolean = isRequestPermission(activity, permissions, REQUEST_CODE)
 
   /**
    * 要求した権限の許可/不許可を返却する
@@ -38,9 +38,7 @@ object PermissionUtils {
    * @param permissions 要求権限
    * @return true：許可済み false：不許可
    */
-  fun isRequestPermission(fragment: Fragment, permissions: Array<String>): Boolean {
-    return isRequestPermission(fragment, permissions, REQUEST_PERMISSION)
-  }
+  fun isRequestPermission(fragment: Fragment, permissions: Array<String>): Boolean = isRequestPermission(fragment, permissions, REQUEST_CODE)
 
   /**
    * 要求した権限の許可/不許可を返却する
@@ -50,12 +48,10 @@ object PermissionUtils {
    * @param requestCode リクエストコード
    * @return true：許可済み false：不許可
    */
-  private fun isRequestPermission(activity: FragmentActivity, permissions: Array<String>,
-      requestCode: Int): Boolean {
+  private fun isRequestPermission(activity: FragmentActivity, permissions: Array<String>, requestCode: Int): Boolean {
     // アプリケーションで要求した権限をユーザーが許可しているか判定
     for (permission in permissions) {
-      if (ContextCompat.checkSelfPermission(activity,
-          permission) != PackageManager.PERMISSION_GRANTED) {
+      if (ContextCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED) {
         // ユーザー許可していない状態
         // ユーザー許可ダイアログを表示
         ActivityCompat.requestPermissions(activity, permissions, requestCode)

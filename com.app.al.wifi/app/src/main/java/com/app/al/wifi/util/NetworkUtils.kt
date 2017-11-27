@@ -3,7 +3,6 @@ package com.app.al.wifi.util
 import android.content.Context
 import android.net.ConnectivityManager
 
-
 /**
  * ネットワークユーティリティ
  */

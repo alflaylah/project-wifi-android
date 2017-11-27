@@ -7,33 +7,46 @@
         />
   </data>
 
-  <LinearLayout
+  <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:orientation="vertical"
+      android:background="@drawable/story_style"
       >
-    <include layout="@layout/list_item_divider_line"/>
-
-    <TextView
+    <!-- Wifiアイコン -->
+    <ImageView
+        android:id="@+id/level"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/list_item_height_middle"
-        android:gravity="center"
-        android:text="@{viewModel.ssId}"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:adjustViewBounds="true"
+        android:contentDescription="@{viewModel.ssId}"
+        android:padding="@dimen/list_item_image_padding"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_signal_wifi_level_3"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/list_item_height_middle"
-        android:gravity="center"
-        android:text="@{viewModel.capabilities}"
-        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/level"
+        android:orientation="vertical"
+        >
+      <!-- SSID -->
+      <TextView
+          android:id="@+id/ssid"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@{viewModel.ssId}"
+          />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/list_item_height_middle"
-        android:gravity="center"
-        android:text="@{viewModel.level}"
-        />
-    <include layout="@layout/list_item_divider_line"/>
-  </LinearLayout>
+      <!-- 接続状態 -->
+      <TextView
+          android:id="@+id/status"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="ステータス"
+          />
+    </LinearLayout>
+  </RelativeLayout>
 </layout>

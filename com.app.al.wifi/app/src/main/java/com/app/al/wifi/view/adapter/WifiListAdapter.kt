@@ -32,8 +32,7 @@ class WifiListAdapter(context: Context?, private var wifiList: List<ScanResult>)
    * @param viewGroup viewGroup
    * @param i 位置
    */
-  override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): WifiListAdapter.ViewHolder =
-      ViewHolder(inflater.inflate(R.layout.list_item_wifi, viewGroup, false))
+  override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): WifiListAdapter.ViewHolder = ViewHolder(inflater.inflate(R.layout.list_item_wifi, viewGroup, false))
 
   /**
    * onBindViewHolder

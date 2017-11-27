@@ -2,14 +2,12 @@ package com.app.al.wifi.viewmodel
 
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
-import com.app.al.wifi.event.CloseDialogEvent
 import com.app.al.wifi.model.WifiModel
 import com.app.al.wifi.util.RxUtils
 import com.app.al.wifi.util.StringUtils
 import com.app.al.wifi.viewmodel.base.BaseDialogViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
-import org.greenrobot.eventbus.EventBus
 
 /**
  * WifiダイアログViewModel
@@ -17,8 +15,7 @@ import org.greenrobot.eventbus.EventBus
  * @param ssId SSID
  * @param capabilities capabilities
  */
-
-class WifiDialogViewModel(val ssId: String, val capabilities: String) : BaseDialogViewModel(), Disposable {
+class WifiDialogViewModel(val ssId: String, private val capabilities: String) : BaseDialogViewModel(), Disposable {
 
   private var wifiModel: WifiModel = WifiModel()
   private var compositeDisposable = CompositeDisposable()
@@ -50,6 +47,5 @@ class WifiDialogViewModel(val ssId: String, val capabilities: String) : BaseDial
   fun onConnectClicked() {
     // Wifi接続
     wifiModel.connect(ssId, capabilities, password.get())
-    EventBus.getDefault().post(CloseDialogEvent())
   }
 }

@@ -4,12 +4,11 @@ import android.app.Dialog
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import com.app.al.wifi.R
-import com.app.al.wifi.util.ApplicationUtils
 import com.app.al.wifi.view.fragment.base.BaseDialogFragment
 import com.app.al.wifi.viewmodel.PermissionDialogViewModel
 
 /**
- * 権限ダイアログFragment
+ * 権限ダイアログ
  */
 class PermissionDialogFragment : BaseDialogFragment() {
 
@@ -22,32 +21,32 @@ class PermissionDialogFragment : BaseDialogFragment() {
    */
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
     permissionDialogViewModel = PermissionDialogViewModel()
-    val message = arguments?.getString(ARG_PERMISSION_NAME)
+    val message = arguments?.getString(ARG_MESSAGE_KEY)
     val dialogBuilder = AlertDialog.Builder(context!!)
         .setMessage(message)
-        .setPositiveButton(activity?.getString(R.string.permission_move)) { dialog, which ->
+        .setPositiveButton(activity?.getString(R.string.permission_move), { dialog, which ->
           dismiss()
-          ApplicationUtils.startApplicationDetailSettings(activity!!)
-        }
+          permissionDialogViewModel.onPositiveButtonClicked()
+        })
         .setNegativeButton(activity?.getString(R.string.permission_not_move), { dialog, which ->
-          permissionDialogViewModel.onCancelClicked()
+          permissionDialogViewModel.onNegativeButtonClicked()
         })
     return dialogBuilder.create()
   }
 
   companion object {
-    private val ARG_PERMISSION_NAME = "permissionName"
+    private val ARG_MESSAGE_KEY = "message_key"
 
     /**
      * インスタンス生成
      *
      * @param message 表示メッセージ
-     * @return 権限ダイアログフラグメント
+     * @return 権限ダイアログ
      */
     fun newInstance(message: String): PermissionDialogFragment {
       val fragment = PermissionDialogFragment()
       val args = Bundle()
-      args.putString(ARG_PERMISSION_NAME, message)
+      args.putString(ARG_MESSAGE_KEY, message)
       fragment.arguments = args
       return fragment
     }

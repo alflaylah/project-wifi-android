@@ -137,10 +137,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
    * イベント初期処理
    */
   private fun initEvent() {
-//    compositeDisposable.add(RxEventBus.stream(CloseEvent::class.java).subscribe({
-//      onCloseEvent(it)
-//    }))
-//     dispose = RxBusProvider.instance.toObservable(CloseEvent::class.java).observeOn(AndroidSchedulers.mainThread()).subscribe({ onCloseEvent(it) })
     compositeDisposable.add(RxBusProvider.instance.toObservable(CloseEvent::class.java).observeOn(AndroidSchedulers.mainThread()).subscribe({ onCloseEvent(it) }))
     compositeDisposable.add(RxBusProvider.instance.toObservable(StartEvent::class.java).observeOn(AndroidSchedulers.mainThread()).subscribe({ onStartEvent(it) }))
     compositeDisposable.add(RxBusProvider.instance.toObservable(WifiEvent::class.java).observeOn(AndroidSchedulers.mainThread()).subscribe({ onWifiEvent(it) }))

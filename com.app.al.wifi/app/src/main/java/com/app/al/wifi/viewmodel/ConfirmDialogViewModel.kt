@@ -14,8 +14,6 @@ class ConfirmDialogViewModel : BaseDialogViewModel() {
    * PositiveButton押下
    */
   fun onPositiveButtonClicked() {
-    // RxEventBus
-//    RxEventBus.post(CloseEvent(APPLICATION))
     RxBusProvider.instance.post(CloseEvent(APPLICATION))
   }
 }

@@ -13,7 +13,6 @@ open class BaseDialogViewModel {
    * NegativeButton押下
    */
   fun onNegativeButtonClicked() {
-//    RxEventBus.post(CloseEvent(DIALOG))
     RxBusProvider.instance.post(CloseEvent(DIALOG))
   }
 }

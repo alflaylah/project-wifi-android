@@ -3,20 +3,20 @@ package com.app.al.wifi.view.activity.base
 import android.os.Bundle
 import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import com.app.al.wifi.MainApplication
 import com.app.al.wifi.R
 import com.app.al.wifi.const.ApplicationConst.NavigationIconEventType
 import com.app.al.wifi.const.ApplicationConst.NavigationIconEventType.RETURN
 import com.app.al.wifi.di.ApplicationComponent
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 /**
  * 基底Activity
  */
-open class BaseActivity : RxAppCompatActivity() {
+open class BaseActivity : AppCompatActivity() {
 
   private var toolbar: Toolbar? = null
 
@@ -38,7 +38,7 @@ open class BaseActivity : RxAppCompatActivity() {
    */
   override fun onDestroy() {
     super.onDestroy()
-    if (!compositeDisposable.isDisposed) compositeDisposable.dispose()
+    if (!compositeDisposable.isDisposed) compositeDisposable.clear()
   }
 
   /**

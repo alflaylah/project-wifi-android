@@ -13,9 +13,9 @@ import com.app.al.wifi.R
 import com.app.al.wifi.const.ApplicationConst
 import com.app.al.wifi.event.CloseEvent
 import com.app.al.wifi.event.CloseEvent.Companion.CloseType.APPLICATION
-import com.app.al.wifi.event.RxBus
-import com.app.al.wifi.event.StartActivityEvent
+import com.app.al.wifi.event.StartEvent
 import com.app.al.wifi.event.WifiEvent
+import com.app.al.wifi.event.bus.RxBusProvider
 import com.app.al.wifi.util.ApplicationUtils
 import com.app.al.wifi.util.LocationUtils
 import com.app.al.wifi.util.PermissionUtils
@@ -24,9 +24,6 @@ import com.app.al.wifi.view.fragment.ConfirmDialogFragment
 import com.app.al.wifi.view.fragment.WifiListFragment
 import com.app.al.wifi.viewmodel.MainViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import javax.inject.Inject
 
 /**
@@ -50,22 +47,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
     init()
-  }
-
-  /**
-   * onStart
-   */
-  override fun onStart() {
-    super.onStart()
-    EventBus.getDefault().register(this)
-  }
-
-  /**
-   * onStop
-   */
-  override fun onStop() {
-    super.onStop()
-    EventBus.getDefault().unregister(this)
   }
 
   /**
@@ -145,14 +126,24 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
    */
   private fun init() {
     getApplicationComponent().inject(this)
-    compositeDisposable.add(RxBus.toObservable(CloseEvent::class.java)
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({ onCloseEvent(it) })
-    )
     initToolBar(R.string.title_main)
+    initEvent()
     initDrawerLayout()
     initFragment()
     initPermission()
+  }
+
+  /**
+   * イベント初期処理
+   */
+  private fun initEvent() {
+//    compositeDisposable.add(RxEventBus.stream(CloseEvent::class.java).subscribe({
+//      onCloseEvent(it)
+//    }))
+//     dispose = RxBusProvider.instance.toObservable(CloseEvent::class.java).observeOn(AndroidSchedulers.mainThread()).subscribe({ onCloseEvent(it) })
+    compositeDisposable.add(RxBusProvider.instance.toObservable(CloseEvent::class.java).observeOn(AndroidSchedulers.mainThread()).subscribe({ onCloseEvent(it) }))
+    compositeDisposable.add(RxBusProvider.instance.toObservable(StartEvent::class.java).observeOn(AndroidSchedulers.mainThread()).subscribe({ onStartEvent(it) }))
+    compositeDisposable.add(RxBusProvider.instance.toObservable(WifiEvent::class.java).observeOn(AndroidSchedulers.mainThread()).subscribe({ onWifiEvent(it) }))
   }
 
   /**
@@ -193,17 +184,16 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
    *
    * @param event 画面遷移イベント
    */
-  @Subscribe(threadMode = ThreadMode.POSTING)
-  fun onStartActivityEvent(event: StartActivityEvent) {
-    val bundle = Bundle()
+  private fun onStartEvent(event: StartEvent) {
     when (event.id) {
-      R.id.menu_license -> {
+      StartEvent.APP_LICENSE -> {
         // ライセンス画面を開きます
+        val bundle = Bundle()
         bundle.putString(ApplicationConst.BUNDLE_URL, getString(R.string.url_license))
         ApplicationUtils.startActivity(this, WebActivity::class.java, bundle)
       }
-      StartActivityEvent.OS_SETTING -> {
-        // 権限付与の為、設定画面を開きます。
+      StartEvent.OS_SETTING -> {
+        // 権限付与の為、OSの設定画面を開きます。
         ApplicationUtils.startApplicationDetailSettings(this)
       }
     }
@@ -214,7 +204,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
    *
    * @param event クローズイベント
    */
-  fun onCloseEvent(event: CloseEvent) {
+  private fun onCloseEvent(event: CloseEvent) {
     when (event.closeType) {
       APPLICATION -> {
         finish()
@@ -229,8 +219,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
    *
    * @param event Wifi関連イベント
    */
-  @Subscribe(threadMode = ThreadMode.POSTING)
-  fun onWifiReceiverEvent(event: WifiEvent) {
+  private fun onWifiEvent(event: WifiEvent) {
     if (!event.message.isNullOrEmpty()) {
       Snackbar.make(findViewById(R.id.linear_layout), event.message.toString(), Snackbar.LENGTH_LONG).show()
     }

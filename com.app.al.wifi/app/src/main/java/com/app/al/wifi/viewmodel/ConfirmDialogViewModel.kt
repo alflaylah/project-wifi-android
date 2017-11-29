@@ -2,7 +2,7 @@ package com.app.al.wifi.viewmodel
 
 import com.app.al.wifi.event.CloseEvent
 import com.app.al.wifi.event.CloseEvent.Companion.CloseType.APPLICATION
-import com.app.al.wifi.event.RxBus
+import com.app.al.wifi.event.bus.RxBusProvider
 import com.app.al.wifi.viewmodel.base.BaseDialogViewModel
 
 /**
@@ -14,6 +14,8 @@ class ConfirmDialogViewModel : BaseDialogViewModel() {
    * PositiveButton押下
    */
   fun onPositiveButtonClicked() {
-    RxBus.send(CloseEvent(APPLICATION))
+    // RxEventBus
+//    RxEventBus.post(CloseEvent(APPLICATION))
+    RxBusProvider.instance.post(CloseEvent(APPLICATION))
   }
 }

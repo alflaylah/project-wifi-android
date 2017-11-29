@@ -1,7 +1,7 @@
 package com.app.al.wifi.viewmodel
 
-import com.app.al.wifi.event.StartActivityEvent
-import org.greenrobot.eventbus.EventBus
+import com.app.al.wifi.event.StartEvent
+import com.app.al.wifi.event.bus.RxBusProvider
 
 /**
  * MainViewModel
@@ -14,6 +14,6 @@ class MainViewModel {
    * @param resId リソースID
    */
   fun onNavigationItemSelected(resId: Int) {
-    EventBus.getDefault().post(StartActivityEvent(resId))
+    RxBusProvider.instance.post(StartEvent(resId))
   }
 }

@@ -5,13 +5,25 @@ import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import com.app.al.wifi.view.fragment.base.BaseDialogFragment
 import com.app.al.wifi.viewmodel.ConfirmDialogViewModel
+import javax.inject.Inject
 
 /**
  * 確認ダイアログ
  */
 class ConfirmDialogFragment : BaseDialogFragment() {
 
-  private lateinit var confirmDialogViewModel: ConfirmDialogViewModel
+  @Inject
+  lateinit var confirmDialogViewModel: ConfirmDialogViewModel
+
+  /**
+   * onCreate
+   *
+   * @param savedInstanceState savedInstanceState
+   */
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    getApplicationComponent().inject(this)
+  }
 
   /**
    * ダイアログ生成
@@ -19,7 +31,6 @@ class ConfirmDialogFragment : BaseDialogFragment() {
    * @param savedInstanceState 引き継ぎパラメータ
    */
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-    confirmDialogViewModel = ConfirmDialogViewModel()
     val message = arguments?.getString(ConfirmDialogFragment.ARG_MESSAGE_KEY)
     val positive = arguments?.getString(ConfirmDialogFragment.ARG_POSITIVE_KEY)
     val negative = arguments?.getString(ConfirmDialogFragment.ARG_NEGATIVE_KEY)

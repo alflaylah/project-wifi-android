@@ -10,13 +10,12 @@ import android.view.View
 import android.view.ViewGroup
 import com.app.al.wifi.R
 import com.app.al.wifi.event.WifiEvent
+import com.app.al.wifi.event.bus.RxBusProvider
 import com.app.al.wifi.ui.ada.WifiListAdapter
 import com.app.al.wifi.util.WifiUtils
 import com.app.al.wifi.view.fragment.base.BaseFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 
 /*
  * Wifi一覧Fragment
@@ -67,27 +66,11 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
   }
 
   /**
-   * onStart
-   */
-  override fun onStart() {
-    super.onStart()
-    EventBus.getDefault().register(this)
-  }
-
-  /**
    * onResume
    */
   override fun onResume() {
     super.onResume()
     onRefresh()
-  }
-
-  /**
-   * onStop
-   */
-  override fun onStop() {
-    super.onStop()
-    EventBus.getDefault().unregister(this)
   }
 
   /**
@@ -111,7 +94,15 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
    * 初期処理
    */
   private fun init() {
+//    initEvent()
     initAdapter()
+  }
+
+  /**
+   * イベント初期処理
+   */
+  private fun initEvent() {
+    compositeDisposable.add(RxBusProvider.instance.toObservable(WifiEvent::class.java).observeOn(AndroidSchedulers.mainThread()).subscribe({ onWifiEvent(it) }))
   }
 
   /**
@@ -121,7 +112,6 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
     adapter = WifiListAdapter(context, WifiUtils.getWifiList(activity))
     recyclerView.adapter = adapter
     disposable = adapter.clickEvent
-        .compose(bindToLifecycle())
         .subscribe({
           WifiDialogFragment.newInstance(it).show(fragmentManager, "test")
         })
@@ -132,8 +122,7 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
    *
    * @param event Wifi関連イベント
    */
-  @Subscribe(threadMode = ThreadMode.POSTING)
-  fun onWifiConnectEvent(event: WifiEvent) {
+  private fun onWifiEvent(event: WifiEvent) {
     if (!event.ssid.isNullOrEmpty()) {
       WifiUtils.connect(context!!, event.ssid!!, event.capabilities!!, event.password!!)
     }

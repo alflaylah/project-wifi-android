@@ -9,7 +9,7 @@ import android.util.Log
 import com.app.al.wifi.R
 import com.app.al.wifi.const.ApplicationConst
 import com.app.al.wifi.event.WifiEvent
-import org.greenrobot.eventbus.EventBus
+import com.app.al.wifi.event.bus.RxBusProvider
 
 /**
  * Wifiレシーバー
@@ -45,12 +45,12 @@ class WifiReceiver : BroadcastReceiver() {
         }
         NetworkInfo.State.CONNECTING -> {
           val message = String.format(context.getString(R.string.wifi_connecting_message), ssid?.replace(ApplicationConst.DOUBLE_QUOTE, ApplicationConst.EMPTY))
-          EventBus.getDefault().post(WifiEvent(message))
+          RxBusProvider.instance.post(WifiEvent(message))
           Log.d(TAG, NetworkInfo.State.CONNECTING.toString())
         }
         NetworkInfo.State.CONNECTED -> {
           val message = String.format(context.getString(R.string.wifi_connected_message), ssid?.replace(ApplicationConst.DOUBLE_QUOTE, ApplicationConst.EMPTY))
-          EventBus.getDefault().post(WifiEvent(message))
+          RxBusProvider.instance.post(WifiEvent(message))
           Log.d(TAG, NetworkInfo.State.CONNECTED.toString())
         }
         NetworkInfo.State.DISCONNECTING -> {

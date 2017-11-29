@@ -6,7 +6,10 @@ import android.content.Intent
 import android.net.NetworkInfo
 import android.net.wifi.WifiManager
 import android.util.Log
-import android.widget.Toast
+import com.app.al.wifi.R
+import com.app.al.wifi.const.ApplicationConst
+import com.app.al.wifi.event.WifiEvent
+import org.greenrobot.eventbus.EventBus
 
 /**
  * Wifiレシーバー
@@ -14,6 +17,9 @@ import android.widget.Toast
 class WifiReceiver : BroadcastReceiver() {
 
   private val TAG = WifiReceiver::class.simpleName!!
+
+  private val IGNORE_01 = "0x"
+  private val IGNORE_02 = "<unknown ssid>"
 
   /**
    * onReceive
@@ -24,29 +30,33 @@ class WifiReceiver : BroadcastReceiver() {
   override fun onReceive(context: Context, intent: Intent) {
     if (intent.action == WifiManager.NETWORK_STATE_CHANGED_ACTION) {
       val networkInfo = intent.getParcelableExtra<NetworkInfo>(WifiManager.EXTRA_NETWORK_INFO)
+      val ssid: String? = networkInfo.extraInfo
+      if (ssid.isNullOrBlank() || ssid.equals(IGNORE_01) || ssid.equals(IGNORE_02)) {
+        // TODO
+        // ssidを取得できていないようなら終了
+        return
+      }
       when (networkInfo.state!!) {
         NetworkInfo.State.DISCONNECTED -> {
-          Toast.makeText(context, NetworkInfo.State.DISCONNECTED.toString(), Toast.LENGTH_LONG).show()
           Log.d(TAG, NetworkInfo.State.DISCONNECTED.toString())
         }
         NetworkInfo.State.SUSPENDED -> {
-          Toast.makeText(context, NetworkInfo.State.SUSPENDED.toString(), Toast.LENGTH_LONG).show()
           Log.d(TAG, NetworkInfo.State.SUSPENDED.toString())
         }
         NetworkInfo.State.CONNECTING -> {
-          Toast.makeText(context, NetworkInfo.State.CONNECTING.toString(), Toast.LENGTH_LONG).show()
+          val message = String.format(context.getString(R.string.wifi_connecting_message), ssid?.replace(ApplicationConst.DOUBLE_QUOTE, ApplicationConst.EMPTY))
+          EventBus.getDefault().post(WifiEvent(message))
           Log.d(TAG, NetworkInfo.State.CONNECTING.toString())
         }
         NetworkInfo.State.CONNECTED -> {
-          Toast.makeText(context, NetworkInfo.State.CONNECTED.toString(), Toast.LENGTH_LONG).show()
+          val message = String.format(context.getString(R.string.wifi_connected_message), ssid?.replace(ApplicationConst.DOUBLE_QUOTE, ApplicationConst.EMPTY))
+          EventBus.getDefault().post(WifiEvent(message))
           Log.d(TAG, NetworkInfo.State.CONNECTED.toString())
         }
         NetworkInfo.State.DISCONNECTING -> {
-          Toast.makeText(context, NetworkInfo.State.DISCONNECTING.toString(), Toast.LENGTH_LONG).show()
           Log.d(TAG, NetworkInfo.State.DISCONNECTING.toString())
         }
         NetworkInfo.State.UNKNOWN -> {
-          Toast.makeText(context, NetworkInfo.State.UNKNOWN.toString(), Toast.LENGTH_LONG).show()
           Log.d(TAG, NetworkInfo.State.UNKNOWN.toString())
         }
       }

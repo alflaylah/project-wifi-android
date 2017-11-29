@@ -9,7 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.app.al.wifi.R
-import com.app.al.wifi.event.WifiConnectEvent
+import com.app.al.wifi.event.WifiEvent
 import com.app.al.wifi.ui.ada.WifiListAdapter
 import com.app.al.wifi.util.WifiUtils
 import com.app.al.wifi.view.fragment.base.BaseFragment
@@ -128,12 +128,14 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
   }
 
   /**
-   * EventBus Wifi接続
+   * Wifi接続
    *
-   * @param event Wifi接続イベント
+   * @param event Wifi関連イベント
    */
   @Subscribe(threadMode = ThreadMode.POSTING)
-  fun onWifiConnectEvent(event: WifiConnectEvent) {
-    WifiUtils.connect(context!!, event.ssId, event.capabilities, event.password)
+  fun onWifiConnectEvent(event: WifiEvent) {
+    if (!event.ssid.isNullOrEmpty()) {
+      WifiUtils.connect(context!!, event.ssid!!, event.capabilities!!, event.password!!)
+    }
   }
 }

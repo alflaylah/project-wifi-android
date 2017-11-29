@@ -1,3 +1,11 @@
 <resources>
+  <!-- 権限許可ダイアログで利用 -->
   <string name="permission_denied_message">WIFIの状態を保存したい場合、ネットワークの権限を有効にする必要があります。アプリ情報画面に移動しますか？</string>
+
+  <!-- アプリケーション終了ダイアログで利用 -->
+  <string name="close_application_message">アプリケーションを終了しますか？</string>
+
+  <!-- Wifi接続メッセージで利用 -->
+  <string name="wifi_connecting_message">Wi-Fi：%sに接続中です</string>
+  <string name="wifi_connected_message">Wi-Fi：%sに接続しました</string>
 </resources>

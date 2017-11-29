@@ -1,6 +1,6 @@
 package com.app.al.wifi.model
 
-import com.app.al.wifi.event.WifiConnectEvent
+import com.app.al.wifi.event.WifiEvent
 
 import org.greenrobot.eventbus.EventBus
 
@@ -17,6 +17,6 @@ class WifiModel {
    * @param password パスワード
    */
   fun connect(ssId: String, capabilities: String, password: String) {
-    EventBus.getDefault().post(WifiConnectEvent(ssId, capabilities, password))
+    EventBus.getDefault().post(WifiEvent(ssId, capabilities, password))
   }
 }

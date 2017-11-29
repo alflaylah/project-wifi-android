@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
@@ -13,6 +14,7 @@ import com.app.al.wifi.const.ApplicationConst
 import com.app.al.wifi.event.CloseEvent
 import com.app.al.wifi.event.CloseEvent.Companion.CloseType.APPLICATION
 import com.app.al.wifi.event.StartActivityEvent
+import com.app.al.wifi.event.WifiEvent
 import com.app.al.wifi.util.ApplicationUtils
 import com.app.al.wifi.util.LocationUtils
 import com.app.al.wifi.util.PermissionUtils
@@ -74,7 +76,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     } else {
       if (fragmentManager.backStackEntryCount == 0) {
         // アプリ終了確認
-        ConfirmDialogFragment.newInstance(getString(R.string.close_message), getString(R.string.close), getString(R.string.not_close)).show(supportFragmentManager, TAG)
+        ConfirmDialogFragment.newInstance(getString(R.string.close_application_message), getString(R.string.close), getString(R.string.not_close)).show(supportFragmentManager, TAG)
       } else {
         // 前画面へ
         fragmentManager.popBackStack()
@@ -181,13 +183,13 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
   }
 
   /**
-   * EventBus 画面遷移
+   * 画面遷移
    *
    * @param event 画面遷移イベント
    */
   @Subscribe(threadMode = ThreadMode.POSTING)
   fun onStartActivityEvent(event: StartActivityEvent) {
-    var bundle = Bundle()
+    val bundle = Bundle()
     when (event.id) {
       R.id.menu_license -> {
         // ライセンス画面を開きます
@@ -202,16 +204,30 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
   }
 
   /**
-   * EventBus クローズ
+   * アプリケーション終了
+   *
+   * @param event クローズイベント
    */
   @Subscribe(threadMode = ThreadMode.POSTING)
-  fun onCloseDialogEvent(event: CloseEvent) {
+  fun onCloseEvent(event: CloseEvent) {
     when (event.closeType) {
       APPLICATION -> {
         finish()
       }
       else -> {
       }
+    }
+  }
+
+  /**
+   * Wifi接続メッセージ取得
+   *
+   * @param event Wifi関連イベント
+   */
+  @Subscribe(threadMode = ThreadMode.POSTING)
+  fun onWifiReceiverEvent(event: WifiEvent) {
+    if (!event.message.isNullOrEmpty()) {
+      Snackbar.make(findViewById(R.id.linear_layout), event.message.toString(), Snackbar.LENGTH_LONG).show()
     }
   }
 }

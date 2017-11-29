@@ -9,7 +9,7 @@ import java.io.Serializable
  * @param scanResult アクセスポイント検索結果
  */
 class WifiListViewModel(scanResult: ScanResult) : Serializable {
-  val ssId: String = scanResult.SSID
+  val ssid: String = scanResult.SSID
   val capabilities: String = scanResult.capabilities
   val level: String = scanResult.level.toString()
 }

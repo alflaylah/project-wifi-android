@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/label_ssid"
         android:layout_marginTop="4dp"
-        android:text="@{viewModel.ssId}"
+        android:text="@{viewModel.ssid}"
         android:textColor="#000000"
         android:textSize="@dimen/dialog_item_entry"
         />

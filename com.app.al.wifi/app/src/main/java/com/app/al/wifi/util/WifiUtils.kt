@@ -144,8 +144,7 @@ object WifiUtils {
    */
   private fun getPassword(wifiSecurityType: WifiSecurityType, password: String): String = when (wifiSecurityType) {
     WEP -> {
-      if ((password.length == 10 || password.length == 26) && password.matches(
-          ApplicationConst.REGEX_WEP.toRegex())) {
+      if ((password.length == 10 || password.length == 26) && password.matches(ApplicationConst.REGEX_WEP.toRegex())) {
         password
       } else {
         StringUtils.getFormatDoubleQuote(password)

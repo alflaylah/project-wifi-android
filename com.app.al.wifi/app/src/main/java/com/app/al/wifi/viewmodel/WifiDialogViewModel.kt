@@ -4,7 +4,6 @@ import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import com.app.al.wifi.model.WifiModel
 import com.app.al.wifi.util.RxUtils
-import com.app.al.wifi.util.StringUtils
 import com.app.al.wifi.viewmodel.base.BaseDialogViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -12,10 +11,10 @@ import io.reactivex.disposables.Disposable
 /**
  * WifiダイアログViewModel
  *
- * @param ssId SSID
+ * @param ssid SSID
  * @param capabilities capabilities
  */
-class WifiDialogViewModel(val ssId: String, private val capabilities: String) : BaseDialogViewModel(), Disposable {
+class WifiDialogViewModel(val ssid: String, private val capabilities: String) : BaseDialogViewModel(), Disposable {
 
   private var wifiModel: WifiModel = WifiModel()
   private var compositeDisposable = CompositeDisposable()
@@ -24,7 +23,7 @@ class WifiDialogViewModel(val ssId: String, private val capabilities: String) : 
 
   init {
     // パスワード未入力時、接続ボタンは押させない
-    compositeDisposable.add(RxUtils.toFlowable(password).subscribe({ connectEnabled.set(!StringUtils.isEmpty(it)) }))
+    compositeDisposable.add(RxUtils.toFlowable(password).subscribe({ connectEnabled.set(!it.isNotEmpty()) }))
   }
 
   /**
@@ -46,6 +45,6 @@ class WifiDialogViewModel(val ssId: String, private val capabilities: String) : 
    */
   fun onConnectClicked() {
     // Wifi接続
-    wifiModel.connect(ssId, capabilities, password.get())
+    wifiModel.connect(ssid, capabilities, password.get())
   }
 }

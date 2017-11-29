@@ -1,6 +1,5 @@
 package com.app.al.wifi
 
-import com.app.al.wifi.util.StringUtils
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

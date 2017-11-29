@@ -13,6 +13,7 @@ import com.app.al.wifi.R
 import com.app.al.wifi.const.ApplicationConst
 import com.app.al.wifi.event.CloseEvent
 import com.app.al.wifi.event.CloseEvent.Companion.CloseType.APPLICATION
+import com.app.al.wifi.event.RxBus
 import com.app.al.wifi.event.StartActivityEvent
 import com.app.al.wifi.event.WifiEvent
 import com.app.al.wifi.util.ApplicationUtils
@@ -22,6 +23,7 @@ import com.app.al.wifi.view.activity.base.BaseActivity
 import com.app.al.wifi.view.fragment.ConfirmDialogFragment
 import com.app.al.wifi.view.fragment.WifiListFragment
 import com.app.al.wifi.viewmodel.MainViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -143,6 +145,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
    */
   private fun init() {
     getApplicationComponent().inject(this)
+    compositeDisposable.add(RxBus.toObservable(CloseEvent::class.java)
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe({ onCloseEvent(it) })
+    )
     initToolBar(R.string.title_main)
     initDrawerLayout()
     initFragment()
@@ -208,7 +214,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
    *
    * @param event クローズイベント
    */
-  @Subscribe(threadMode = ThreadMode.POSTING)
   fun onCloseEvent(event: CloseEvent) {
     when (event.closeType) {
       APPLICATION -> {

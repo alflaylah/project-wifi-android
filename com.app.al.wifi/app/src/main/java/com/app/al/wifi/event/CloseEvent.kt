@@ -1,7 +1,7 @@
 package com.app.al.wifi.event
 
 /**
- * EventBus クローズイベント
+ * クローズイベント
  *
  * @param closeType クローズ対象判定ID
  */

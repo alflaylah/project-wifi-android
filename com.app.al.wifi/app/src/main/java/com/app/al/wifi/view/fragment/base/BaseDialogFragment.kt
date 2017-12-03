@@ -65,7 +65,7 @@ open class BaseDialogFragment : DialogFragment() {
   protected fun getApplicationComponent(): ApplicationComponent = (context?.applicationContext as MainApplication).getApplicationComponent()
 
   /**
-   * EventBus ダイアログクローズ
+   * ダイアログクローズ
    */
   private fun onCloseDialogEvent(event: CloseEvent) {
     when (event.closeType) {

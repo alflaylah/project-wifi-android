@@ -1,7 +1,7 @@
 package com.app.al.wifi.event
 
 /**
- * EventBus Wifi関連イベント
+ * Wifi関連イベント
  */
 class WifiEvent() {
 

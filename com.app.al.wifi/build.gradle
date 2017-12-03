@@ -1,5 +1,8 @@
 buildscript {
-  ext.kotlin_version = '1.1.61'
+  // バージョン
+  ext.kotlin_version = '1.2.0'
+  ext.android_support_version = '27.0.1'
+  // リポジトリ
   repositories {
     jcenter()
     google()

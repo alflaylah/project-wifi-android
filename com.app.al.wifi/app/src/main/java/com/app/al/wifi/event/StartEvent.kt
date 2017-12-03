@@ -3,7 +3,7 @@ package com.app.al.wifi.event
 import com.app.al.wifi.R
 
 /**
- * EventBus 画面遷移イベント
+ * 画面遷移イベント
  *
  * @param id 遷移先判定ID
  */

@@ -1,7 +1,7 @@
 package com.app.al.wifi
 
 import android.support.test.runner.AndroidJUnit4
-import com.app.al.wifi.viewmodel.WifiDialogViewModel
+import com.app.al.wifi.viewmodel.dialog.WifiDialogViewModel
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test

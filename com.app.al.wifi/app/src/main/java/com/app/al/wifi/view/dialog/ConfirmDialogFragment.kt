@@ -1,10 +1,10 @@
-package com.app.al.wifi.view.fragment
+package com.app.al.wifi.view.dialog
 
 import android.app.Dialog
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
-import com.app.al.wifi.view.fragment.base.BaseDialogFragment
-import com.app.al.wifi.viewmodel.ConfirmDialogViewModel
+import com.app.al.wifi.view.dialog.base.BaseDialogFragment
+import com.app.al.wifi.viewmodel.dialog.ConfirmDialogViewModel
 import javax.inject.Inject
 
 /**
@@ -31,9 +31,9 @@ class ConfirmDialogFragment : BaseDialogFragment() {
    * @param savedInstanceState 引き継ぎパラメータ
    */
   override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-    val message = arguments?.getString(ConfirmDialogFragment.ARG_MESSAGE_KEY)
-    val positive = arguments?.getString(ConfirmDialogFragment.ARG_POSITIVE_KEY)
-    val negative = arguments?.getString(ConfirmDialogFragment.ARG_NEGATIVE_KEY)
+    val message = arguments?.getString(ARG_MESSAGE_KEY)
+    val positive = arguments?.getString(ARG_POSITIVE_KEY)
+    val negative = arguments?.getString(ARG_NEGATIVE_KEY)
     val dialogBuilder = AlertDialog.Builder(context!!)
         .setMessage(message)
         .setPositiveButton(positive, { dialog, which ->

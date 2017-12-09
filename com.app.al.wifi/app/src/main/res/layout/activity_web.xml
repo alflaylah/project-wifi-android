@@ -13,6 +13,7 @@
       android:layout_height="?attr/actionBarSize"
       android:background="@color/primary"
       app:layout_scrollFlags="scroll|enterAlways"
+      app:navigationIcon="@mipmap/ic_arrow_back"
       app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
       />
   <WebView

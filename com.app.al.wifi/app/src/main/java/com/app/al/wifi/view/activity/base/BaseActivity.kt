@@ -1,22 +1,24 @@
 package com.app.al.wifi.view.activity.base
 
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import com.app.al.wifi.MainApplication
 import com.app.al.wifi.R
-import com.app.al.wifi.const.ApplicationConst.NavigationIconEventType
-import com.app.al.wifi.const.ApplicationConst.NavigationIconEventType.RETURN
 import com.app.al.wifi.di.ApplicationComponent
+import com.app.al.wifi.view.activity.WebActivity
+import com.app.al.wifi.view.fragment.EtcListFragment
+import com.app.al.wifi.view.fragment.WifiListFragment
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 /**
  * 基底Activity
  */
-open class BaseActivity : AppCompatActivity() {
+open class BaseActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedListener {
 
   private var toolbar: Toolbar? = null
 
@@ -42,6 +44,15 @@ open class BaseActivity : AppCompatActivity() {
   }
 
   /**
+   * onBackStackChanged
+   */
+  override fun onBackStackChanged() {
+    Log.d(this::class.simpleName, "onBackStackChanged : " + supportFragmentManager.findFragmentById(R.id.fragment_container))
+    // タイトル設定
+    setTitle(supportFragmentManager.findFragmentById(R.id.fragment_container))
+  }
+
+  /**
    * ApplicationComponent返却
    *
    * @return ApplicationComponent
@@ -49,50 +60,41 @@ open class BaseActivity : AppCompatActivity() {
   protected fun getApplicationComponent(): ApplicationComponent = (applicationContext as MainApplication).getApplicationComponent()
 
   /**
-   * ToolBar初期処理
-   *
-   * @param resId リソースID
+   * 初期処理
    */
-  protected fun initToolBar(@StringRes resId: Int) {
+  open fun init() {
+    initToolBar()
+  }
+
+  /**
+   * ToolBar初期処理
+   */
+  private fun initToolBar() {
     toolbar = findViewById(R.id.toolbar)
     if (toolbar != null) {
-      setToolbarTitle(resId)
-      setSupportActionBar(toolbar)
-      supportActionBar?.setDisplayHomeAsUpEnabled(true)
-      supportActionBar?.setHomeButtonEnabled(true)
+      setNavigationOnClickEvent()
     }
   }
 
   /**
-   * ToolBar初期処理
+   * タイトル設定
    *
-   * @param resId リソースID
-   * @param eventType NavigationIconイベントタイプ
+   * @param fragment フラグメント
    */
-  protected fun initToolBar(@StringRes resId: Int, eventType: NavigationIconEventType) {
-    initToolBar(resId)
-    setNavigationOnClickEvent(eventType)
+  private fun setTitle(fragment: Fragment) {
+    when (fragment) {
+      is WifiListFragment -> toolbar?.setTitle(R.string.title_main)
+      is EtcListFragment -> toolbar?.setTitle(R.string.title_etc)
+    }
   }
 
-  /**
-   * Toolbarタイトル設定
-   *
-   * @param resId リソースID
-   */
-  private fun setToolbarTitle(@StringRes resId: Int) {
-    toolbar?.setTitle(resId)
-  }
 
   /**
    * Toolbar NavigationIcon押下時イベント
-   *
-   * @param eventType NavigationIconイベントタイプ
    */
-  private fun setNavigationOnClickEvent(eventType: NavigationIconEventType) {
-    when (eventType) {
-      RETURN -> {
-        toolbar?.setNavigationOnClickListener({ onBackPressed() })
-      }
+  private fun setNavigationOnClickEvent() {
+    when (this) {
+      is WebActivity -> toolbar?.setNavigationOnClickListener({ onBackPressed() })
     }
   }
 
@@ -105,12 +107,18 @@ open class BaseActivity : AppCompatActivity() {
 
   /**
    * フラグメント置換
+   *
+   * @param fragment 置換フラグメント
    */
   protected fun replaceFragment(fragment: Fragment) {
-    val fragmentManager = supportFragmentManager
-    val transaction = fragmentManager.beginTransaction()
-    transaction.replace(R.id.fragment_container, fragment)
-    transaction.addToBackStack(null)
-    transaction.commit()
+    supportFragmentManager.addOnBackStackChangedListener(this)
+    val fragmentTransaction = supportFragmentManager.beginTransaction()
+    if (supportFragmentManager.findFragmentByTag(fragment::class.java.name) != null) {
+      fragmentTransaction.show(fragment)
+    } else {
+      fragmentTransaction.replace(R.id.fragment_container, fragment, fragment::class.java.name)
+      fragmentTransaction.addToBackStack(null)
+    }
+    fragmentTransaction.commit()
   }
 }

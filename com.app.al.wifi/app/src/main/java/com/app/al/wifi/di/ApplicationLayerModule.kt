@@ -1,7 +1,7 @@
 package com.app.al.wifi.di
 
-import com.app.al.wifi.viewmodel.ConfirmDialogViewModel
-import com.app.al.wifi.viewmodel.MainViewModel
+import com.app.al.wifi.viewmodel.activity.MainViewModel
+import com.app.al.wifi.viewmodel.dialog.ConfirmDialogViewModel
 import dagger.Module
 import dagger.Provides
 import io.reactivex.disposables.CompositeDisposable

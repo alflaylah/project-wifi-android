@@ -2,12 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".view.fragment.WifiDialogFragment"
+    tools:context=".view.dialog.WifiDialogFragment"
     >
   <data>
     <variable
         name="viewModel"
-        type="com.app.al.wifi.viewmodel.WifiDialogViewModel"
+        type="com.app.al.wifi.viewmodel.dialog.WifiDialogViewModel"
         />
   </data>
 
@@ -73,7 +73,7 @@
         android:layout_alignBottom="@+id/connect"
         android:layout_toStartOf="@+id/connect"
         android:onClick="@{() -> viewModel.onNegativeButtonClicked()}"
-        android:text="@string/cancel"
+        android:text="@android:string/cancel"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         style="@style/Widget.AppCompat.Button.Borderless"
         />

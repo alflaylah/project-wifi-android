@@ -4,9 +4,9 @@
   <string name="application_name">Wooneka Wi-Fi</string>
 
   <!-- 汎用 -->
-  <string name="cancel">キャンセル</string>
   <string name="connect">接続</string>
   <string name="save">保存</string>
+  <string name="version">バージョン</string>
 
   <!-- 権限許可ダイアログで利用 -->
   <string name="permission_package">package:%s</string>
@@ -19,16 +19,27 @@
 
   <!-- 画面タイトル -->
   <string name="title_main">ホーム</string>
+  <string name="title_etc">その他</string>
   <string name="title_license">ライセンス</string>
 
   <!-- ナビゲーション -->
   <string name="navigation_drawer_open">ナビゲーションドロワーを開きます</string>
   <string name="navigation_drawer_close">ナビゲーションドロワーを閉じます</string>
-  <string name="navigation_drawer_menu_license">@string/title_license</string>
+  <string name="navigation_drawer_menu_setting">設定</string>
+  <string name="navigation_drawer_menu_etc">@string/title_etc</string>
+
+  <!-- Wifi一覧 -->
+  <string name="wifi_connected">現在、接続済みです。</string>
 
   <!-- Wifiダイアログ -->
   <string name="wifi_signal_strength">Signal strength</string>
   <string name="wifi_security">Security</string>
   <string name="wifi_password">Password</string>
   <string name="wifi_ssid">SSID</string>
+
+  <!-- その他一覧 -->
+  <string-array name="etc_item">
+    <item>@string/title_license</item>
+    <item>@string/version</item>
+  </string-array>
 </resources>

@@ -10,8 +10,7 @@ class CloseEvent(val closeType: CloseType) {
   companion object {
     // クローズ対象
     enum class CloseType(val type: String) {
-      APPLICATION("NONE"),
-      DIALOG("WEP")
+      DIALOG("DIALOG")
     }
   }
 }

@@ -20,7 +20,7 @@ object WifiUtils {
   /**
    * 接続可能にする
    *
-   * @param context context
+   * @param context applicationContext
    * @return true：WIFI接続可能 false：WIFI接続不可
    */
   fun enable(context: Context) {
@@ -31,12 +31,11 @@ object WifiUtils {
   /**
    * 接続の状態を返却する
    *
-   * @param context context
+   * @param context applicationContext
    * @return true：接続中 false：未接続
    */
   fun isConnected(context: Context): Boolean {
-    val connectivityManager = context.getSystemService(
-        Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
     val networkInfo = connectivityManager.activeNetworkInfo
     return networkInfo != null && networkInfo.isConnected && networkInfo.type == ConnectivityManager.TYPE_WIFI
   }
@@ -44,7 +43,7 @@ object WifiUtils {
   /**
    * 接続
    *
-   * @param context context
+   * @param context applicationContext
    * @param ssid SSID
    * @param capabilities セキュリティ情報
    * @param password パスワード
@@ -76,7 +75,7 @@ object WifiUtils {
   /**
    * 接続
    *
-   * @param context context
+   * @param context applicationContext
    * @param networkId ネットワークID
    */
   private fun connect(context: Context, networkId: Int) {
@@ -87,11 +86,13 @@ object WifiUtils {
   /**
    * 切断
    *
-   * @param context context
+   * @param context applicationContext
    */
-  private fun disconnect(context: Context) {
+  fun disconnect(context: Context) {
     val wifiManager = context.applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
-    wifiManager.configuredNetworks.forEach { wifiManager.enableNetwork(it.networkId, false) }
+    wifiManager.configuredNetworks.forEach {
+      wifiManager.enableNetwork(it.networkId, false)
+    }
   }
 
   /**
@@ -192,5 +193,34 @@ object WifiUtils {
           }
     }
     return scanResults
+  }
+
+  /**
+   * Wifiの除外判定
+   *
+   * @param ssid SSID
+   * @return true：除外します false：除外しない
+   */
+  fun isExclude(ssid: String?): Boolean {
+    if (ssid.isNullOrBlank() || ApplicationConst.IGNORE_01.contains(ssid.toString()) || ApplicationConst.IGNORE_02.contains(ssid.toString())) {
+      return true
+    }
+    return false
+  }
+
+  /**
+   * 指定のアクセスポイントに接続中か判定します
+   *
+   * @param context Context
+   * @param ssid SSID
+   * @return true：接続中 false：接続していない
+   */
+  fun isAccessPointConnecting(context: Context?, ssid: String): Boolean {
+    val wifiManager = context?.applicationContext?.getSystemService(WIFI_SERVICE) as WifiManager
+    val wifiInfo = wifiManager.connectionInfo
+    if (ssid.contains(wifiInfo.ssid.replace(ApplicationConst.DOUBLE_QUOTE, ApplicationConst.EMPTY))) {
+      return true
+    }
+    return false
   }
 }

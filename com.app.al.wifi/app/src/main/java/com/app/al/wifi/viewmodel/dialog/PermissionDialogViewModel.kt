@@ -1,8 +1,8 @@
-package com.app.al.wifi.viewmodel
+package com.app.al.wifi.viewmodel.dialog
 
 import com.app.al.wifi.event.StartEvent
 import com.app.al.wifi.event.bus.RxBusProvider
-import com.app.al.wifi.viewmodel.base.BaseDialogViewModel
+import com.app.al.wifi.viewmodel.dialog.base.BaseDialogViewModel
 
 /**
  * 権限ダイアログViewModel

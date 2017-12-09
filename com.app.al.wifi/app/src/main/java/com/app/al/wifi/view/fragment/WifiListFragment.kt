@@ -13,12 +13,14 @@ import com.app.al.wifi.event.WifiEvent
 import com.app.al.wifi.event.bus.RxBusProvider
 import com.app.al.wifi.ui.ada.WifiListAdapter
 import com.app.al.wifi.util.WifiUtils
+import com.app.al.wifi.view.dialog.WifiDialogFragment
 import com.app.al.wifi.view.fragment.base.BaseFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 
+
 /*
- * Wifi一覧Fragment
+ * Wifi一覧画面Fragment
  */
 class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
@@ -46,7 +48,7 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
    * @param savedInstanceState savedInstanceState
    */
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-    val view = inflater.inflate(R.layout.fragment_wifi_list, container, false)
+    val view = inflater.inflate(R.layout.fragment_list_wifi, container, false)
     // TODO DataBindingが動作しないので暫定対応
     swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout)
     swipeRefreshLayout.setOnRefreshListener(this)
@@ -94,7 +96,6 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
    * 初期処理
    */
   private fun init() {
-//    initEvent()
     initAdapter()
   }
 
@@ -102,11 +103,14 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
    * イベント初期処理
    */
   private fun initEvent() {
-    compositeDisposable.add(RxBusProvider.instance.toObservable(WifiEvent::class.java).observeOn(AndroidSchedulers.mainThread()).subscribe({ onWifiEvent(it) }))
+    compositeDisposable.add(RxBusProvider.instance.
+        toObservable(WifiEvent::class.java).
+        observeOn(AndroidSchedulers.mainThread()).
+        subscribe({ onWifiEvent(it) }))
   }
 
   /**
-   * Wifi一覧アダプタ設定
+   * Wifi一覧画面アダプタ設定
    */
   private fun initAdapter() {
     adapter = WifiListAdapter(context, WifiUtils.getWifiList(activity))

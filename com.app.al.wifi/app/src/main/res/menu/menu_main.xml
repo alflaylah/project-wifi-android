@@ -1,9 +1,16 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.activity.MainActivity">
-  <group>
+  <!--<group android:id="@+id/group_main">-->
+  <!--<item-->
+  <!--android:id="@+id/menu_setting"-->
+  <!--android:icon="@mipmap/ic_settings"-->
+  <!--android:title="@string/navigation_drawer_menu_setting"/>-->
+  <!--</group>-->
+
+  <group android:id="@+id/group_etc">
     <item
-        android:id="@+id/menu_license"
-        android:title="@string/navigation_drawer_menu_license"/>
+        android:id="@+id/menu_etc"
+        android:title="@string/navigation_drawer_menu_etc"/>
   </group>
 </menu>

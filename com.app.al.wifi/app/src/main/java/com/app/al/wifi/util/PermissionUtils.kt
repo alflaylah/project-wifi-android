@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentActivity
 import android.support.v4.app.FragmentManager
 import android.support.v4.content.ContextCompat
 import com.app.al.wifi.const.ApplicationConst
-import com.app.al.wifi.view.fragment.PermissionDialogFragment
+import com.app.al.wifi.view.dialog.PermissionDialogFragment
 
 /**
  * WIFIユーティリティ

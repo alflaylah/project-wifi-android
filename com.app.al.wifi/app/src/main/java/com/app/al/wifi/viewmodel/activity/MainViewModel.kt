@@ -1,4 +1,4 @@
-package com.app.al.wifi.viewmodel
+package com.app.al.wifi.viewmodel.activity
 
 import com.app.al.wifi.event.StartEvent
 import com.app.al.wifi.event.bus.RxBusProvider
@@ -11,9 +11,9 @@ class MainViewModel {
   /**
    * ドロワーレイアウトメニュー押下
    *
-   * @param resId リソースID
+   * @param startCode 画面遷移判別コード
    */
-  fun onNavigationItemSelected(resId: Int) {
-    RxBusProvider.instance.post(StartEvent(resId))
+  fun onNavigationItemSelected(startCode: Int) {
+    RxBusProvider.instance.post(StartEvent(startCode))
   }
 }

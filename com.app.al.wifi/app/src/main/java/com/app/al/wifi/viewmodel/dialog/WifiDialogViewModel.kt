@@ -1,10 +1,10 @@
-package com.app.al.wifi.viewmodel
+package com.app.al.wifi.viewmodel.dialog
 
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import com.app.al.wifi.model.WifiModel
 import com.app.al.wifi.util.RxUtils
-import com.app.al.wifi.viewmodel.base.BaseDialogViewModel
+import com.app.al.wifi.viewmodel.dialog.base.BaseDialogViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 

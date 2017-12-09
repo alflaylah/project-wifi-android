@@ -1,4 +1,4 @@
-package com.app.al.wifi.view.fragment.base
+package com.app.al.wifi.view.dialog.base
 
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
@@ -49,9 +49,6 @@ open class BaseDialogFragment : DialogFragment() {
    * イベント初期処理
    */
   private fun initEvent() {
-//    RxEventBus.stream(CloseEvent::class.java).subscribe({
-//      onCloseDialogEvent(it)
-//    })
     compositeDisposable.add(RxBusProvider.instance.toObservable(CloseEvent::class.java)
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe({ onCloseDialogEvent(it) }))
@@ -71,8 +68,6 @@ open class BaseDialogFragment : DialogFragment() {
     when (event.closeType) {
       DIALOG -> {
         dismiss()
-      }
-      else -> {
       }
     }
   }

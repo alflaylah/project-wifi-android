@@ -11,7 +11,7 @@ object NetworkUtils {
   /**
    * ネットワーク通信状態を返却する
    *
-   * @param context context
+   * @param context applicationContext
    * @return true：通信可能 false：通信不可
    */
   fun isOnline(context: Context): Boolean {
@@ -23,7 +23,7 @@ object NetworkUtils {
   /**
    * WIFI接続を有効にする
    *
-   * @param context context
+   * @param context applicationContext
    */
   fun enable(context: Context) {
     WifiUtils.enable(context)
@@ -32,7 +32,7 @@ object NetworkUtils {
   /**
    * WIFI接続の状態を返却する
    *
-   * @param context context
+   * @param context applicationContext
    * @return true：WIFI接続中 false：WIFI未接続
    */
   fun isWifiConnected(context: Context): Boolean = WifiUtils.isConnected(context)

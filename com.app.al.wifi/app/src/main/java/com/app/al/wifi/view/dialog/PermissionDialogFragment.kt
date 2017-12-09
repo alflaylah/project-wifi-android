@@ -1,11 +1,11 @@
-package com.app.al.wifi.view.fragment
+package com.app.al.wifi.view.dialog
 
 import android.app.Dialog
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import com.app.al.wifi.R
-import com.app.al.wifi.view.fragment.base.BaseDialogFragment
-import com.app.al.wifi.viewmodel.PermissionDialogViewModel
+import com.app.al.wifi.view.dialog.base.BaseDialogFragment
+import com.app.al.wifi.viewmodel.dialog.PermissionDialogViewModel
 
 /**
  * 権限ダイアログ

@@ -9,8 +9,8 @@ android {
     applicationId "com.app.al.wifi"
     minSdkVersion 21
     targetSdkVersion 27
-    versionCode 3
-    versionName "1.0.2"
+    versionCode 5
+    versionName "1.0.4"
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
 
@@ -51,8 +51,8 @@ dependencies {
   kapt 'com.android.databinding:compiler:3.0.1'
 
   // Google Play
-  compile 'com.google.android.gms:play-services-base:11.6.0'
-  compile 'com.google.android.gms:play-services-location:11.6.0'
+  compile 'com.google.android.gms:play-services-base:11.6.2'
+  compile 'com.google.android.gms:play-services-location:11.6.2'
 
   // Kotlin
   compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"

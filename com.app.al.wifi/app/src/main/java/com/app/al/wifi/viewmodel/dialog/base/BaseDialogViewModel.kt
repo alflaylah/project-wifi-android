@@ -1,4 +1,4 @@
-package com.app.al.wifi.viewmodel.base
+package com.app.al.wifi.viewmodel.dialog.base
 
 import com.app.al.wifi.event.CloseEvent
 import com.app.al.wifi.event.CloseEvent.Companion.CloseType.DIALOG

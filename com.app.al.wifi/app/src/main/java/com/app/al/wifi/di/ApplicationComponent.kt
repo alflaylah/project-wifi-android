@@ -2,9 +2,10 @@ package com.app.al.wifi.di;
 
 import com.app.al.wifi.view.activity.MainActivity
 import com.app.al.wifi.view.activity.base.BaseActivity
-import com.app.al.wifi.view.fragment.ConfirmDialogFragment
-import com.app.al.wifi.view.fragment.base.BaseDialogFragment
+import com.app.al.wifi.view.dialog.ConfirmDialogFragment
+import com.app.al.wifi.view.dialog.base.BaseDialogFragment
 import com.app.al.wifi.view.fragment.base.BaseFragment
+import com.app.al.wifi.viewmodel.fragment.WifiListViewModel
 import dagger.Component
 import javax.inject.Singleton
 
@@ -30,4 +31,9 @@ interface ApplicationComponent {
   fun inject(dialogFragment: BaseDialogFragment)
 
   fun inject(dialogFragment: ConfirmDialogFragment)
+
+  /**
+   * ViewModel
+   */
+  fun inject(viewModel: WifiListViewModel)
 }

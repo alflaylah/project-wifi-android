@@ -1,22 +1,39 @@
-package com.app.al.wifi.viewmodel
+package com.app.al.wifi.viewmodel.fragment
 
+import android.content.Context
 import android.databinding.BindingAdapter
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.net.wifi.ScanResult
 import android.widget.ImageView
 import com.app.al.wifi.R
+import com.app.al.wifi.const.ApplicationConst
+import com.app.al.wifi.util.WifiUtils
 import java.io.Serializable
 
 /**
- * Wifi一覧ViewModel
+ * Wifi一覧画面ViewModel
  *
+ * @param context コンテキスト
  * @param scanResult アクセスポイント検索結果
  */
-class WifiListViewModel(scanResult: ScanResult) : Serializable {
+class WifiListViewModel(val context: Context?, scanResult: ScanResult) : Serializable {
+
   val ssid: String = scanResult.SSID
   val capabilities: String = scanResult.capabilities
   private val level: Int = scanResult.level
+
+  /**
+   * Wifiの接続状態に応じたステータスの返却
+   *
+   * @return 接続状態
+   */
+  fun getStatus(): String {
+    if (WifiUtils.isAccessPointConnecting(context, ssid)) {
+      return context?.getString(R.string.wifi_connected).toString()
+    }
+    return ApplicationConst.EMPTY
+  }
 
   /**
    * Levelに応じたWifi画像の返却

@@ -11,6 +11,9 @@ object ApplicationConst {
   val EMPTY = ""
   val DOUBLE_QUOTE = "\""
 
+  // アプリケーション終了までの猶予(ミリ秒)
+  val FINISH_CONFIRM = 4000
+
   // パスワード
   val REGEX_WEP = "[0-9A-Fa-f]*"
   val REGEX_PSK = "[0-9A-Fa-f]{64}"
@@ -37,6 +40,10 @@ object ApplicationConst {
     WEP("WEP"),
     PSK("PSK")
   }
+
+  // Wifi 除外SSID
+  val IGNORE_01: String = "0x"
+  val IGNORE_02: String = "<unknown ssid>"
 
   // Toolbar NavigationIconイベントタイプ
   enum class NavigationIconEventType(val type: String) {

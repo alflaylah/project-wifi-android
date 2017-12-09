@@ -6,7 +6,7 @@
   <data>
     <variable
         name="viewModel"
-        type="com.app.al.wifi.viewmodel.MainViewModel"
+        type="com.app.al.wifi.viewmodel.activity.MainViewModel"
         />
   </data>
 
@@ -40,12 +40,12 @@
               android:layout_height="?attr/actionBarSize"
               android:background="@color/primary"
               app:layout_scrollFlags="scroll|enterAlways"
-              app:navigationIcon="@mipmap/ic_menu_white"
+              app:navigationIcon="@mipmap/ic_menu"
               app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
               />
         </android.support.design.widget.AppBarLayout>
 
-        <LinearLayout
+        <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

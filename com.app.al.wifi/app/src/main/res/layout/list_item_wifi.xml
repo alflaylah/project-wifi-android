@@ -3,14 +3,14 @@
   <data>
     <variable
         name="viewModel"
-        type="com.app.al.wifi.viewmodel.WifiListViewModel"
+        type="com.app.al.wifi.viewmodel.fragment.WifiListViewModel"
         />
   </data>
 
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="@drawable/story_style"
+      android:background="@drawable/list_item_border"
       >
     <!-- Wifiアイコン -->
     <ImageView
@@ -20,7 +20,7 @@
         android:layout_alignParentStart="true"
         android:adjustViewBounds="true"
         android:contentDescription="@{viewModel.ssid}"
-        android:padding="@dimen/list_item_image_padding"
+        android:padding="@dimen/list_item_padding"
         android:scaleType="centerCrop"
         android:src="@{viewModel.getWifiSignal}"
         />
@@ -45,7 +45,7 @@
           android:id="@+id/status"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:visibility="gone"
+          android:text="@{viewModel.getStatus}"
           />
     </LinearLayout>
   </RelativeLayout>

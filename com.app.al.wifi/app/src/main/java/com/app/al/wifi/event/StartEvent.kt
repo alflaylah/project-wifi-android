@@ -1,7 +1,5 @@
 package com.app.al.wifi.event
 
-import com.app.al.wifi.R
-
 /**
  * 画面遷移イベント
  *
@@ -10,8 +8,10 @@ import com.app.al.wifi.R
 class StartEvent(val id: Int) {
 
   companion object {
-    val APP_LICENSE = R.id.menu_license
-    // OSのアプリケーション設定画面
-    val OS_SETTING = 0
+    // TODO
+    // 画面遷移判別コード
+    val OS_SETTING = 0    // OSのアプリケーション設定画面
+    val APP_ETC = 1    // その他一覧画面
+    val APP_LICENSE = 2   // ライセンス画面
   }
 }

@@ -1,11 +1,11 @@
 package com.app.al.wifi.view.activity
 
 import android.os.Bundle
+import android.support.v7.widget.Toolbar
 import android.webkit.WebView
 import android.webkit.WebViewClient
 import com.app.al.wifi.R
 import com.app.al.wifi.const.ApplicationConst
-import com.app.al.wifi.const.ApplicationConst.NavigationIconEventType.RETURN
 import com.app.al.wifi.view.activity.base.BaseActivity
 
 /**
@@ -29,9 +29,21 @@ class WebActivity : BaseActivity() {
   /**
    * 初期処理
    */
-  private fun init() {
-    initToolBar(R.string.title_license, RETURN)
+  override fun init() {
+    super.init()
+    setTitle()
     initWebView()
+  }
+
+  /**
+   * タイトル設定
+   */
+  private fun setTitle() {
+    val toolbar: Toolbar? = findViewById(R.id.toolbar)
+    // URLからタイトル名を設定
+    if (getString(R.string.url_license).contains(intent?.getStringExtra(ApplicationConst.BUNDLE_URL).toString())) {
+      toolbar?.setTitle(R.string.title_license)
+    }
   }
 
   /**

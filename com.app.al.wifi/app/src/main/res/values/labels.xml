@@ -28,9 +28,6 @@
   <string name="navigation_drawer_menu_setting">設定</string>
   <string name="navigation_drawer_menu_etc">@string/title_etc</string>
 
-  <!-- Wifi一覧 -->
-  <string name="wifi_connected">現在、接続済みです。</string>
-
   <!-- Wifiダイアログ -->
   <string name="wifi_signal_strength">Signal strength</string>
   <string name="wifi_security">Security</string>

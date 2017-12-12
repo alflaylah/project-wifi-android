@@ -29,8 +29,13 @@ class WifiListViewModel(val context: Context?, scanResult: ScanResult) : Seriali
    * @return 接続状態
    */
   fun getStatus(): String {
+    // 現在、利用中
     if (WifiUtils.isAccessPointConnecting(context, ssid)) {
-      return context?.getString(R.string.wifi_connected).toString()
+      return context?.getString(R.string.wifi_connected_status).toString()
+    }
+    // 過去に履歴あり
+    if (WifiUtils.isAccessPointHistory(context, ssid)) {
+      return context?.getString(R.string.wifi_connected_history_status).toString()
     }
     return ApplicationConst.EMPTY
   }

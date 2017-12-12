@@ -17,13 +17,15 @@
       android:orientation="vertical"
       android:padding="@dimen/dialog_padding"
       >
+
+    <!-- SSID -->
     <TextView
         android:id="@+id/label_ssid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
         android:text="@string/wifi_ssid"
-        android:textColor="#80000000"
+        android:textColor="@color/deep_gray"
         android:textSize="@dimen/dialog_item_title"
         />
 
@@ -34,18 +36,41 @@
         android:layout_below="@+id/label_ssid"
         android:layout_marginTop="4dp"
         android:text="@{viewModel.ssid}"
-        android:textColor="#000000"
+        android:textColor="@android:color/black"
         android:textSize="@dimen/dialog_item_entry"
         />
 
+    <!-- 電波強度 -->
     <TextView
-        android:id="@+id/label_password"
+        android:id="@+id/label_level"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ssid"
         android:layout_marginTop="18dp"
+        android:text="@string/wifi_level"
+        android:textColor="@color/deep_gray"
+        android:textSize="@dimen/dialog_item_title"
+        android:visibility="gone"
+        />
+
+    <Spinner
+        android:id="@+id/level"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/label_level"
+        android:layout_margin="20dp"
+        android:visibility="gone"
+        />
+
+    <!-- パスワード -->
+    <TextView
+        android:id="@+id/label_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/level"
+        android:layout_marginTop="18dp"
         android:text="@string/wifi_password"
-        android:textColor="#80000000"
+        android:textColor="@color/deep_gray"
         android:textSize="@dimen/dialog_item_title"
         />
 
@@ -65,6 +90,7 @@
           />
     </android.support.design.widget.TextInputLayout>
 
+    <!-- ボタン -->
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/cancel"
         android:layout_width="wrap_content"

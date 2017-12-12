@@ -8,7 +8,4 @@
   <!-- Wifi接続メッセージで利用 -->
   <string name="wifi_connecting_message">Wi-Fi：%sに接続中です</string>
   <string name="wifi_connected_message">Wi-Fi：%sに接続しました</string>
-
-  <!-- Wifi一覧で利用 -->
-  <string name="wifi_connected">現在、利用しているWiFiです。</string>
 </resources>

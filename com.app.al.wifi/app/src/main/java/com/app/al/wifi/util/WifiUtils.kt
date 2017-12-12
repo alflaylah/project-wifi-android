@@ -6,7 +6,6 @@ import android.net.ConnectivityManager
 import android.net.wifi.ScanResult
 import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
-import android.support.v4.app.FragmentActivity
 import com.app.al.wifi.const.ApplicationConst
 import com.app.al.wifi.const.ApplicationConst.WifiSecurityType
 import com.app.al.wifi.const.ApplicationConst.WifiSecurityType.PSK
@@ -166,11 +165,11 @@ object WifiUtils {
   /**
    * 検索結果一覧返却
    *
-   * @param activity Activity
+   * @param context Context
    * @return 検索結果一覧
    */
-  fun getWifiList(activity: FragmentActivity?): List<ScanResult> {
-    val wifiManager = activity?.applicationContext?.getSystemService(WIFI_SERVICE) as WifiManager
+  fun getWifiList(context: Context?): List<ScanResult> {
+    val wifiManager = context?.applicationContext?.getSystemService(WIFI_SERVICE) as WifiManager
     var scanResults = listOf<ScanResult>()
     if (wifiManager.startScan()) {
       // TODO 条件が雑
@@ -196,7 +195,18 @@ object WifiUtils {
   }
 
   /**
-   * Wifiの除外判定
+   * 接続履歴一覧返却
+   *
+   * @param context Context
+   * @return 接続履歴一覧
+   */
+  private fun getHistoryList(context: Context?): List<WifiConfiguration> {
+    val wifiManager = context?.applicationContext?.getSystemService(WIFI_SERVICE) as WifiManager
+    return wifiManager.configuredNetworks.toList()
+  }
+
+  /**
+   * 除外判定
    *
    * @param ssid SSID
    * @return true：除外します false：除外しない
@@ -209,16 +219,33 @@ object WifiUtils {
   }
 
   /**
-   * 指定のアクセスポイントに接続中か判定します
+   * 利用判定
    *
    * @param context Context
    * @param ssid SSID
-   * @return true：接続中 false：接続していない
+   * @return true：利用中 false：利用していない
    */
   fun isAccessPointConnecting(context: Context?, ssid: String): Boolean {
     val wifiManager = context?.applicationContext?.getSystemService(WIFI_SERVICE) as WifiManager
     val wifiInfo = wifiManager.connectionInfo
     if (ssid.contains(wifiInfo.ssid.replace(ApplicationConst.DOUBLE_QUOTE, ApplicationConst.EMPTY))) {
+      return true
+    }
+    return false
+  }
+
+  /**
+   * 接続履歴判定
+   *
+   * @param context Context
+   * @param ssid SSID
+   * @return true：過去に利用している履歴あり false：過去に利用している履歴なし
+   */
+  fun isAccessPointHistory(context: Context?, ssid: String): Boolean {
+    var wifiHistoryList = getHistoryList(context).filter { wifiConfiguration ->
+      wifiConfiguration.SSID.contains(ssid)
+    }
+    if (!wifiHistoryList.isEmpty()) {
       return true
     }
     return false

@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Spinner
 import com.app.al.wifi.R
 import com.app.al.wifi.event.WifiEvent
 import com.app.al.wifi.event.bus.RxBusProvider
@@ -88,7 +89,7 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
    */
   override fun onRefresh() {
     Log.d(TAG, "onRefresh")
-    adapter.reload(WifiUtils.getWifiList(activity))
+    adapter.reload(WifiUtils.getWifiList(context))
     swipeRefreshLayout.isRefreshing = false
   }
 
@@ -113,7 +114,7 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
    * Wifi一覧画面アダプタ設定
    */
   private fun initAdapter() {
-    adapter = WifiListAdapter(context, WifiUtils.getWifiList(activity))
+    adapter = WifiListAdapter(context, WifiUtils.getWifiList(context))
     recyclerView.adapter = adapter
     disposable = adapter.clickEvent
         .subscribe({

@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.net.NetworkInfo
-import android.net.wifi.WifiInfo
 import android.net.wifi.WifiManager
 import android.util.Log
 import com.app.al.wifi.R
@@ -13,8 +12,6 @@ import com.app.al.wifi.event.WifiEvent
 import com.app.al.wifi.event.bus.RxBusProvider
 import com.app.al.wifi.util.WifiUtils
 import javax.inject.Inject
-import android.content.Context.WIFI_SERVICE
-
 
 
 /**

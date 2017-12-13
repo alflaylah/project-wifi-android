@@ -8,7 +8,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Spinner
 import com.app.al.wifi.R
 import com.app.al.wifi.event.WifiEvent
 import com.app.al.wifi.event.bus.RxBusProvider

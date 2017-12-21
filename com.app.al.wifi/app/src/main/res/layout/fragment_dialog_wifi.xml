@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:mstb="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.dialog.WifiDialogFragment"
     >
@@ -34,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/label_ssid"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="6dp"
         android:text="@{viewModel.ssid}"
         android:textColor="@android:color/black"
         android:textSize="@dimen/dialog_item_entry"
@@ -50,16 +51,27 @@
         android:text="@string/wifi_level"
         android:textColor="@color/deep_gray"
         android:textSize="@dimen/dialog_item_title"
-        android:visibility="gone"
         />
 
-    <Spinner
-        android:id="@+id/level"
-        android:layout_width="250dp"
+    <TextView
+        android:id="@+id/label_level_description"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/label_level"
-        android:layout_margin="20dp"
-        android:visibility="gone"
+        android:layout_marginTop="6dp"
+        android:text="@string/wifi_level_description"
+        android:textColor="@color/deep_gray"
+        android:textSize="@dimen/dialog_item_description"
+        />
+
+    <org.honorato.multistatetogglebutton.MultiStateToggleButton
+        android:id="@+id/toggle_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/label_level_description"
+        android:layout_marginTop="6dp"
+        mstb:mstbPrimaryColor="@android:color/darker_gray"
+        mstb:mstbSecondaryColor="@android:color/white"
         />
 
     <!-- パスワード -->
@@ -67,7 +79,7 @@
         android:id="@+id/label_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/level"
+        android:layout_below="@+id/toggle_level"
         android:layout_marginTop="18dp"
         android:text="@string/wifi_password"
         android:textColor="@color/deep_gray"

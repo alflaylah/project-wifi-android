@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.app.al.wifi.R
 import com.app.al.wifi.ui.ada.EtcListAdapter
-import com.app.al.wifi.util.StringUtils
+import com.app.al.wifi.util.ResourceUtils
 import com.app.al.wifi.view.fragment.base.BaseFragment
 import io.reactivex.disposables.Disposable
 
@@ -75,7 +75,7 @@ class EtcListFragment : BaseFragment() {
    * その他一覧画面アダプタ設定
    */
   private fun initAdapter() {
-    adapter = EtcListAdapter(context, StringUtils.getStringArrayResource(context, R.array.etc_item))
+    adapter = EtcListAdapter(context, ResourceUtils.getStringArrayResource(context, R.array.etc_item))
     recyclerView.adapter = adapter
     disposable = adapter.clickEvent
         .subscribe({

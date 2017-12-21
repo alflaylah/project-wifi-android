@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import com.app.al.wifi.R
 import com.app.al.wifi.const.ApplicationConst.BUNDLE_OBJECT
 import com.app.al.wifi.const.DisplayConst
@@ -12,6 +13,8 @@ import com.app.al.wifi.databinding.FragmentDialogWifiBinding
 import com.app.al.wifi.view.dialog.base.BaseDialogFragment
 import com.app.al.wifi.viewmodel.dialog.WifiDialogViewModel
 import com.app.al.wifi.viewmodel.fragment.WifiListViewModel
+import org.honorato.multistatetogglebutton.MultiStateToggleButton
+
 
 /**
  * WifiダイアログFragment
@@ -32,6 +35,7 @@ class WifiDialogFragment : BaseDialogFragment() {
     val wifiListViewModel = arguments?.getSerializable(BUNDLE_OBJECT) as WifiListViewModel
     wifiDialogViewModel = WifiDialogViewModel(wifiListViewModel.ssid, wifiListViewModel.capabilities)
     binding.viewModel = wifiDialogViewModel
+    initToggleButton(binding)
     return binding.root
   }
 
@@ -62,6 +66,25 @@ class WifiDialogFragment : BaseDialogFragment() {
     // 画面幅×指定スケールでダイアログを表示
     layoutParams.width = (resources.displayMetrics.widthPixels * DisplayConst.DIALOG_WIDTH_SCALE).toInt()
     dialog.window.attributes = layoutParams
+  }
+
+  /**
+   * トグルボタン初期処理
+   *
+   * @param binding FragmentDialogWifiBinding
+   */
+  private fun initToggleButton(binding: FragmentDialogWifiBinding) {
+    val toggleButton = binding.root.findViewById(R.id.toggle_level) as MultiStateToggleButton
+    // トグルに設定するボタン
+    val buttons = arrayOfNulls<ImageButton>(5)
+    for (i in 0..4) {
+      val imageButton = ImageButton(context)
+      val resId = resources.getIdentifier("ic_signal_wifi_level_" + i, "mipmap", context?.packageName)
+      imageButton.setImageResource(resId)
+      imageButton.setPadding(12, 0, 12, 0)
+      buttons[i] = imageButton
+    }
+    toggleButton.setButtons(buttons, BooleanArray(buttons.size))
   }
 
   companion object {

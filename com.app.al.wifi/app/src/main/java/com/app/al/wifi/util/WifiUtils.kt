@@ -147,14 +147,14 @@ object WifiUtils {
       if ((password.length == 10 || password.length == 26) && password.matches(ApplicationConst.REGEX_WEP.toRegex())) {
         password
       } else {
-        StringUtils.getFormatDoubleQuote(password)
+        password.getFormatDoubleQuote()
       }
     }
     PSK -> {
       if (password.matches(ApplicationConst.REGEX_PSK.toRegex())) {
         password
       } else {
-        StringUtils.getFormatDoubleQuote(password)
+        password.getFormatDoubleQuote()
       }
     }
     else -> {

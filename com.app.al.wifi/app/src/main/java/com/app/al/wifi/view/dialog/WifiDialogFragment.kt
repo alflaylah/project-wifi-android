@@ -33,7 +33,7 @@ class WifiDialogFragment : BaseDialogFragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     val binding = DataBindingUtil.inflate<FragmentDialogWifiBinding>(inflater, R.layout.fragment_dialog_wifi, container, false)
     val wifiListViewModel = arguments?.getSerializable(BUNDLE_OBJECT) as WifiListViewModel
-    wifiDialogViewModel = WifiDialogViewModel(wifiListViewModel.ssid, wifiListViewModel.capabilities)
+    wifiDialogViewModel = WifiDialogViewModel(context, wifiListViewModel.ssid, wifiListViewModel.capabilities)
     binding.viewModel = wifiDialogViewModel
     initToggleButton(binding)
     return binding.root
@@ -77,14 +77,19 @@ class WifiDialogFragment : BaseDialogFragment() {
     val toggleButton = binding.root.findViewById(R.id.toggle_level) as MultiStateToggleButton
     // トグルに設定するボタン
     val buttons = arrayOfNulls<ImageButton>(5)
+    val selected = BooleanArray(5)
     for (i in 0..4) {
       val imageButton = ImageButton(context)
-      val resId = resources.getIdentifier("ic_signal_wifi_level_" + i, "mipmap", context?.packageName)
-      imageButton.setImageResource(resId)
+      val resourceId = resources.getIdentifier("ic_signal_wifi_level_" + i, "mipmap", context?.packageName)
+      imageButton.setImageResource(resourceId)
       imageButton.setPadding(12, 0, 12, 0)
       buttons[i] = imageButton
+      // TODO
+      if (i == 2) {
+        selected[i] = true
+      }
     }
-    toggleButton.setButtons(buttons, BooleanArray(buttons.size))
+    toggleButton.setButtons(buttons, selected)
   }
 
   companion object {

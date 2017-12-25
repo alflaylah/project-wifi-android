@@ -9,7 +9,7 @@
   <string name="version">バージョン</string>
 
   <!-- 権限許可ダイアログで利用 -->
-  <string name="permission_package">package:%s</string>
+  <string name="permission_package">package:%TAG</string>
   <string name="permission_move">移動する</string>
   <string name="permission_not_move">移動しない</string>
 
@@ -39,6 +39,7 @@
   <!-- Wifi一覧 -->
   <string name="wifi_connected_status">現在、利用しているWi-Fiです</string>
   <string name="wifi_connected_history_status">過去に利用した履歴のあるWi-Fiです</string>
+  <string name="wifi_empty">付近に存在するWi-Fiの情報を取得できませんでした。</string>
 
   <!-- その他一覧 -->
   <string-array name="etc_item">

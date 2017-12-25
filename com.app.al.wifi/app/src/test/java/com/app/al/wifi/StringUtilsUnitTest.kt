@@ -1,6 +1,6 @@
 package com.app.al.wifi
 
-import com.app.al.wifi.util.StringUtils
+import com.app.al.wifi.util.getFormatDoubleQuote
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -14,9 +14,9 @@ class StringUtilsUnitTest {
    */
   @Test
   @Throws(Exception::class)
-  fun double_quote_isCorrect() {
-    val INPUT = "TEST"
-    val OUTPUT = "\"TEST\""
-    assertEquals(StringUtils.getFormatDoubleQuote(INPUT), OUTPUT)
+  fun doubleQuoteIsCorrect() {
+    val input = "TEST"
+    val output = "\"TEST\""
+    assertEquals(input.getFormatDoubleQuote(), output)
   }
 }

@@ -19,7 +19,7 @@ import javax.inject.Inject
  */
 class WifiReceiver : BroadcastReceiver() {
 
-  private val TAG = WifiReceiver::class.simpleName!!
+  private val logTag = WifiReceiver::class.simpleName!!
 
   @Inject
   lateinit var applicationContext: Context
@@ -35,7 +35,7 @@ class WifiReceiver : BroadcastReceiver() {
       val networkInfo = intent.getParcelableExtra<NetworkInfo>(WifiManager.EXTRA_NETWORK_INFO)
       when (networkInfo.state!!) {
         NetworkInfo.State.SUSPENDED, NetworkInfo.State.DISCONNECTING, NetworkInfo.State.DISCONNECTED, NetworkInfo.State.UNKNOWN -> {
-          Log.d(TAG, networkInfo.state.toString())
+          Log.d(logTag, networkInfo.state.toString())
         }
         NetworkInfo.State.CONNECTING, NetworkInfo.State.CONNECTED -> {
           connectWifi(networkInfo, context, intent)
@@ -75,6 +75,6 @@ class WifiReceiver : BroadcastReceiver() {
       String.format(context.getString(R.string.wifi_connected_message), networkInfo.extraInfo.replace(ApplicationConst.DOUBLE_QUOTE, ApplicationConst.EMPTY))
     }
     RxBusProvider.instance.post(WifiEvent(message))
-    Log.d(TAG, networkInfo.state.toString())
+    Log.d(logTag, networkInfo.state.toString())
   }
 }

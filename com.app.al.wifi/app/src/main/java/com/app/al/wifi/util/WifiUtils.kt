@@ -219,22 +219,6 @@ object WifiUtils {
   }
 
   /**
-   * 利用判定
-   *
-   * @param context Context
-   * @param ssid SSID
-   * @return true：利用中 false：利用していない
-   */
-  fun isAccessPointConnecting(context: Context?, ssid: String): Boolean {
-    val wifiManager = context?.applicationContext?.getSystemService(WIFI_SERVICE) as WifiManager
-    val wifiInfo = wifiManager.connectionInfo
-    if (ssid.contains(wifiInfo.ssid.replace(ApplicationConst.DOUBLE_QUOTE, ApplicationConst.EMPTY))) {
-      return true
-    }
-    return false
-  }
-
-  /**
    * 接続履歴判定
    *
    * @param context Context
@@ -246,6 +230,22 @@ object WifiUtils {
       wifiConfiguration.SSID.contains(ssid)
     }
     if (!wifiHistoryList.isEmpty()) {
+      return true
+    }
+    return false
+  }
+
+  /**
+   * 利用判定
+   *
+   * @param context Context
+   * @param ssid SSID
+   * @return true：利用中 false：利用していない
+   */
+  fun isAccessPointConnecting(context: Context?, ssid: String): Boolean {
+    val wifiManager = context?.applicationContext?.getSystemService(WIFI_SERVICE) as WifiManager
+    val wifiInfo = wifiManager.connectionInfo
+    if (ssid.contains(wifiInfo.ssid.replace(ApplicationConst.DOUBLE_QUOTE, ApplicationConst.EMPTY))) {
       return true
     }
     return false

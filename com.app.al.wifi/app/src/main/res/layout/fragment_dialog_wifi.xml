@@ -70,8 +70,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/label_level_description"
         android:layout_marginTop="6dp"
-        mstb:mstbPrimaryColor="@android:color/darker_gray"
-        mstb:mstbSecondaryColor="@android:color/white"
+        android:background="@drawable/toggle_button_border"
+        mstb:mstbPrimaryColor="@color/button_primary_color"
+        mstb:mstbSecondaryColor="@color/button_secondary_color"
         />
 
     <!-- パスワード -->
@@ -84,6 +85,7 @@
         android:text="@string/wifi_password"
         android:textColor="@color/deep_gray"
         android:textSize="@dimen/dialog_item_title"
+        android:visibility="@{viewModel.getPasswordVisibility()}"
         />
 
     <android.support.design.widget.TextInputLayout
@@ -91,6 +93,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/label_password"
+        android:visibility="@{viewModel.getPasswordVisibility()}"
         app:passwordToggleEnabled="true"
         >
       <android.support.design.widget.TextInputEditText
@@ -104,12 +107,13 @@
 
     <!-- ボタン -->
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/cancel"
+        android:id="@+id/btn_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/connect"
-        android:layout_alignBottom="@+id/connect"
-        android:layout_toStartOf="@+id/connect"
+        android:layout_alignBaseline="@+id/btn_do"
+        android:layout_alignBottom="@+id/btn_do"
+        android:layout_below="@+id/area_password"
+        android:layout_toStartOf="@+id/btn_do"
         android:onClick="@{() -> viewModel.onNegativeButtonClicked()}"
         android:text="@android:string/cancel"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
@@ -117,14 +121,14 @@
         />
 
     <android.support.v7.widget.AppCompatButton
-        android:id="@+id/connect"
+        android:id="@+id/btn_do"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/area_password"
         android:enabled="@{viewModel.connectEnabled}"
         android:onClick="@{() -> viewModel.onConnectClicked()}"
-        android:text="@string/connect"
+        android:text="@{viewModel.getDoButtonText}"
         android:textAppearance="@style/TextAppearance.AppCompat.Button"
         style="@style/Widget.AppCompat.Button.Borderless"
         />

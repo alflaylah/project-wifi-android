@@ -20,7 +20,7 @@ object NetworkUtils {
   }
 
   /**
-   * WIFI接続を有効にする
+   * WIFI接続を有効にするj
    *
    * @param context applicationContext
    */

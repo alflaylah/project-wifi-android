@@ -1,5 +1,6 @@
 package com.app.al.wifi
 
+import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
 import com.app.al.wifi.viewmodel.dialog.WifiDialogViewModel
 import org.junit.Assert.assertFalse
@@ -16,7 +17,9 @@ class WifiDialogViewModelTest {
   @Test
   @Throws(Exception::class)
   fun connectEnabled() {
-    val wifiDialogViewModel = WifiDialogViewModel("ssid", "capabilities")
+    val ssid = ""
+    val capabilities = ""
+    val wifiDialogViewModel = WifiDialogViewModel(InstrumentationRegistry.getContext(), ssid, capabilities)
     assertFalse(wifiDialogViewModel.connectEnabled.get())
     wifiDialogViewModel.password.set("test")
     assertTrue(wifiDialogViewModel.connectEnabled.get())

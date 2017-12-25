@@ -4,18 +4,16 @@ import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import com.app.al.wifi.R
 import com.app.al.wifi.event.WifiEvent
-import com.app.al.wifi.event.bus.RxBusProvider
 import com.app.al.wifi.ui.ada.WifiListAdapter
 import com.app.al.wifi.util.WifiUtils
 import com.app.al.wifi.view.dialog.WifiDialogFragment
 import com.app.al.wifi.view.fragment.base.BaseFragment
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 
 
@@ -24,11 +22,10 @@ import io.reactivex.disposables.Disposable
  */
 class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
 
-  private val TAG = WifiListFragment::class.simpleName!!
-
   private lateinit var recyclerView: RecyclerView
   private lateinit var adapter: WifiListAdapter
   private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+  private lateinit var emptyView: LinearLayout
   private var disposable: Disposable? = null
 
   companion object {
@@ -49,9 +46,10 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
    */
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     val view = inflater.inflate(R.layout.fragment_list_wifi, container, false)
-    // TODO DataBindingが動作しないので暫定対応
+    // TODO 暫定、DataBindingしたい
     swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout)
     swipeRefreshLayout.setOnRefreshListener(this)
+    emptyView = view.findViewById(R.id.empty_view)
     recyclerView = view.findViewById<View>(R.id.recycler_view) as RecyclerView
     recyclerView.layoutManager = LinearLayoutManager(activity)
     return view
@@ -87,8 +85,8 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
    * Wifi一覧の更新
    */
   override fun onRefresh() {
-    Log.d(TAG, "onRefresh")
     adapter.reload(WifiUtils.getWifiList(context))
+    emptyView.visibility = if (adapter.itemCount == 0) View.VISIBLE else View.GONE
     swipeRefreshLayout.isRefreshing = false
   }
 
@@ -97,16 +95,6 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
    */
   private fun init() {
     initAdapter()
-  }
-
-  /**
-   * イベント初期処理
-   */
-  private fun initEvent() {
-    compositeDisposable.add(RxBusProvider.instance.
-        toObservable(WifiEvent::class.java).
-        observeOn(AndroidSchedulers.mainThread()).
-        subscribe({ onWifiEvent(it) }))
   }
 
   /**

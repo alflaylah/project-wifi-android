@@ -15,9 +15,9 @@ import java.io.Serializable
  * Wifi一覧画面ViewModel
  *
  * @param context コンテキスト
- * @param scanResult アクセスポイント検索結果
+ * @param scanResult WiFi情報
  */
-class WifiListViewModel(val context: Context?, scanResult: ScanResult) : Serializable {
+class WifiListViewModel(val context: Context?, val scanResult: ScanResult) : Serializable {
 
   val ssid: String = scanResult.SSID
   val capabilities: String = scanResult.capabilities

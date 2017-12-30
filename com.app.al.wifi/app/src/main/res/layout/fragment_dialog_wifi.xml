@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:mstb="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".view.dialog.WifiDialogFragment"
     >
@@ -64,15 +63,13 @@
         android:textSize="@dimen/dialog_item_description"
         />
 
-    <org.honorato.multistatetogglebutton.MultiStateToggleButton
-        android:id="@+id/toggle_level"
-        android:layout_width="wrap_content"
+    <Spinner
+        android:id="@+id/level_spinner"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/label_level_description"
-        android:layout_marginTop="6dp"
-        android:background="@drawable/toggle_button_border"
-        mstb:mstbPrimaryColor="@color/button_primary_color"
-        mstb:mstbSecondaryColor="@color/button_secondary_color"
+        android:layout_margin="20dp"
+        android:background="#8da"
         />
 
     <!-- パスワード -->
@@ -80,7 +77,7 @@
         android:id="@+id/label_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toggle_level"
+        android:layout_below="@+id/level_spinner"
         android:layout_marginTop="18dp"
         android:text="@string/wifi_password"
         android:textColor="@color/deep_gray"

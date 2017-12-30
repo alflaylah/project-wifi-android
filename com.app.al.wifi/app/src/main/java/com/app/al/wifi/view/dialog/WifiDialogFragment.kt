@@ -5,16 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
+import android.widget.Spinner
 import com.app.al.wifi.R
 import com.app.al.wifi.const.ApplicationConst.BUNDLE_OBJECT
 import com.app.al.wifi.const.DisplayConst
 import com.app.al.wifi.databinding.FragmentDialogWifiBinding
+import com.app.al.wifi.view.adapter.WifiLevelSpinnerAdapter
 import com.app.al.wifi.view.dialog.base.BaseDialogFragment
 import com.app.al.wifi.viewmodel.dialog.WifiDialogViewModel
 import com.app.al.wifi.viewmodel.fragment.WifiListViewModel
-import org.honorato.multistatetogglebutton.MultiStateToggleButton
-
 
 /**
  * WifiダイアログFragment
@@ -35,7 +34,23 @@ class WifiDialogFragment : BaseDialogFragment() {
     val wifiListViewModel = arguments?.getSerializable(BUNDLE_OBJECT) as WifiListViewModel
     wifiDialogViewModel = WifiDialogViewModel(context, wifiListViewModel.ssid, wifiListViewModel.capabilities)
     binding.viewModel = wifiDialogViewModel
-    initToggleButton(binding)
+    val spinner = binding.root.findViewById(R.id.level_spinner) as Spinner
+    val adapter = WifiLevelSpinnerAdapter(context, R.layout.list)
+    spinner.adapter = adapter
+
+    // リスナーを登録
+//    spinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+//      //　アイテムが選択された時
+//      override fun onItemSelected(parent: AdapterView<*>,
+//          viw: View, position: Int, id: Long) {
+//
+//        imageView.setImageResource(resources.getIdentifier(spinnerImages[position],
+//            "drawable", getPackageName()))
+//      }
+//
+//      //　アイテムが選択されなかった
+//      override fun onNothingSelected(parent: AdapterView<*>) {}
+//    })
     return binding.root
   }
 
@@ -66,30 +81,6 @@ class WifiDialogFragment : BaseDialogFragment() {
     // 画面幅×指定スケールでダイアログを表示
     layoutParams.width = (resources.displayMetrics.widthPixels * DisplayConst.DIALOG_WIDTH_SCALE).toInt()
     dialog.window.attributes = layoutParams
-  }
-
-  /**
-   * トグルボタン初期処理
-   *
-   * @param binding FragmentDialogWifiBinding
-   */
-  private fun initToggleButton(binding: FragmentDialogWifiBinding) {
-    val toggleButton = binding.root.findViewById(R.id.toggle_level) as MultiStateToggleButton
-    // トグルに設定するボタン
-    val buttons = arrayOfNulls<ImageButton>(5)
-    val selected = BooleanArray(5)
-    for (i in 0..4) {
-      val imageButton = ImageButton(context)
-      val resourceId = resources.getIdentifier("ic_signal_wifi_level_" + i, "mipmap", context?.packageName)
-      imageButton.setImageResource(resourceId)
-      imageButton.setPadding(12, 0, 12, 0)
-      buttons[i] = imageButton
-      // TODO
-      if (i == 2) {
-        selected[i] = true
-      }
-    }
-    toggleButton.setButtons(buttons, selected)
   }
 
   companion object {

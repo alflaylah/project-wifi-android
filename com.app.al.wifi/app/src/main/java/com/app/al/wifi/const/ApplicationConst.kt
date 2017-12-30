@@ -41,12 +41,16 @@ object ApplicationConst {
     PSK("PSK")
   }
 
+  // Wifi Level
+  enum class WifiLevel(val status: String, val resourceName: String) {
+    LEVEL_0("不安定", "ic_signal_wifi_level_0"),
+    LEVEL_1("やや不安定", "ic_signal_wifi_level_1"),
+    LEVEL_2("普通", "ic_signal_wifi_level_2"),
+    LEVEL_3("やや安定", "ic_signal_wifi_level_3"),
+    LEVEL_4("安定", "ic_signal_wifi_level_4")
+  }
+
   // Wifi 除外SSID
   val IGNORE_01: String = "0x"
   val IGNORE_02: String = "<unknown ssid>"
-
-  // Toolbar NavigationIconイベントタイプ
-  enum class NavigationIconEventType(val type: String) {
-    RETURN("RETURN")
-  }
 }

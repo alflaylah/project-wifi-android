@@ -34,7 +34,7 @@
   <string name="wifi_ssid">SSID</string>
   <string name="wifi_password">パスワード</string>
   <string name="wifi_level">電波の強さ</string>
-  <string name="wifi_level_description">選択した電波の強さ以下の場合、Wi-Fiに接続しないようになります</string>
+  <string name="wifi_level_description">選択した電波の強さ以上ならWi-Fi接続をするようにします</string>
 
   <!-- Wifi一覧 -->
   <string name="wifi_connected_status">現在、利用しているWi-Fiです</string>

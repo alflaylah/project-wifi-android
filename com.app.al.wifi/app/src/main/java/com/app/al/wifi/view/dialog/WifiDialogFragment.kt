@@ -35,20 +35,12 @@ class WifiDialogFragment : BaseDialogFragment() {
     wifiDialogViewModel = WifiDialogViewModel(context, wifiListViewModel.ssid, wifiListViewModel.capabilities)
     binding.viewModel = wifiDialogViewModel
     val spinner = binding.root.findViewById(R.id.level_spinner) as Spinner
-    val adapter = WifiLevelSpinnerAdapter(context, R.layout.list)
+    val adapter = WifiLevelSpinnerAdapter(context, R.layout.list_item_wifi_level)
     spinner.adapter = adapter
-
     // リスナーを登録
 //    spinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
-//      //　アイテムが選択された時
-//      override fun onItemSelected(parent: AdapterView<*>,
-//          viw: View, position: Int, id: Long) {
-//
-//        imageView.setImageResource(resources.getIdentifier(spinnerImages[position],
-//            "drawable", getPackageName()))
+//      override fun onItemSelected(parent: AdapterView<*>, viw: View, position: Int, id: Long) {
 //      }
-//
-//      //　アイテムが選択されなかった
 //      override fun onNothingSelected(parent: AdapterView<*>) {}
 //    })
     return binding.root

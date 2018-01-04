@@ -15,11 +15,11 @@ object ResourceUtils {
    * StringArray→List変換
    *
    * @param context applicationContext
-   * @param resourceId リソースID
+   * @param resId リソースID
    * @return List<String>
    */
   @Throws(Resources.NotFoundException::class)
-  fun getStringArrayResource(context: Context?, resourceId: Int): List<String> {
-    return Arrays.asList(*context?.resources?.getStringArray(resourceId))
+  fun getStringArrayResource(context: Context?, resId: Int): List<String> {
+    return Arrays.asList(*context?.resources?.getStringArray(resId))
   }
 }

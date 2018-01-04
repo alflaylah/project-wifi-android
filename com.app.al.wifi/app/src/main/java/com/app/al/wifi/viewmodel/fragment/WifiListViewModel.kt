@@ -108,12 +108,12 @@ class WifiListViewModel(val context: Context?, val scanResult: ScanResult) : Ser
      * 画像設定
      *
      * @param imageView 対象View
-     * @param resourceId 画像リソースID
+     * @param resId 画像リソースID
      */
     @JvmStatic
     @BindingAdapter("android:src")
-    fun setImage(imageView: ImageView, resourceId: Int) {
-      imageView.setImageResource(resourceId)
+    fun setImage(imageView: ImageView, resId: Int) {
+      imageView.setImageResource(resId)
     }
   }
 }

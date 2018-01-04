@@ -18,7 +18,7 @@ import io.reactivex.subjects.PublishSubject
 /**
  * Wifi一覧画面アダプタ
  *
- * @param context applicationContext
+ * @param context Context
  * @param wifiList Wifi一覧
  */
 class WifiListAdapter(private var context: Context?, private var wifiList: List<ScanResult>) : RecyclerView.Adapter<WifiListAdapter.ViewHolder>() {

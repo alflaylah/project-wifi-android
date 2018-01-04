@@ -65,11 +65,10 @@
 
     <Spinner
         android:id="@+id/level_spinner"
-        android:layout_width="250dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/label_level_description"
-        android:layout_margin="20dp"
-        android:background="#8da"
+        android:layout_marginTop="6dp"
         />
 
     <!-- パスワード -->

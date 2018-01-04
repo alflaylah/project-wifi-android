@@ -11,6 +11,9 @@ object ApplicationConst {
   val EMPTY = ""
   val DOUBLE_QUOTE = "\""
 
+  // リソースタイプ
+  val MIPMAP: String = "mipmap"
+
   // アプリケーション終了までの猶予(ミリ秒)
   val FINISH_CONFIRM = 4000
 

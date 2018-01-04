@@ -17,7 +17,7 @@ import io.reactivex.subjects.PublishSubject
 /**
  * その他一覧画面アダプタ
  *
- * @param context applicationContext
+ * @param context Context
  * @param etcList その他一覧
  */
 class EtcListAdapter(private var context: Context?, private var etcList: List<String>) : RecyclerView.Adapter<EtcListAdapter.ViewHolder>() {

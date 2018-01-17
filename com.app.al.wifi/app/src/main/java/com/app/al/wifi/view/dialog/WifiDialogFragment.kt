@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.Spinner
 import com.app.al.wifi.R
 import com.app.al.wifi.const.ApplicationConst.BUNDLE_OBJECT
@@ -18,7 +19,7 @@ import com.app.al.wifi.viewmodel.fragment.WifiListViewModel
 /**
  * WifiダイアログFragment
  */
-class WifiDialogFragment : BaseDialogFragment() {
+class WifiDialogFragment : BaseDialogFragment(), AdapterView.OnItemSelectedListener {
 
   private lateinit var wifiDialogViewModel: WifiDialogViewModel
 
@@ -37,13 +38,28 @@ class WifiDialogFragment : BaseDialogFragment() {
     val spinner = binding.root.findViewById(R.id.level_spinner) as Spinner
     val adapter = WifiLevelSpinnerAdapter(context, R.layout.list_item_wifi_level)
     spinner.adapter = adapter
-    // リスナーを登録
-//    spinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
-//      override fun onItemSelected(parent: AdapterView<*>, viw: View, position: Int, id: Long) {
-//      }
-//      override fun onNothingSelected(parent: AdapterView<*>) {}
-//    })
+    spinner.onItemSelectedListener = this
     return binding.root
+  }
+
+  /**
+   * スピナー項目選択
+   *
+   * @param parent parent
+   * @param view view
+   * @param position 位置
+   * @param id ID
+   */
+  override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+  }
+
+  /**
+   * 選択済みスピナー項目の再選択
+   *
+   * @param parent parent
+   */
+  override fun onNothingSelected(parent: AdapterView<*>) {
+    // 処理なし
   }
 
   /**

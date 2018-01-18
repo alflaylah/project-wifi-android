@@ -16,8 +16,7 @@ import com.app.al.wifi.view.dialog.PermissionDialogFragment
 object PermissionUtils {
 
   private val TAG = PermissionUtils::class.simpleName!!
-
-  val REQUEST_CODE = ApplicationConst.REQUEST_PERMISSION
+  const val REQUEST_CODE = ApplicationConst.REQUEST_PERMISSION
 
   // 初回要求フラグ
   private var isFirstShouldShowRequest = false

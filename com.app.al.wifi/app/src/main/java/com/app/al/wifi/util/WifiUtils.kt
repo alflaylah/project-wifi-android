@@ -173,20 +173,16 @@ object WifiUtils {
     var scanResults = listOf<ScanResult>()
     if (wifiManager.startScan()) {
       // TODO 条件が雑
-      scanResults = wifiManager.scanResults.
-          filter {
-            // SSIDが空ではない
-            it.SSID.isNotEmpty()
-          }.
-          sortedByDescending {
+      scanResults = wifiManager.scanResults.filter {
+        // SSIDが空ではない
+        it.SSID.isNotEmpty()
+      }.sortedByDescending {
             // levelで降順
             it.level
-          }.
-          distinctBy {
+          }.distinctBy {
             // SSIDの重複排除
             it.SSID
-          }.
-          sortedBy {
+          }.sortedBy {
             // SSIDで昇順
             it.SSID
           }

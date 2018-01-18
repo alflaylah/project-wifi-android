@@ -8,26 +8,33 @@ import android.Manifest.permission
 object ApplicationConst {
 
   // 汎用
-  val EMPTY = ""
-  val DOUBLE_QUOTE = "\""
+  const val EMPTY = ""
+  const val DOUBLE_QUOTE = "\""
 
   // リソースタイプ
-  val MIPMAP: String = "mipmap"
+  const val MIPMAP: String = "mipmap"
 
   // アプリケーション終了までの猶予(ミリ秒)
-  val FINISH_CONFIRM = 4000
+  const val FINISH_CONFIRM = 4000
 
   // パスワード
-  val REGEX_WEP = "[0-9A-Fa-f]*"
-  val REGEX_PSK = "[0-9A-Fa-f]{64}"
+  const val REGEX_WEP = "[0-9A-Fa-f]*"
+  const val REGEX_PSK = "[0-9A-Fa-f]{64}"
 
   // Bundle
-  val BUNDLE_URL = "BUNDLE_URL"
-  val BUNDLE_OBJECT = "BUNDLE_OBJECT"
+  const val BUNDLE_URL = "BUNDLE_URL"
+  const val BUNDLE_OBJECT = "BUNDLE_OBJECT"
+
+  // Shared Preferences
+  const val SHARED_PREFERENCES_NAME = "WOONEKA_WIFI"
+
+  // Wifi 除外SSID
+  const val IGNORE_01: String = "0x"
+  const val IGNORE_02: String = "<unknown ssid>"
 
   // REQUEST_CODE
-  val REQUEST_PERMISSION = 20
-  val REQUEST_LOCATION = 20
+  const val REQUEST_PERMISSION = 20
+  const val REQUEST_LOCATION = 20
 
   // 許可が必要な権限
   val PERMISSIONS = arrayOf(
@@ -52,8 +59,4 @@ object ApplicationConst {
     LEVEL_3("やや安定", "ic_signal_wifi_level_3"),
     LEVEL_4("安定", "ic_signal_wifi_level_4")
   }
-
-  // Wifi 除外SSID
-  val IGNORE_01: String = "0x"
-  val IGNORE_02: String = "<unknown ssid>"
 }

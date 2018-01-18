@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Spinner
+import android.widget.Toast
 import com.app.al.wifi.R
 import com.app.al.wifi.const.ApplicationConst.BUNDLE_OBJECT
 import com.app.al.wifi.const.DisplayConst
@@ -15,6 +16,7 @@ import com.app.al.wifi.view.adapter.WifiLevelSpinnerAdapter
 import com.app.al.wifi.view.dialog.base.BaseDialogFragment
 import com.app.al.wifi.viewmodel.dialog.WifiDialogViewModel
 import com.app.al.wifi.viewmodel.fragment.WifiListViewModel
+
 
 /**
  * WifiダイアログFragment
@@ -51,6 +53,9 @@ class WifiDialogFragment : BaseDialogFragment(), AdapterView.OnItemSelectedListe
    * @param id ID
    */
   override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+    val spinner = parent as Spinner
+    val item = spinner.selectedItem
+    Toast.makeText(context, item.toString(), Toast.LENGTH_LONG).show()
   }
 
   /**

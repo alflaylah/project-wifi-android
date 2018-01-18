@@ -6,5 +6,5 @@ package com.app.al.wifi.const
 object DisplayConst {
 
   // 汎用
-  val DIALOG_WIDTH_SCALE = 0.9
+  const val DIALOG_WIDTH_SCALE = 0.9
 }

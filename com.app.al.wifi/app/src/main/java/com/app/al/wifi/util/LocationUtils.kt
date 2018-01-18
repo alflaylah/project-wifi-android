@@ -21,7 +21,7 @@ import com.google.android.gms.location.LocationSettingsStatusCodes
 object LocationUtils {
 
   private val TAG = LocationUtils::class.simpleName!!
-  val REQUEST_CODE = ApplicationConst.REQUEST_LOCATION
+  const val REQUEST_CODE = ApplicationConst.REQUEST_LOCATION
 
   /**
    * 位置情報ON/OFFの確認

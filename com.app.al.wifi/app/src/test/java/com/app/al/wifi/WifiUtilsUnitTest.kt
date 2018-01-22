@@ -13,7 +13,7 @@ class WifiUtilsUnitTest {
   @Test
   @Throws(Exception::class)
   fun isConnect() {
-    val SSID = "DMM_Mainte"
+    val SSID = ""
     val PASSWORD = ""
 //    WifiUtils.connect(,)
   }

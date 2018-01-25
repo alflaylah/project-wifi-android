@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.Spinner
-import android.widget.Toast
 import com.app.al.wifi.R
 import com.app.al.wifi.const.ApplicationConst.BUNDLE_OBJECT
 import com.app.al.wifi.const.DisplayConst
@@ -21,7 +19,7 @@ import com.app.al.wifi.viewmodel.fragment.WifiListViewModel
 /**
  * WifiダイアログFragment
  */
-class WifiDialogFragment : BaseDialogFragment(), AdapterView.OnItemSelectedListener {
+class WifiDialogFragment : BaseDialogFragment() {
 
   private lateinit var wifiDialogViewModel: WifiDialogViewModel
 
@@ -35,36 +33,11 @@ class WifiDialogFragment : BaseDialogFragment(), AdapterView.OnItemSelectedListe
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     val binding = DataBindingUtil.inflate<FragmentDialogWifiBinding>(inflater, R.layout.fragment_dialog_wifi, container, false)
     val wifiListViewModel = arguments?.getSerializable(BUNDLE_OBJECT) as WifiListViewModel
+    val spinner = binding.root.findViewById(R.id.level_spinner) as Spinner
     wifiDialogViewModel = WifiDialogViewModel(context, wifiListViewModel.ssid, wifiListViewModel.capabilities)
     binding.viewModel = wifiDialogViewModel
-    val spinner = binding.root.findViewById(R.id.level_spinner) as Spinner
-    val adapter = WifiLevelSpinnerAdapter(context, R.layout.list_item_wifi_level)
-    spinner.adapter = adapter
-    spinner.onItemSelectedListener = this
+    spinner.adapter = WifiLevelSpinnerAdapter(context, R.layout.list_item_wifi_level)
     return binding.root
-  }
-
-  /**
-   * スピナー項目選択
-   *
-   * @param parent parent
-   * @param view view
-   * @param position 位置
-   * @param id ID
-   */
-  override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-    val spinner = parent as Spinner
-    val item = spinner.selectedItem
-    Toast.makeText(context, item.toString(), Toast.LENGTH_LONG).show()
-  }
-
-  /**
-   * 選択済みスピナー項目の再選択
-   *
-   * @param parent parent
-   */
-  override fun onNothingSelected(parent: AdapterView<*>) {
-    // 処理なし
   }
 
   /**

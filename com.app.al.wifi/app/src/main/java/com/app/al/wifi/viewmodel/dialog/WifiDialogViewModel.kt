@@ -4,6 +4,9 @@ import android.content.Context
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import android.view.View
+import android.widget.AdapterView
+import android.widget.Spinner
+import android.widget.Toast
 import com.app.al.wifi.R
 import com.app.al.wifi.model.WifiModel
 import com.app.al.wifi.util.RxUtils
@@ -77,5 +80,19 @@ class WifiDialogViewModel(val context: Context?, val ssid: String, private val c
   fun onConnectClicked() {
     // Wifi接続
     wifiModel.connect(ssid, capabilities, password.get())
+  }
+
+  /**
+   * 電波強度選択
+   *
+   * @param parent parent
+   * @param view view
+   * @param position 位置
+   * @param id ID
+   */
+  fun onSpinnerItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+    val spinner = parent as Spinner
+    val item = spinner.selectedItem
+    Toast.makeText(context, item.toString(), Toast.LENGTH_LONG).show()
   }
 }

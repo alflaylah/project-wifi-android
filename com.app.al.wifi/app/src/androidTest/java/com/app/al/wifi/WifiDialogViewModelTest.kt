@@ -20,8 +20,8 @@ class WifiDialogViewModelTest {
     val ssid = ""
     val capabilities = ""
     val wifiDialogViewModel = WifiDialogViewModel(InstrumentationRegistry.getContext(), ssid, capabilities)
-    assertFalse(wifiDialogViewModel.connectEnabled.get())
+    assertFalse(wifiDialogViewModel.isDoButtonEnabled.get())
     wifiDialogViewModel.password.set("test")
-    assertTrue(wifiDialogViewModel.connectEnabled.get())
+    assertTrue(wifiDialogViewModel.isDoButtonEnabled.get())
   }
 }

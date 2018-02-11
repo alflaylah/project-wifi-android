@@ -5,11 +5,10 @@ import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
 import android.view.View
 import android.widget.AdapterView
-import android.widget.Spinner
-import android.widget.Toast
 import com.app.al.wifi.R
 import com.app.al.wifi.model.WifiModel
 import com.app.al.wifi.util.RxUtils
+import com.app.al.wifi.util.SharedPreferenceUtils
 import com.app.al.wifi.util.WifiUtils
 import com.app.al.wifi.viewmodel.dialog.base.BaseDialogViewModel
 import io.reactivex.disposables.CompositeDisposable
@@ -27,11 +26,16 @@ class WifiDialogViewModel(val context: Context?, val ssid: String, private val c
   private var wifiModel: WifiModel = WifiModel()
   private var compositeDisposable = CompositeDisposable()
   var password: ObservableField<String> = ObservableField()
-  var connectEnabled = ObservableBoolean(false)
+  var isDoButtonEnabled = ObservableBoolean(false)
 
   init {
-    // パスワード未入力時、接続ボタンは押させない
-    compositeDisposable.add(RxUtils.toFlowable(password).subscribe({ connectEnabled.set(!it.isNotEmpty()) }))
+    if (getPasswordVisibility() == View.GONE) {
+      // パスワードが表示されていない場合、接続/保存ボタンは常に押下させる
+      isDoButtonEnabled = ObservableBoolean(true)
+    } else {
+      // パスワード未入力時、接続ボタンは押下させない
+      compositeDisposable.add(RxUtils.toFlowable(password).subscribe({ isDoButtonEnabled.set(it.isNotEmpty()) }))
+    }
   }
 
   /**
@@ -75,14 +79,6 @@ class WifiDialogViewModel(val context: Context?, val ssid: String, private val c
   }
 
   /**
-   * 接続ボタン押下
-   */
-  fun onConnectClicked() {
-    // Wifi接続
-    wifiModel.connect(ssid, capabilities, password.get())
-  }
-
-  /**
    * 電波強度選択
    *
    * @param parent parent
@@ -91,8 +87,14 @@ class WifiDialogViewModel(val context: Context?, val ssid: String, private val c
    * @param id ID
    */
   fun onSpinnerItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-    val spinner = parent as Spinner
-    val item = spinner.selectedItem
-    Toast.makeText(context, item.toString(), Toast.LENGTH_LONG).show()
+    SharedPreferenceUtils.saveInt(context, ssid, position)
+  }
+
+  /**
+   * 接続ボタン押下
+   */
+  fun onDoButtonClicked() {
+    // Wifi接続
+    wifiModel.connect(ssid, capabilities, password.get())
   }
 }

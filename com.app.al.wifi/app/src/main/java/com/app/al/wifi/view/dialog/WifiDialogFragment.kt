@@ -10,6 +10,7 @@ import com.app.al.wifi.R
 import com.app.al.wifi.const.ApplicationConst.BUNDLE_OBJECT
 import com.app.al.wifi.const.DisplayConst
 import com.app.al.wifi.databinding.FragmentDialogWifiBinding
+import com.app.al.wifi.util.SharedPreferenceUtils
 import com.app.al.wifi.view.adapter.WifiLevelSpinnerAdapter
 import com.app.al.wifi.view.dialog.base.BaseDialogFragment
 import com.app.al.wifi.viewmodel.dialog.WifiDialogViewModel
@@ -33,10 +34,9 @@ class WifiDialogFragment : BaseDialogFragment() {
   override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
     val binding = DataBindingUtil.inflate<FragmentDialogWifiBinding>(inflater, R.layout.fragment_dialog_wifi, container, false)
     val wifiListViewModel = arguments?.getSerializable(BUNDLE_OBJECT) as WifiListViewModel
-    val spinner = binding.root.findViewById(R.id.level_spinner) as Spinner
     wifiDialogViewModel = WifiDialogViewModel(context, wifiListViewModel.ssid, wifiListViewModel.capabilities)
     binding.viewModel = wifiDialogViewModel
-    spinner.adapter = WifiLevelSpinnerAdapter(context, R.layout.list_item_wifi_level)
+    initSpinner(binding)
     return binding.root
   }
 
@@ -56,6 +56,15 @@ class WifiDialogFragment : BaseDialogFragment() {
   override fun onDestroy() {
     wifiDialogViewModel.dispose()
     super.onDestroy()
+  }
+
+  /**
+   * レイアウト初期処理
+   */
+  private fun initSpinner(binding: FragmentDialogWifiBinding) {
+    val spinner = binding.root.findViewById(R.id.level_spinner) as Spinner
+    spinner.adapter = WifiLevelSpinnerAdapter(context, R.layout.list_item_wifi_level)
+    spinner.setSelection(SharedPreferenceUtils.readInt(context, wifiDialogViewModel.ssid))
   }
 
   /**

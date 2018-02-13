@@ -11,11 +11,11 @@ class WifiModel {
   /**
    * WIFI接続
    *
-   * @param ssId SSID
+   * @param ssid SSID
    * @param capabilities capabilities
    * @param password パスワード
    */
-  fun connect(ssId: String, capabilities: String, password: String) {
-    RxBusProvider.instance.post(WifiEvent(ssId, capabilities, password))
+  fun connect(ssid: String, capabilities: String, password: String?) {
+    RxBusProvider.instance.post(WifiEvent(ssid, capabilities, password))
   }
 }

@@ -69,7 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/label_level_description"
         android:layout_marginTop="6dp"
-        android:onItemSelected="@{viewModel.onSpinnerItemSelected}"
+        android:selectedItemPosition="@={viewModel.selectedPosition}"
         />
 
     <!-- パスワード -->

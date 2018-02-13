@@ -3,9 +3,12 @@ package com.app.al.wifi.viewmodel.dialog
 import android.content.Context
 import android.databinding.ObservableBoolean
 import android.databinding.ObservableField
+import android.databinding.ObservableInt
 import android.view.View
-import android.widget.AdapterView
 import com.app.al.wifi.R
+import com.app.al.wifi.event.CloseEvent
+import com.app.al.wifi.event.CloseEvent.Companion.CloseType.DIALOG
+import com.app.al.wifi.event.bus.RxBusProvider
 import com.app.al.wifi.model.WifiModel
 import com.app.al.wifi.util.RxUtils
 import com.app.al.wifi.util.SharedPreferenceUtils
@@ -25,6 +28,7 @@ class WifiDialogViewModel(val context: Context?, val ssid: String, private val c
 
   private var wifiModel: WifiModel = WifiModel()
   private var compositeDisposable = CompositeDisposable()
+  var selectedPosition = ObservableInt(0)
   var password: ObservableField<String> = ObservableField()
   var isDoButtonEnabled = ObservableBoolean(false)
 
@@ -36,6 +40,8 @@ class WifiDialogViewModel(val context: Context?, val ssid: String, private val c
       // パスワード未入力時、接続ボタンは押下させない
       compositeDisposable.add(RxUtils.toFlowable(password).subscribe({ isDoButtonEnabled.set(it.isNotEmpty()) }))
     }
+    // 電波強度の位置を設定
+    selectedPosition.set(SharedPreferenceUtils.readInt(context, ssid))
   }
 
   /**
@@ -79,22 +85,17 @@ class WifiDialogViewModel(val context: Context?, val ssid: String, private val c
   }
 
   /**
-   * 電波強度選択
-   *
-   * @param parent parent
-   * @param view view
-   * @param position 位置
-   * @param id ID
-   */
-  fun onSpinnerItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-    SharedPreferenceUtils.saveInt(context, ssid, position)
-  }
-
-  /**
-   * 接続ボタン押下
+   * 接続・保存ボタン押下
    */
   fun onDoButtonClicked() {
-    // Wifi接続
-    wifiModel.connect(ssid, capabilities, password.get())
+    // 電波強度の位置を保存する
+    SharedPreferenceUtils.saveInt(context, ssid, selectedPosition.get())
+    // 利用していないWifiなら接続を実施する
+    val password: String? = password.get()
+    if (!WifiUtils.isAccessPointConnecting(context, ssid)) {
+      wifiModel.connect(ssid, capabilities, password)
+    }
+    // ダイアログ終了
+    RxBusProvider.instance.post(CloseEvent(DIALOG))
   }
 }

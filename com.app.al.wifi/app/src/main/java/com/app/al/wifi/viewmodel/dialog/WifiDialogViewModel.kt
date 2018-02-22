@@ -10,6 +10,7 @@ import com.app.al.wifi.event.CloseEvent
 import com.app.al.wifi.event.CloseEvent.Companion.CloseType.DIALOG
 import com.app.al.wifi.event.bus.RxBusProvider
 import com.app.al.wifi.model.WifiModel
+import com.app.al.wifi.util.NetworkUtils
 import com.app.al.wifi.util.RxUtils
 import com.app.al.wifi.util.SharedPreferenceUtils
 import com.app.al.wifi.util.WifiUtils
@@ -90,6 +91,10 @@ class WifiDialogViewModel(val context: Context?, val ssid: String, private val c
   fun onDoButtonClicked() {
     // 電波強度の位置を保存する
     SharedPreferenceUtils.saveInt(context, ssid, selectedPosition.get())
+    // Wifiが無効の場合、有効にして接続
+    if (!NetworkUtils.isWifiConnected(context!!)) {
+      NetworkUtils.enableWifi(context)
+    }
     // 利用していないWifiなら接続を実施する
     val password: String? = password.get()
     if (!WifiUtils.isAccessPointConnecting(context, ssid)) {

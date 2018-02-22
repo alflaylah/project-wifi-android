@@ -196,8 +196,11 @@ object WifiUtils {
    * @param context Context
    * @return 接続履歴一覧
    */
-  private fun getHistoryList(context: Context?): List<WifiConfiguration> {
+  private fun getHistoryList(context: Context?): List<WifiConfiguration>? {
     val wifiManager = context?.applicationContext?.getSystemService(WIFI_SERVICE) as WifiManager
+    if (wifiManager.configuredNetworks == null) {
+      return null
+    }
     return wifiManager.configuredNetworks.toList()
   }
 
@@ -222,11 +225,11 @@ object WifiUtils {
    * @return true：過去に利用している履歴あり false：過去に利用している履歴なし
    */
   fun isAccessPointHistory(context: Context?, ssid: String): Boolean {
-    var wifiHistoryList = getHistoryList(context).filter { wifiConfiguration ->
+    var wifiHistoryList = getHistoryList(context)?.filter { wifiConfiguration ->
       wifiConfiguration.SSID.contains(ssid)
     }
-    if (!wifiHistoryList.isEmpty()) {
-      return true
+    if (wifiHistoryList == null || wifiHistoryList.isEmpty()) {
+      return false
     }
     return false
   }

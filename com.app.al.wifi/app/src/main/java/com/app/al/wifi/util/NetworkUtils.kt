@@ -20,11 +20,11 @@ object NetworkUtils {
   }
 
   /**
-   * WIFI接続を有効にするj
+   * WIFI接続を有効にする
    *
    * @param context applicationContext
    */
-  fun enable(context: Context) {
+  fun enableWifi(context: Context) {
     WifiUtils.enable(context)
   }
 

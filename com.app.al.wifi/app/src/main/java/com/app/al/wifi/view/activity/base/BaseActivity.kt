@@ -1,6 +1,5 @@
 package com.app.al.wifi.view.activity.base
 
-import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
@@ -12,8 +11,6 @@ import com.app.al.wifi.di.ApplicationComponent
 import com.app.al.wifi.view.activity.WebActivity
 import com.app.al.wifi.view.fragment.EtcListFragment
 import com.app.al.wifi.view.fragment.WifiListFragment
-import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Inject
 
 /**
  * 基底Activity
@@ -21,27 +18,6 @@ import javax.inject.Inject
 open class BaseActivity : AppCompatActivity(), FragmentManager.OnBackStackChangedListener {
 
   private var toolbar: Toolbar? = null
-
-  @Inject
-  protected lateinit var compositeDisposable: CompositeDisposable
-
-  /**
-   * onCreate
-   *
-   * @param savedInstanceState savedInstanceState
-   */
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.onCreate(savedInstanceState)
-    getApplicationComponent().inject(this)
-  }
-
-  /**
-   * onDestroy
-   */
-  override fun onDestroy() {
-    super.onDestroy()
-    if (!compositeDisposable.isDisposed) compositeDisposable.clear()
-  }
 
   /**
    * onBackStackChanged

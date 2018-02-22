@@ -47,7 +47,7 @@ class WifiDialogFragment : BaseDialogFragment() {
    */
   override fun onActivityCreated(savedInstanceState: Bundle?) {
     super.onActivityCreated(savedInstanceState)
-//    initLayout()
+    initLayout()
   }
 
   /**

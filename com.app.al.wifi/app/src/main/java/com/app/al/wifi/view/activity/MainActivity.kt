@@ -19,11 +19,13 @@ import com.app.al.wifi.event.bus.RxBusProvider
 import com.app.al.wifi.util.ApplicationUtils
 import com.app.al.wifi.util.LocationUtils
 import com.app.al.wifi.util.PermissionUtils
+import com.app.al.wifi.util.WifiUtils
 import com.app.al.wifi.view.activity.base.BaseActivity
 import com.app.al.wifi.view.fragment.EtcListFragment
 import com.app.al.wifi.view.fragment.WifiListFragment
 import com.app.al.wifi.viewmodel.activity.MainViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
 /**
@@ -39,6 +41,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
   private lateinit var drawerLayout: DrawerLayout
 
   @Inject
+  lateinit var compositeDisposable: CompositeDisposable
+  @Inject
   lateinit var mainViewModel: MainViewModel
 
   /**
@@ -50,6 +54,22 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
     init()
+  }
+
+  /**
+   * onStart
+   */
+  override fun onStart() {
+    super.onStart()
+    initEvent()
+  }
+
+  /**
+   * onDestroy
+   */
+  override fun onDestroy() {
+    super.onDestroy()
+    if (!compositeDisposable.isDisposed) compositeDisposable.clear()
   }
 
   /**
@@ -228,15 +248,21 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
   }
 
-
   /**
-   * Wifi接続メッセージ取得
+   * Wifi関連イベント取得
    *
    * @param event Wifi関連イベント
    */
   private fun onWifiEvent(event: WifiEvent) {
+    // 画面にメッセージ表示
     if (!event.message.isNullOrEmpty()) {
       Snackbar.make(findViewById(R.id.linear_layout), event.message.toString(), Snackbar.LENGTH_LONG).show()
+      return
+    }
+    // Wi-Fi接続を実施
+    if (!event.ssid.isNullOrEmpty()) {
+      WifiUtils.connect(applicationContext, event.ssid!!, event.capabilities!!, event.password!!)
+      return
     }
   }
 }

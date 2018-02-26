@@ -58,7 +58,6 @@ class WifiReceiver : BroadcastReceiver() {
       return
     }
 
-
 //    val manager = context.applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
 //    val wifiInfo = intent.getParcelableExtra<WifiInfo>(WifiManager.EXTRA_WIFI_INFO)
 //    if (wifiInfo != null) {
@@ -67,7 +66,6 @@ class WifiReceiver : BroadcastReceiver() {
 //      // 接続の関連付けを行う
 //      manager.enableNetwork(wifiInfo.networkId, false)
 //    }
-
 
     val message: String = if (networkInfo.state == NetworkInfo.State.CONNECTING) {
       String.format(context.getString(R.string.wifi_connecting_message), networkInfo.extraInfo.replace(ApplicationConst.DOUBLE_QUOTE, ApplicationConst.EMPTY))

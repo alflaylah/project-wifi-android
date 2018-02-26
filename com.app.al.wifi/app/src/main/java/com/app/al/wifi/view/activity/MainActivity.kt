@@ -223,7 +223,6 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     }
   }
 
-
   /**
    * 画面遷移
    *
@@ -254,7 +253,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
    * @param event Wifi関連イベント
    */
   private fun onWifiEvent(event: WifiEvent) {
-    // 画面にメッセージ表示
+    // Snackbar表示
     if (!event.message.isNullOrEmpty()) {
       Snackbar.make(findViewById(R.id.linear_layout), event.message.toString(), Snackbar.LENGTH_LONG).show()
       return

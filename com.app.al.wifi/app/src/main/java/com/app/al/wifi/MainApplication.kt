@@ -3,7 +3,6 @@ package com.app.al.wifi
 import android.app.Application
 import com.app.al.wifi.di.ApplicationComponent
 import com.app.al.wifi.di.ApplicationModule
-import com.app.al.wifi.di.DaggerApplicationComponent
 
 /**
  * Applicationクラス

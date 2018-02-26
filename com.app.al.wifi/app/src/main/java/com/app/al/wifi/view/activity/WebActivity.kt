@@ -24,8 +24,6 @@ class WebActivity : BaseActivity() {
     init()
   }
 
-  // class methods
-
   /**
    * 初期処理
    */

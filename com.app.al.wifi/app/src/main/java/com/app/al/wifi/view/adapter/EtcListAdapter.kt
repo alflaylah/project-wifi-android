@@ -1,4 +1,4 @@
-package com.app.al.wifi.ui.ada
+package com.app.al.wifi.view.adapter
 
 import android.content.Context
 import android.databinding.DataBindingUtil

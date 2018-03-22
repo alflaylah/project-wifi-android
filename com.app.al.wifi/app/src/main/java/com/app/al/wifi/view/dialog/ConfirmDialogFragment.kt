@@ -59,7 +59,11 @@ class ConfirmDialogFragment : BaseDialogFragment() {
      * @param negative 表示メッセージ
      * @return アプリケーション終了ダイアログ
      */
-    fun newInstance(message: String, positive: String, negative: String): ConfirmDialogFragment {
+    fun newInstance(
+      message: String,
+      positive: String,
+      negative: String
+    ): ConfirmDialogFragment {
       val fragment = ConfirmDialogFragment()
       val args = Bundle()
       args.putString(ARG_MESSAGE_KEY, message)

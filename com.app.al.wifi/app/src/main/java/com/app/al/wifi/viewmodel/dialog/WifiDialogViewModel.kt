@@ -25,7 +25,11 @@ import io.reactivex.disposables.Disposable
  * @param ssid SSID
  * @param capabilities capabilities
  */
-class WifiDialogViewModel(val context: Context?, val ssid: String, private val capabilities: String) : BaseDialogViewModel(), Disposable {
+class WifiDialogViewModel(
+  val context: Context?,
+  val ssid: String,
+  private val capabilities: String
+) : BaseDialogViewModel(), Disposable {
 
   private var wifiModel: WifiModel = WifiModel()
   private var compositeDisposable = CompositeDisposable()

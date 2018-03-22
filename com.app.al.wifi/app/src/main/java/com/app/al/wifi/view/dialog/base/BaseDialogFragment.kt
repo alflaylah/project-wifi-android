@@ -49,9 +49,11 @@ open class BaseDialogFragment : DialogFragment() {
    * イベント初期処理
    */
   private fun initEvent() {
-    compositeDisposable.add(RxBusProvider.instance.toObservable(CloseEvent::class.java)
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({ onCloseDialogEvent(it) }))
+    compositeDisposable.add(
+        RxBusProvider.instance.toObservable(CloseEvent::class.java)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ onCloseDialogEvent(it) })
+    )
   }
 
   /**

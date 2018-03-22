@@ -28,7 +28,10 @@ object PermissionUtils {
    * @param permissions 要求権限
    * @return true：許可済み false：不許可
    */
-  fun isRequestPermission(activity: FragmentActivity, permissions: Array<String>): Boolean = isRequestPermission(activity, permissions, REQUEST_CODE)
+  fun isRequestPermission(
+    activity: FragmentActivity,
+    permissions: Array<String>
+  ): Boolean = isRequestPermission(activity, permissions, REQUEST_CODE)
 
   /**
    * 要求した権限の許可/不許可を返却する
@@ -37,7 +40,10 @@ object PermissionUtils {
    * @param permissions 要求権限
    * @return true：許可済み false：不許可
    */
-  fun isRequestPermission(fragment: Fragment, permissions: Array<String>): Boolean = isRequestPermission(fragment, permissions, REQUEST_CODE)
+  fun isRequestPermission(
+    fragment: Fragment,
+    permissions: Array<String>
+  ): Boolean = isRequestPermission(fragment, permissions, REQUEST_CODE)
 
   /**
    * 要求した権限の許可/不許可を返却する
@@ -47,7 +53,11 @@ object PermissionUtils {
    * @param requestCode リクエストコード
    * @return true：許可済み false：不許可
    */
-  private fun isRequestPermission(activity: FragmentActivity, permissions: Array<String>, requestCode: Int): Boolean {
+  private fun isRequestPermission(
+    activity: FragmentActivity,
+    permissions: Array<String>,
+    requestCode: Int
+  ): Boolean {
     // アプリケーションで要求した権限をユーザーが許可しているか判定
     for (permission in permissions) {
       if (ContextCompat.checkSelfPermission(activity, permission) != PackageManager.PERMISSION_GRANTED) {
@@ -69,7 +79,11 @@ object PermissionUtils {
    * @param requestCode リクエストコード
    * @return true：許可済み false：不許可
    */
-  private fun isRequestPermission(fragment: Fragment, permissions: Array<String>, requestCode: Int): Boolean {
+  private fun isRequestPermission(
+    fragment: Fragment,
+    permissions: Array<String>,
+    requestCode: Int
+  ): Boolean {
     // アプリケーションで要求した権限をユーザーが許可しているか判定
     for (permission in permissions) {
       if (ContextCompat.checkSelfPermission(fragment.context!!, permission) != PackageManager.PERMISSION_GRANTED) {
@@ -90,7 +104,11 @@ object PermissionUtils {
    * @param permissions 要求権限
    * @param messageId メッセージID
    */
-  fun checkNeverRequestPermission(activity: FragmentActivity, permissions: Array<String>, messageId: Int) {
+  fun checkNeverRequestPermission(
+    activity: FragmentActivity,
+    permissions: Array<String>,
+    messageId: Int
+  ) {
     checkNeverRequestPermission(activity, permissions, activity.getString(messageId))
   }
 
@@ -101,7 +119,11 @@ object PermissionUtils {
    * @param permissions 要求権限
    * @param messageId メッセージID
    */
-  fun checkNeverRequestPermission(fragment: Fragment, permissions: Array<String>, messageId: Int) {
+  fun checkNeverRequestPermission(
+    fragment: Fragment,
+    permissions: Array<String>,
+    messageId: Int
+  ) {
     checkNeverRequestPermission(fragment, permissions, fragment.getString(messageId))
   }
 
@@ -118,7 +140,11 @@ object PermissionUtils {
    * @param permissions 要求権限
    * @param message メッセージ
    */
-  private fun checkNeverRequestPermission(activity: FragmentActivity, permissions: Array<String>, message: String) {
+  private fun checkNeverRequestPermission(
+    activity: FragmentActivity,
+    permissions: Array<String>,
+    message: String
+  ) {
     val isShouldShowRequest = permissions.any { permission ->
       !ActivityCompat.shouldShowRequestPermissionRationale(activity, permission)
     }
@@ -149,7 +175,11 @@ object PermissionUtils {
    * @param permissions 要求権限
    * @param message メッセージ
    */
-  private fun checkNeverRequestPermission(fragment: Fragment, permissions: Array<String>, message: String) {
+  private fun checkNeverRequestPermission(
+    fragment: Fragment,
+    permissions: Array<String>,
+    message: String
+  ) {
     val isShouldShowRequest = permissions.any { permission ->
       !fragment.shouldShowRequestPermissionRationale(permission)
     }
@@ -187,7 +217,11 @@ object PermissionUtils {
    * @param fragmentManager fragmentManager
    * @param message 表示メッセージ
    */
-  private fun showDialog(fragmentManager: FragmentManager, message: String) {
-    PermissionDialogFragment.newInstance(message).show(fragmentManager, TAG)
+  private fun showDialog(
+    fragmentManager: FragmentManager,
+    message: String
+  ) {
+    PermissionDialogFragment.newInstance(message)
+        .show(fragmentManager, TAG)
   }
 }

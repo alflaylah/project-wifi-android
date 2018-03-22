@@ -64,7 +64,6 @@ open class BaseActivity : AppCompatActivity(), FragmentManager.OnBackStackChange
     }
   }
 
-
   /**
    * Toolbar NavigationIcon押下時イベント
    */

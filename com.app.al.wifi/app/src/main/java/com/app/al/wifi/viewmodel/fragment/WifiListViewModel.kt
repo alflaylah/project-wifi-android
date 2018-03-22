@@ -17,7 +17,10 @@ import java.io.Serializable
  * @param context コンテキスト
  * @param scanResult WiFi情報
  */
-class WifiListViewModel(val context: Context?, val scanResult: ScanResult) : Serializable {
+class WifiListViewModel(
+  val context: Context?,
+  val scanResult: ScanResult
+) : Serializable {
 
   val ssid: String = scanResult.SSID
   val capabilities: String = scanResult.capabilities
@@ -31,11 +34,13 @@ class WifiListViewModel(val context: Context?, val scanResult: ScanResult) : Ser
   fun getStatus(): String {
     // 現在、利用中
     if (WifiUtils.isAccessPointConnecting(context, ssid)) {
-      return context?.getString(R.string.wifi_connected_status).toString()
+      return context?.getString(R.string.wifi_connected_status)
+          .toString()
     }
     // 過去に履歴あり
     if (WifiUtils.isAccessPointHistory(context, ssid)) {
-      return context?.getString(R.string.wifi_connected_history_status).toString()
+      return context?.getString(R.string.wifi_connected_history_status)
+          .toString()
     }
     return ApplicationConst.EMPTY
   }
@@ -72,7 +77,10 @@ class WifiListViewModel(val context: Context?, val scanResult: ScanResult) : Ser
      */
     @JvmStatic
     @BindingAdapter("android:src")
-    fun setImageUrl(imageView: ImageView, imageUrl: String?) {
+    fun setImageUrl(
+      imageView: ImageView,
+      imageUrl: String?
+    ) {
       if (imageUrl.isNullOrEmpty()) {
         imageView.setImageURI(null)
       } else {
@@ -88,7 +96,10 @@ class WifiListViewModel(val context: Context?, val scanResult: ScanResult) : Ser
      */
     @JvmStatic
     @BindingAdapter("android:src")
-    fun setImageUrl(imageView: ImageView, imageUri: Uri?) {
+    fun setImageUrl(
+      imageView: ImageView,
+      imageUri: Uri?
+    ) {
       imageView.setImageURI(imageUri)
     }
 
@@ -100,7 +111,10 @@ class WifiListViewModel(val context: Context?, val scanResult: ScanResult) : Ser
      */
     @JvmStatic
     @BindingAdapter("android:src")
-    fun setImageUrl(imageView: ImageView, drawable: Drawable?) {
+    fun setImageUrl(
+      imageView: ImageView,
+      drawable: Drawable?
+    ) {
       imageView.setImageDrawable(drawable)
     }
 
@@ -112,7 +126,10 @@ class WifiListViewModel(val context: Context?, val scanResult: ScanResult) : Ser
      */
     @JvmStatic
     @BindingAdapter("android:src")
-    fun setImage(imageView: ImageView, resId: Int) {
+    fun setImage(
+      imageView: ImageView,
+      resId: Int
+    ) {
       imageView.setImageResource(resId)
     }
   }

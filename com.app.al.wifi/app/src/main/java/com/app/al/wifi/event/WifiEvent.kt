@@ -17,7 +17,11 @@ class WifiEvent() {
    * @param capabilities capabilities
    * @param password パスワード
    */
-  constructor(ssid: String?, capabilities: String?, password: String?) : this() {
+  constructor(
+    ssid: String?,
+    capabilities: String?,
+    password: String?
+  ) : this() {
     this.ssid = ssid
     this.capabilities = capabilities
     this.password = password

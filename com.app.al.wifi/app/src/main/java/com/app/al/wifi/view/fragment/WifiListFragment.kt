@@ -15,7 +15,6 @@ import com.app.al.wifi.view.dialog.WifiDialogFragment
 import com.app.al.wifi.view.fragment.base.BaseFragment
 import io.reactivex.disposables.Disposable
 
-
 /*
  * Wifi一覧画面Fragment
  */
@@ -43,7 +42,11 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
    * @param container container
    * @param savedInstanceState savedInstanceState
    */
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     val view = inflater.inflate(R.layout.fragment_list_wifi, container, false)
     // TODO 暫定、DataBindingしたい
     swipeRefreshLayout = view.findViewById(R.id.swipe_refresh_layout)
@@ -104,7 +107,8 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
     recyclerView.adapter = adapter
     disposable = adapter.clickEvent
         .subscribe({
-          WifiDialogFragment.newInstance(it).show(fragmentManager, "test")
+          WifiDialogFragment.newInstance(it)
+              .show(fragmentManager, "test")
         })
 
   }

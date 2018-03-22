@@ -52,7 +52,10 @@ object ApplicationConst {
   }
 
   // Wifi Level
-  enum class WifiLevel(val status: String, val resourceName: String) {
+  enum class WifiLevel(
+    val status: String,
+    val resourceName: String
+  ) {
     LEVEL_0("不安定", "ic_signal_wifi_level_0"),
     LEVEL_1("やや不安定", "ic_signal_wifi_level_1"),
     LEVEL_2("普通", "ic_signal_wifi_level_2"),

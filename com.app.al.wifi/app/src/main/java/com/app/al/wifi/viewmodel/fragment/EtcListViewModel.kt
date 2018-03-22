@@ -19,7 +19,10 @@ class EtcListViewModel(var title: String) : Serializable {
    * @param title タイトル
    * @param value 値
    */
-  constructor(title: String, value: String) : this(title) {
+  constructor(
+    title: String,
+    value: String
+  ) : this(title) {
     this.value = value
   }
 

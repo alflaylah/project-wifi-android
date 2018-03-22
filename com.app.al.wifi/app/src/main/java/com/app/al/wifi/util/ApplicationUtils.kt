@@ -22,7 +22,10 @@ object ApplicationUtils {
    * @param context コンテキスト
    * @param clazz 遷移先Activity
    */
-  fun startActivity(context: Context, clazz: Class<out Activity>) {
+  fun startActivity(
+    context: Context,
+    clazz: Class<out Activity>
+  ) {
     startActivity(context, clazz, null)
   }
 
@@ -33,7 +36,11 @@ object ApplicationUtils {
    * @param clazz 遷移先Activity
    * @param bundle 引継ぎパラメータ
    */
-  fun startActivity(context: Context, clazz: Class<out Activity>, bundle: Bundle? = null) {
+  fun startActivity(
+    context: Context,
+    clazz: Class<out Activity>,
+    bundle: Bundle? = null
+  ) {
     val intent = Intent(context, clazz)
     if (bundle != null) {
       intent.putExtras(bundle)

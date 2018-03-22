@@ -17,7 +17,10 @@ import com.app.al.wifi.const.ApplicationConst.WifiLevel
  * @param context Context
  * @param resId リソースID
  */
-class WifiLevelSpinnerAdapter(private val context: Context?, private val resId: Int) : BaseAdapter() {
+class WifiLevelSpinnerAdapter(
+  private val context: Context?,
+  private val resId: Int
+) : BaseAdapter() {
 
   private val inflater: LayoutInflater = LayoutInflater.from(context)
 
@@ -28,7 +31,11 @@ class WifiLevelSpinnerAdapter(private val context: Context?, private val resId: 
    * @param convertView convertView
    * @param parent parent
    */
-  override fun getView(position: Int, convertView: View?, parent: ViewGroup): View? {
+  override fun getView(
+    position: Int,
+    convertView: View?,
+    parent: ViewGroup
+  ): View? {
     var convertView = convertView
     val viewHolder: ViewHolder
     if (convertView == null) {

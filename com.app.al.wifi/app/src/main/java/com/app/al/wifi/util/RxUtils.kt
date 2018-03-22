@@ -19,7 +19,10 @@ object RxUtils {
   fun <T> toFlowable(observableField: ObservableField<T>): Flowable<T> {
     return Flowable.create({ emitter ->
       val callback = object : OnPropertyChangedCallback() {
-        override fun onPropertyChanged(dataBindingObservable: android.databinding.Observable, propertyId: Int) {
+        override fun onPropertyChanged(
+          dataBindingObservable: android.databinding.Observable,
+          propertyId: Int
+        ) {
           if (dataBindingObservable === observableField) {
             emitter.onNext(observableField.get())
           }

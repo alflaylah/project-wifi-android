@@ -16,7 +16,6 @@ import com.app.al.wifi.view.dialog.base.BaseDialogFragment
 import com.app.al.wifi.viewmodel.dialog.WifiDialogViewModel
 import com.app.al.wifi.viewmodel.fragment.WifiListViewModel
 
-
 /**
  * WifiダイアログFragment
  */
@@ -31,7 +30,11 @@ class WifiDialogFragment : BaseDialogFragment() {
    * @param container container
    * @param savedInstanceState 引き継ぎパラメータ
    */
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     val binding = DataBindingUtil.inflate<FragmentDialogWifiBinding>(inflater, R.layout.fragment_dialog_wifi, container, false)
     val wifiListViewModel = arguments?.getSerializable(BUNDLE_OBJECT) as WifiListViewModel
     wifiDialogViewModel = WifiDialogViewModel(context, wifiListViewModel.ssid, wifiListViewModel.capabilities)

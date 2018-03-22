@@ -13,7 +13,6 @@ import com.app.al.wifi.event.bus.RxBusProvider
 import com.app.al.wifi.util.WifiUtils
 import javax.inject.Inject
 
-
 /**
  * Wifiレシーバー
  */
@@ -30,7 +29,10 @@ class WifiReceiver : BroadcastReceiver() {
    * @param context コンテキスト
    * @param intent インテント
    */
-  override fun onReceive(context: Context, intent: Intent) {
+  override fun onReceive(
+    context: Context,
+    intent: Intent
+  ) {
     if (intent.action == WifiManager.NETWORK_STATE_CHANGED_ACTION) {
       val networkInfo = intent.getParcelableExtra<NetworkInfo>(WifiManager.EXTRA_NETWORK_INFO)
       when (networkInfo.state!!) {
@@ -52,7 +54,11 @@ class WifiReceiver : BroadcastReceiver() {
    * @param intent インテント
    * @return true：除外します false：除外しません
    */
-  private fun connectWifi(networkInfo: NetworkInfo, context: Context, intent: Intent) {
+  private fun connectWifi(
+    networkInfo: NetworkInfo,
+    context: Context,
+    intent: Intent
+  ) {
     if (WifiUtils.isExclude(networkInfo.extraInfo)) {
       // SSIDが除外対象ならここで終了
       return
@@ -68,9 +74,15 @@ class WifiReceiver : BroadcastReceiver() {
 //    }
 
     val message: String = if (networkInfo.state == NetworkInfo.State.CONNECTING) {
-      String.format(context.getString(R.string.wifi_connecting_message), networkInfo.extraInfo.replace(ApplicationConst.DOUBLE_QUOTE, ApplicationConst.EMPTY))
+      String.format(
+          context.getString(R.string.wifi_connecting_message),
+          networkInfo.extraInfo.replace(ApplicationConst.DOUBLE_QUOTE, ApplicationConst.EMPTY)
+      )
     } else {
-      String.format(context.getString(R.string.wifi_connected_message), networkInfo.extraInfo.replace(ApplicationConst.DOUBLE_QUOTE, ApplicationConst.EMPTY))
+      String.format(
+          context.getString(R.string.wifi_connected_message),
+          networkInfo.extraInfo.replace(ApplicationConst.DOUBLE_QUOTE, ApplicationConst.EMPTY)
+      )
     }
     RxBusProvider.instance.post(WifiEvent(message))
     Log.d(logTag, networkInfo.state.toString())

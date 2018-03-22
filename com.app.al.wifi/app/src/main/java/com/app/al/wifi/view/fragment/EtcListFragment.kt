@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.app.al.wifi.R
-import com.app.al.wifi.ui.ada.EtcListAdapter
 import com.app.al.wifi.util.ResourceUtils
 import com.app.al.wifi.view.fragment.base.BaseFragment
 import io.reactivex.disposables.Disposable
@@ -39,7 +38,11 @@ class EtcListFragment : BaseFragment() {
    * @param container container
    * @param savedInstanceState savedInstanceState
    */
-  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+  override fun onCreateView(
+    inflater: LayoutInflater,
+    container: ViewGroup?,
+    savedInstanceState: Bundle?
+  ): View? {
     val view = inflater.inflate(R.layout.fragment_list_etc, container, false)
     recyclerView = view.findViewById<View>(R.id.recycler_view) as RecyclerView
     recyclerView.layoutManager = LinearLayoutManager(activity)

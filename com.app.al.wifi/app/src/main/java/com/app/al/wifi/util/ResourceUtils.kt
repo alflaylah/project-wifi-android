@@ -19,7 +19,10 @@ object ResourceUtils {
    * @return List<String>
    */
   @Throws(Resources.NotFoundException::class)
-  fun getStringArrayResource(context: Context?, resId: Int): List<String> {
+  fun getStringArrayResource(
+    context: Context?,
+    resId: Int
+  ): List<String> {
     return Arrays.asList(*context?.resources?.getStringArray(resId))
   }
 }

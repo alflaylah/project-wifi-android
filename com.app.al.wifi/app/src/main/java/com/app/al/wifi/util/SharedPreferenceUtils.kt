@@ -19,7 +19,11 @@ object SharedPreferenceUtils {
    * @param value 値
    * @return 処理結果
    */
-  fun saveString(context: Context?, key: String, value: String): Boolean {
+  fun saveString(
+    context: Context?,
+    key: String,
+    value: String
+  ): Boolean {
     sharedPreferences = context!!.getSharedPreferences(ApplicationConst.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
     val editor = sharedPreferences.edit()
     editor.putString(key, value)
@@ -34,7 +38,11 @@ object SharedPreferenceUtils {
    * @param value 値
    * @return 処理結果
    */
-  fun saveInt(context: Context?, key: String, value: Int): Boolean {
+  fun saveInt(
+    context: Context?,
+    key: String,
+    value: Int
+  ): Boolean {
     sharedPreferences = context!!.getSharedPreferences(ApplicationConst.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
     val editor = sharedPreferences.edit()
     editor.putInt(key, value)
@@ -48,7 +56,10 @@ object SharedPreferenceUtils {
    * @param key キー
    * @return 読込結果
    */
-  fun readString(context: Context?, key: String): String {
+  fun readString(
+    context: Context?,
+    key: String
+  ): String {
     sharedPreferences = context!!.getSharedPreferences(ApplicationConst.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
     return sharedPreferences.getString(key, ApplicationConst.EMPTY)
   }
@@ -60,7 +71,10 @@ object SharedPreferenceUtils {
    * @param key キー
    * @return 読込結果
    */
-  fun readInt(context: Context?, key: String): Int {
+  fun readInt(
+    context: Context?,
+    key: String
+  ): Int {
     sharedPreferences = context!!.getSharedPreferences(ApplicationConst.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
     return sharedPreferences.getInt(key, 0)
   }
@@ -72,7 +86,10 @@ object SharedPreferenceUtils {
    * @param key キー
    * @return 処理結果
    */
-  fun remove(context: Context?, key: String): Boolean {
+  fun remove(
+    context: Context?,
+    key: String
+  ): Boolean {
     sharedPreferences = context!!.getSharedPreferences(ApplicationConst.SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
     val editor = sharedPreferences.edit()
     editor.remove(key)

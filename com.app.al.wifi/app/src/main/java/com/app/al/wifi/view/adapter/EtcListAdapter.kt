@@ -20,7 +20,10 @@ import io.reactivex.subjects.PublishSubject
  * @param context Context
  * @param etcList その他一覧
  */
-class EtcListAdapter(private var context: Context?, private var etcList: List<String>) : RecyclerView.Adapter<EtcListAdapter.ViewHolder>() {
+class EtcListAdapter(
+  private var context: Context?,
+  private var etcList: List<String>
+) : RecyclerView.Adapter<EtcListAdapter.ViewHolder>() {
 
   private val inflater: LayoutInflater = LayoutInflater.from(context)
   private val publishSubject = PublishSubject.create<EtcListViewModel>()
@@ -32,7 +35,10 @@ class EtcListAdapter(private var context: Context?, private var etcList: List<St
    * @param viewGroup viewGroup
    * @param i 位置
    */
-  override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): EtcListAdapter.ViewHolder {
+  override fun onCreateViewHolder(
+    viewGroup: ViewGroup,
+    i: Int
+  ): EtcListAdapter.ViewHolder {
     return ViewHolder(inflater.inflate(R.layout.list_item_etc, viewGroup, false))
   }
 
@@ -42,7 +48,10 @@ class EtcListAdapter(private var context: Context?, private var etcList: List<St
    * @param viewHolder viewHolder
    * @param i 位置
    */
-  override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
+  override fun onBindViewHolder(
+    viewHolder: ViewHolder,
+    i: Int
+  ) {
     viewHolder.bind(etcList[i])
   }
 

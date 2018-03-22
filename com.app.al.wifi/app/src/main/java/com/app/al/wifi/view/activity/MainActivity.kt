@@ -115,7 +115,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
    * @param resultCode resultCode
    * @param intent intent
    */
-  override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent) {
+  override fun onActivityResult(
+    requestCode: Int,
+    resultCode: Int,
+    intent: Intent
+  ) {
     when (requestCode) {
       LocationUtils.REQUEST_CODE -> if (!LocationUtils.isRequestLocationResult(requestCode, resultCode, intent)) {
         // TODO
@@ -133,7 +137,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
    * @param permissions permissions
    * @param grantResults grantResults
    */
-  override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+  override fun onRequestPermissionsResult(
+    requestCode: Int,
+    permissions: Array<String>,
+    grantResults: IntArray
+  ) {
     when (requestCode) {
       PermissionUtils.REQUEST_CODE -> {
         if (!PermissionUtils.isRequestPermissionResult(grantResults)) {
@@ -166,12 +174,16 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
    * イベント初期処理
    */
   private fun initEvent() {
-    compositeDisposable.add(RxBusProvider.instance.toObservable(StartEvent::class.java)
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({ onStartEvent(it) }))
-    compositeDisposable.add(RxBusProvider.instance.toObservable(WifiEvent::class.java)
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe({ onWifiEvent(it) }))
+    compositeDisposable.add(
+        RxBusProvider.instance.toObservable(StartEvent::class.java)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ onStartEvent(it) })
+    )
+    compositeDisposable.add(
+        RxBusProvider.instance.toObservable(WifiEvent::class.java)
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ onWifiEvent(it) })
+    )
   }
 
   /**
@@ -180,7 +192,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
   private fun initDrawerLayout() {
     drawerLayout = findViewById(R.id.drawer_layout)
     val navigationView = findViewById<NavigationView>(R.id.navigation_view)
-    val actionBarDrawerToggle = ActionBarDrawerToggle(this, drawerLayout, getToolbar(), R.string.navigation_drawer_open, R.string.navigation_drawer_close)
+    val actionBarDrawerToggle =
+      ActionBarDrawerToggle(this, drawerLayout, getToolbar(), R.string.navigation_drawer_open, R.string.navigation_drawer_close)
     navigationView.setNavigationItemSelectedListener(this)
     drawerLayout.addDrawerListener(actionBarDrawerToggle)
   }
@@ -218,7 +231,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     } else {
       // Backキー1回目
       isFinish = true
-      Toast.makeText(this@MainActivity, getString(R.string.close_application_message), Toast.LENGTH_LONG).show()
+      Toast.makeText(this@MainActivity, getString(R.string.close_application_message), Toast.LENGTH_LONG)
+          .show()
       handler.postDelayed(runnable, ApplicationConst.FINISH_CONFIRM.toLong())
     }
   }
@@ -255,7 +269,8 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
   private fun onWifiEvent(event: WifiEvent) {
     // Snackbar表示
     if (!event.message.isNullOrEmpty()) {
-      Snackbar.make(findViewById(R.id.linear_layout), event.message.toString(), Snackbar.LENGTH_LONG).show()
+      Snackbar.make(findViewById(R.id.linear_layout), event.message.toString(), Snackbar.LENGTH_LONG)
+          .show()
       return
     }
     // Wi-Fi接続を実施

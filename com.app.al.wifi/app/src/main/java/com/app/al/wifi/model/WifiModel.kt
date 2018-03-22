@@ -15,7 +15,11 @@ class WifiModel {
    * @param capabilities capabilities
    * @param password パスワード
    */
-  fun connect(ssid: String, capabilities: String, password: String?) {
+  fun connect(
+    ssid: String,
+    capabilities: String,
+    password: String?
+  ) {
     RxBusProvider.instance.post(WifiEvent(ssid, capabilities, password))
   }
 }

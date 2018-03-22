@@ -44,10 +44,12 @@ object LocationUtils {
   private fun requestLocation(activity: FragmentActivity) {
     val locationRequest = LocationRequest.create()
     locationRequest.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
-    val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
+    val builder = LocationSettingsRequest.Builder()
+        .addLocationRequest(locationRequest)
     // 位置情報OFFの場合、常に許可ダイアログを開くようにする
     builder.setAlwaysShow(true)
-    val task = LocationServices.getSettingsClient(activity).checkLocationSettings(builder.build())
+    val task = LocationServices.getSettingsClient(activity)
+        .checkLocationSettings(builder.build())
     task.addOnCompleteListener {
       try {
         // 位置情報がON、何もしない
@@ -83,7 +85,11 @@ object LocationUtils {
    * @param intent intent
    * @return true：許可 false：不許可
    */
-  fun isRequestLocationResult(requestCode: Int, resultCode: Int, intent: Intent): Boolean {
+  fun isRequestLocationResult(
+    requestCode: Int,
+    resultCode: Int,
+    intent: Intent
+  ): Boolean {
     var result = false
     when (requestCode) {
       REQUEST_CODE ->

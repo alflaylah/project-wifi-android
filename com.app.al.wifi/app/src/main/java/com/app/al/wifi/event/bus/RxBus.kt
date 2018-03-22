@@ -8,7 +8,8 @@ import io.reactivex.subjects.PublishSubject
  */
 class RxBus {
 
-  private var publishSubject = PublishSubject.create<Any>().toSerialized()
+  private var publishSubject = PublishSubject.create<Any>()
+      .toSerialized()
 
   /**
    * Observable返却

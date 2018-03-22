@@ -47,7 +47,12 @@ object WifiUtils {
    * @param capabilities セキュリティ情報
    * @param password パスワード
    */
-  fun connect(context: Context, ssid: String, capabilities: String, password: String) {
+  fun connect(
+    context: Context,
+    ssid: String,
+    capabilities: String,
+    password: String
+  ) {
     val wifiManager = context.applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
     // SSIDが端末に登録済みか判定
     val targetWifiConfiguration: WifiConfiguration? = wifiManager.configuredNetworks.lastOrNull {
@@ -77,7 +82,10 @@ object WifiUtils {
    * @param context applicationContext
    * @param networkId ネットワークID
    */
-  private fun connect(context: Context, networkId: Int) {
+  private fun connect(
+    context: Context,
+    networkId: Int
+  ) {
     disconnect(context)
     (context.applicationContext.getSystemService(WIFI_SERVICE) as WifiManager).enableNetwork(networkId, true)
   }
@@ -102,12 +110,17 @@ object WifiUtils {
    * @param password パスワード
    * @return WIFI接続設定
    */
-  private fun getWifiConfiguration(ssid: String, capabilities: String, password: String): WifiConfiguration? {
+  private fun getWifiConfiguration(
+    ssid: String,
+    capabilities: String,
+    password: String
+  ): WifiConfiguration? {
     val wifiConfiguration = WifiConfiguration()
     val securityType = getSecurity(capabilities)
     when (securityType) {
       WifiSecurityType.NONE -> wifiConfiguration.allowedKeyManagement.set(
-          WifiConfiguration.KeyMgmt.NONE)
+          WifiConfiguration.KeyMgmt.NONE
+      )
       WifiSecurityType.WEP -> {
         wifiConfiguration.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE)
         wifiConfiguration.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN)
@@ -142,7 +155,10 @@ object WifiUtils {
    * @param password パスワード
    * @return セキュリティ情報
    */
-  private fun getPassword(wifiSecurityType: WifiSecurityType, password: String): String = when (wifiSecurityType) {
+  private fun getPassword(
+    wifiSecurityType: WifiSecurityType,
+    password: String
+  ): String = when (wifiSecurityType) {
     WEP -> {
       if ((password.length == 10 || password.length == 26) && password.matches(ApplicationConst.REGEX_WEP.toRegex())) {
         password
@@ -176,13 +192,16 @@ object WifiUtils {
       scanResults = wifiManager.scanResults.filter {
         // SSIDが空ではない
         it.SSID.isNotEmpty()
-      }.sortedByDescending {
+      }
+          .sortedByDescending {
             // levelで降順
             it.level
-          }.distinctBy {
+          }
+          .distinctBy {
             // SSIDの重複排除
             it.SSID
-          }.sortedBy {
+          }
+          .sortedBy {
             // SSIDで昇順
             it.SSID
           }
@@ -211,7 +230,10 @@ object WifiUtils {
    * @return true：除外します false：除外しない
    */
   fun isExclude(ssid: String?): Boolean {
-    if (ssid.isNullOrBlank() || ApplicationConst.IGNORE_01.contains(ssid.toString()) || ApplicationConst.IGNORE_02.contains(ssid.toString())) {
+    if (ssid.isNullOrBlank() || ApplicationConst.IGNORE_01.contains(ssid.toString()) || ApplicationConst.IGNORE_02.contains(
+            ssid.toString()
+        )
+    ) {
       return true
     }
     return false
@@ -224,7 +246,10 @@ object WifiUtils {
    * @param ssid SSID
    * @return true：過去に利用している履歴あり false：過去に利用している履歴なし
    */
-  fun isAccessPointHistory(context: Context?, ssid: String): Boolean {
+  fun isAccessPointHistory(
+    context: Context?,
+    ssid: String
+  ): Boolean {
     var wifiHistoryList = getHistoryList(context)?.filter { wifiConfiguration ->
       wifiConfiguration.SSID.contains(ssid)
     }
@@ -241,7 +266,10 @@ object WifiUtils {
    * @param ssid SSID
    * @return true：利用中 false：利用していない
    */
-  fun isAccessPointConnecting(context: Context?, ssid: String): Boolean {
+  fun isAccessPointConnecting(
+    context: Context?,
+    ssid: String
+  ): Boolean {
     val wifiManager = context?.applicationContext?.getSystemService(WIFI_SERVICE) as WifiManager
     val wifiInfo = wifiManager.connectionInfo
     if (ssid.contains(wifiInfo.ssid.replace(ApplicationConst.DOUBLE_QUOTE, ApplicationConst.EMPTY))) {

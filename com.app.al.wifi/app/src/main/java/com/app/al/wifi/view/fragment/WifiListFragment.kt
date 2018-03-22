@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.app.al.wifi.R
 import com.app.al.wifi.ui.ada.WifiListAdapter
+import com.app.al.wifi.util.NetworkUtils
 import com.app.al.wifi.util.WifiUtils
 import com.app.al.wifi.view.dialog.WifiDialogFragment
 import com.app.al.wifi.view.fragment.base.BaseFragment
@@ -72,6 +73,7 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
    */
   override fun onResume() {
     super.onResume()
+    // 接続済み
     onRefresh()
   }
 
@@ -104,6 +106,7 @@ class WifiListFragment : BaseFragment(), SwipeRefreshLayout.OnRefreshListener {
    */
   private fun initAdapter() {
     adapter = WifiListAdapter(context, WifiUtils.getWifiList(context))
+    emptyView.visibility = if (adapter.itemCount == 0) View.VISIBLE else View.GONE
     recyclerView.adapter = adapter
     disposable = adapter.clickEvent
         .subscribe({

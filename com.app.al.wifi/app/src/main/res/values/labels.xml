@@ -39,7 +39,7 @@
   <!-- Wifi一覧 -->
   <string name="wifi_connected_status">現在、利用しているWi-Fiです</string>
   <string name="wifi_connected_history_status">過去に利用した履歴のあるWi-Fiです</string>
-  <string name="wifi_empty">付近に存在するWi-Fiの情報を取得できませんでした。</string>
+  <string name="wifi_empty">Wi-Fiの情報を取得できませんでした。</string>
 
   <!-- その他一覧 -->
   <string-array name="etc_item">

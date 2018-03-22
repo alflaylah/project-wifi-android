@@ -1,6 +1,6 @@
 @file:JvmName("StringUtils")
 
-package com.app.al.wifi.util
+package com.app.al.wifi.extensions
 
 import com.app.al.wifi.const.ApplicationConst
 

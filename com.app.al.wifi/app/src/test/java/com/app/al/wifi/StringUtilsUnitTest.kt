@@ -1,6 +1,6 @@
 package com.app.al.wifi
 
-import com.app.al.wifi.util.getFormatDoubleQuote
+import com.app.al.wifi.extensions.getFormatDoubleQuote
 import org.junit.Assert.assertEquals
 import org.junit.Test
 

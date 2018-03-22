@@ -10,6 +10,7 @@ import com.app.al.wifi.const.ApplicationConst
 import com.app.al.wifi.const.ApplicationConst.WifiSecurityType
 import com.app.al.wifi.const.ApplicationConst.WifiSecurityType.PSK
 import com.app.al.wifi.const.ApplicationConst.WifiSecurityType.WEP
+import com.app.al.wifi.extensions.getFormatDoubleQuote
 
 /**
  * WIFIユーティリティ

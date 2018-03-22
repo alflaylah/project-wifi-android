@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.app.al.wifi.R
 import com.app.al.wifi.util.ResourceUtils
+import com.app.al.wifi.view.adapter.EtcListAdapter
 import com.app.al.wifi.view.fragment.base.BaseFragment
 import io.reactivex.disposables.Disposable
 

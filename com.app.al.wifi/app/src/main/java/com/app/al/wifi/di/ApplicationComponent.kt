@@ -12,7 +12,7 @@ import javax.inject.Singleton
  * Dagger2 ApplicationComponentクラス
  */
 @Singleton
-@Component(modules = arrayOf(ApplicationModule::class, ApplicationLayerModule::class))
+@Component(modules = [(ApplicationModule::class), (ApplicationLayerModule::class)])
 interface ApplicationComponent {
 
   /**

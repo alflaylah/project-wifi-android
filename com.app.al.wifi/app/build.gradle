@@ -4,7 +4,7 @@ apply plugin: 'kotlin-kapt'
 
 android {
   compileSdkVersion 27
-  buildToolsVersion '26.0.2'
+  buildToolsVersion '27.0.3'
   defaultConfig {
     applicationId "com.app.al.wifi"
     minSdkVersion 21
@@ -48,11 +48,11 @@ dependencies {
   compile "com.android.support:appcompat-v7:$android_support_version"
   compile "com.android.support:design:$android_support_version"
   compile "com.android.support:recyclerview-v7:$android_support_version"
-  kapt 'com.android.databinding:compiler:3.0.1'
+  kapt 'com.android.databinding:compiler:3.1.0'
 
   // Google Play
-  compile 'com.google.android.gms:play-services-base:11.8.0'
-  compile 'com.google.android.gms:play-services-location:11.8.0'
+  compile 'com.google.android.gms:play-services-base:12.0.0'
+  compile 'com.google.android.gms:play-services-location:12.0.0'
 
   // Kotlin
   compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"

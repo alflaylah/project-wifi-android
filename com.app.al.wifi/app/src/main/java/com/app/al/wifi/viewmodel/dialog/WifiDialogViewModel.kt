@@ -45,7 +45,7 @@ class WifiDialogViewModel(
       // パスワード未入力時、接続ボタンは押下させない
       compositeDisposable.add(RxUtils.toFlowable(password).subscribe({ isDoButtonEnabled.set(it.isNotEmpty()) }))
     }
-    // 電波強度の位置を設定
+    // 電波強度を設定
     selectedPosition.set(SharedPreferenceUtils.readInt(context, ssid))
   }
 
@@ -69,7 +69,7 @@ class WifiDialogViewModel(
    * @return View表示ステータス
    */
   fun getPasswordVisibility(): Int {
-    // 利用履歴のあるWiFiはパスワードを入力する必要がないので非表示
+    // 利用した履歴のあるWiFiはパスワードを入力する必要がないので非表示
     if (WifiUtils.isAccessPointConnecting(context, ssid) || WifiUtils.isAccessPointHistory(context, ssid)) {
       return View.GONE
     }

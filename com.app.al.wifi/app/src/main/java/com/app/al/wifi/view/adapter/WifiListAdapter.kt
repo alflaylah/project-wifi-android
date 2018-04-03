@@ -77,7 +77,7 @@ class WifiListAdapter(
    */
   inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    private var binding: ViewDataBinding = DataBindingUtil.bind(itemView)
+    private var binding: ViewDataBinding? = DataBindingUtil.bind(itemView)
     private lateinit var wifiListViewModel: WifiListViewModel
 
     init {
@@ -94,8 +94,8 @@ class WifiListAdapter(
      */
     fun bind(scanResult: ScanResult) {
       wifiListViewModel = WifiListViewModel(context, scanResult)
-      binding.setVariable(BR.viewModel, wifiListViewModel)
-      binding.executePendingBindings()
+      binding?.setVariable(BR.viewModel, wifiListViewModel)
+      binding?.executePendingBindings()
     }
   }
 }

@@ -69,7 +69,7 @@ class EtcListAdapter(
    */
   inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-    private var binding: ViewDataBinding = DataBindingUtil.bind(itemView)
+    private var binding: ViewDataBinding? = DataBindingUtil.bind(itemView)
     private lateinit var viewModel: EtcListViewModel
 
     init {
@@ -92,8 +92,8 @@ class EtcListAdapter(
         // バージョン以外
         EtcListViewModel(title)
       }
-      binding.setVariable(BR.viewModel, viewModel)
-      binding.executePendingBindings()
+      binding?.setVariable(BR.viewModel, viewModel)
+      binding?.executePendingBindings()
     }
   }
 }

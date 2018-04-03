@@ -24,7 +24,8 @@ object RxUtils {
           propertyId: Int
         ) {
           if (dataBindingObservable === observableField) {
-            observableField.get()?.let { emitter.onNext(it) }
+            observableField.get()
+                ?.let { emitter.onNext(it) }
           }
         }
       }

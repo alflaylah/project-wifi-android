@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import com.app.al.wifi.R
 import com.app.al.wifi.ui.ada.WifiListAdapter
-import com.app.al.wifi.util.NetworkUtils
 import com.app.al.wifi.util.WifiUtils
 import com.app.al.wifi.view.dialog.WifiDialogFragment
 import com.app.al.wifi.view.fragment.base.BaseFragment

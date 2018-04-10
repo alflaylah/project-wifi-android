@@ -31,6 +31,12 @@
         android:name=".view.activity.WebActivity"
         android:exported="false"/>
 
+    <!-- Service -->
+    <service
+        android:name=".service.SensorService"
+        android:enabled="true"
+        android:exported="false"/>
+
     <!-- BroadcastReceiver -->
     <receiver
         android:name=".broadcast.WifiReceiver"

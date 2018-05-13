@@ -16,6 +16,7 @@ import com.app.al.wifi.const.ApplicationConst
 import com.app.al.wifi.event.StartEvent
 import com.app.al.wifi.event.WifiEvent
 import com.app.al.wifi.event.bus.RxBusProvider
+import com.app.al.wifi.service.SensorService
 import com.app.al.wifi.util.ApplicationUtils
 import com.app.al.wifi.util.LocationUtils
 import com.app.al.wifi.util.PermissionUtils
@@ -54,6 +55,10 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
     init()
+
+    // TODO
+    val intent = Intent(this, SensorService::class.java)
+    startService(intent)
   }
 
   /**

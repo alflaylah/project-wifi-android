@@ -25,7 +25,7 @@ class SensorService : Service(), SensorEventListener {
    */
   override fun onCreate() {
     sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
-    sensor = sensorManager!!.getDefaultSensor(Sensor.TYPE_STEP_DETECTOR)
+    sensor = sensorManager!!.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
     sensorThread = HandlerThread("PedometerServiceThread")
     sensorThread!!.start()
     sensorManager!!.registerListener(
